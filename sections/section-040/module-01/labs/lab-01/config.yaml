@@ -1,0 +1,55 @@
+# Give An LDAP Group Developer Access
+# Astrona graded lab. Schema: internal/config.LabConfig.
+
+metadata:
+  name: "ats-101-lab-040-01"
+  docs:
+    guide: "solution.md"
+    solution: "solution.md"
+    question: "question.md"
+    examQuestion: "question.md"
+    prerequisites: "prerequisites.md"
+
+bootstrap:
+  init:
+    - name: "install-harbor"
+      description: "Installs Helm 3.22.1, Harbor 2.15.4 (chart 1.19.4) and the extra services, the CoreDNS rewrites and the workstation pod"
+      type: "file"
+      source: "bootstrap/01-install-harbor.sh"
+    - name: "ats-101-lab-040-01-setup"
+      description: "Creates the Harbor project inventory; Harbor still uses database authentication"
+      type: "file"
+      source: "bootstrap/02-seed-state.sh"
+
+testing:
+  init:
+    - name: "wait-for-harbor"
+      description: "Waits until the workstation trusts Harbor and Harbor reports every component healthy"
+      type: "file"
+      source: "testing/wait-for-harbor.sh"
+    - name: "reference-solution"
+      description: "The remediation a correct learner performs; used by `astrona test`"
+      type: "file"
+      source: "solution/apply.sh"
+
+validation:
+  scripts:
+    - name: "validate-ldap-settings"
+      description: "Confirms Harbor uses LDAP with the right base DNs, filters and group settings, and can bind"
+      type: "file"
+      source: "validation/validate-ldap-settings.sh"
+    - name: "validate-group-membership"
+      description: "Confirms the LDAP group inventory-devs is Developer of inventory"
+      type: "file"
+      source: "validation/validate-group-membership.sh"
+    - name: "validate-ldap-push"
+      description: "Pushes as dave (in inventory-devs) and as erin (not in it)"
+      type: "file"
+      source: "validation/validate-ldap-push.sh"
+    - name: "validate-admin-group"
+      description: "Confirms frank (in harbor-admins) is a Harbor administrator"
+      type: "file"
+      source: "validation/validate-admin-group.sh"
+
+teardown:
+  keepCluster: false

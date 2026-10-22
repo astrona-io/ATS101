@@ -1,0 +1,117 @@
+# OpenLDAP directory for the Harbor LDAP module. Base DN dc=example,dc=org.
+# The bootstrap LDIF adds two users and two groups; the image's memberOf
+# overlay fills in each user's memberOf attribute.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ldap
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: openldap-seed
+  namespace: ldap
+data:
+  50-inventory.ldif: |
+    dn: ou=people,dc=example,dc=org
+    objectClass: organizationalUnit
+    ou: people
+
+    dn: ou=groups,dc=example,dc=org
+    objectClass: organizationalUnit
+    ou: groups
+
+    dn: uid=dave,ou=people,dc=example,dc=org
+    objectClass: inetOrgPerson
+    uid: dave
+    cn: Dave Example
+    sn: Example
+    mail: dave@example.org
+    userPassword: DavePass1
+
+    dn: uid=erin,ou=people,dc=example,dc=org
+    objectClass: inetOrgPerson
+    uid: erin
+    cn: Erin Example
+    sn: Example
+    mail: erin@example.org
+    userPassword: ErinPass1
+
+    dn: uid=frank,ou=people,dc=example,dc=org
+    objectClass: inetOrgPerson
+    uid: frank
+    cn: Frank Example
+    sn: Example
+    mail: frank@example.org
+    userPassword: FrankPass1
+
+    dn: cn=inventory-devs,ou=groups,dc=example,dc=org
+    objectClass: groupOfNames
+    cn: inventory-devs
+    member: uid=dave,ou=people,dc=example,dc=org
+
+    dn: cn=harbor-admins,ou=groups,dc=example,dc=org
+    objectClass: groupOfNames
+    cn: harbor-admins
+    member: uid=frank,ou=people,dc=example,dc=org
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openldap
+  namespace: ldap
+  labels:
+    app: openldap
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: openldap
+  template:
+    metadata:
+      labels:
+        app: openldap
+    spec:
+      containers:
+        - name: openldap
+          image: osixia/openldap:1.5.0
+          # --copy-service copies the seed LDIF into the container, so the
+          # read-only ConfigMap mount is never written to.
+          args: ["--copy-service"]
+          env:
+            - name: LDAP_ORGANISATION
+              value: Example
+            - name: LDAP_DOMAIN
+              value: example.org
+            # Lab-only directory administrator password.
+            - name: LDAP_ADMIN_PASSWORD
+              value: admin-password
+          ports:
+            - name: ldap
+              containerPort: 389
+          readinessProbe:
+            tcpSocket:
+              port: ldap
+            periodSeconds: 5
+          volumeMounts:
+            - name: seed
+              mountPath: /container/service/slapd/assets/config/bootstrap/ldif/custom
+      volumes:
+        - name: seed
+          configMap:
+            name: openldap-seed
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: openldap
+  namespace: ldap
+spec:
+  selector:
+    app: openldap
+  ports:
+    - name: ldap
+      port: 389
+      targetPort: ldap

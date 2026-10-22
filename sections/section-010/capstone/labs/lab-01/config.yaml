@@ -1,0 +1,55 @@
+# Repair Project Access For Three Teams
+# Astrona graded lab. Schema: internal/config.LabConfig.
+
+metadata:
+  name: "ats-101-capstone-010"
+  docs:
+    guide: "solution.md"
+    solution: "solution.md"
+    question: "question.md"
+    examQuestion: "question.md"
+    prerequisites: "prerequisites.md"
+
+bootstrap:
+  init:
+    - name: "install-harbor"
+      description: "Installs Helm 3.22.1, Harbor 2.15.4 (chart 1.19.4), the CoreDNS rewrites and the workstation pod"
+      type: "file"
+      source: "bootstrap/01-install-harbor.sh"
+    - name: "ats-101-capstone-010-setup"
+      description: "Creates users and the projects team-a and team-b with four access faults"
+      type: "file"
+      source: "bootstrap/02-seed-state.sh"
+
+testing:
+  init:
+    - name: "wait-for-harbor"
+      description: "Waits until the workstation trusts Harbor and Harbor reports every component healthy"
+      type: "file"
+      source: "testing/wait-for-harbor.sh"
+    - name: "reference-solution"
+      description: "The remediation a correct learner performs; used by `astrona test`"
+      type: "file"
+      source: "solution/apply.sh"
+
+validation:
+  scripts:
+    - name: "validate-team-a-private"
+      description: "Confirms team-a is private and refuses anonymous pulls"
+      type: "file"
+      source: "validation/validate-team-a-private.sh"
+    - name: "validate-bob-out-of-team-a"
+      description: "Confirms bob has no access to team-a and keeps Developer on team-b"
+      type: "file"
+      source: "validation/validate-bob-out-of-team-a.sh"
+    - name: "validate-carol-guest"
+      description: "Confirms carol can pull from team-b but not push"
+      type: "file"
+      source: "validation/validate-carol-guest.sh"
+    - name: "validate-dan-maintainer"
+      description: "Confirms dan can delete an artifact in team-a and alice cannot"
+      type: "file"
+      source: "validation/validate-dan-maintainer.sh"
+
+teardown:
+  keepCluster: false

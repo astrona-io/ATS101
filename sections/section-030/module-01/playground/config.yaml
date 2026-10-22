@@ -1,0 +1,24 @@
+# Sign In To Harbor With OpenID Connect (PLAYGROUND) — Playground environment
+# A clean sandbox: it spins up, runs OS prep, then stays running for free
+# exploration. No task, no grading, no `astrona submit`.
+# Schema: internal/config.LabConfig.
+
+metadata:
+  name: "ats-101-playground-030-01"
+  docs:
+    guide: "docs/overview.md"
+
+bootstrap:
+  init:
+    - name: "prepare"
+      description: "Install Helm and Harbor 2.15.4, start Keycloak 26.8.1 with the realm harbor (client harbor, groups inventory-devs and platform-admins, users alice, bob, carol), start the workstation, and create the project inventory."
+      type: "file"
+      source: "bootstrap/prepare.sh"
+  manifests:
+    - name: "lab-start"
+      description: "The workstation pod with the Harbor client tools (namespace workstation)."
+      type: "file"
+      source: "manifests/lab-start.yaml"
+
+teardown:
+  keepCluster: false

@@ -1,0 +1,332 @@
+# Course manifest for ATS101 - Project Management, RBAC & Multi-Tenancy (Harbor).
+#
+# One entry per section under `modules:`. Each section lists, in order: its
+# README, then for each module the landing page (course.md), its parts
+# (course-0N-*.md), and right after the part a lab tests, the lab's
+# question.md reading and the `type: lab` entry. The module's summary page
+# comes last. The section capstone closes the section. Playgrounds are not
+# listed: the landing page's playground marker shows them. solution.md is
+# never listed.
+#
+# Every `path:` is relative to this file.
+
+training:
+  id: ATS101
+  title: "Harbor: Project Management, RBAC & Multi-Tenancy"
+  maturity: draft
+  description: >
+    Training material covering the Project Management, RBAC & Multi-Tenancy
+    domain of the Harbor training path: public and private projects, member
+    roles from Limited Guest to Project Admin, storage quotas, tag retention
+    and tag immutability rules, and signing users in through OpenID Connect
+    with Keycloak and through LDAP, with groups as project members. Each
+    module pairs a layered reader with an ungraded hands-on playground and a
+    graded practice lab. Each section closes with an integration capstone.
+    Written for Harbor v2.15.4 and the Harbor CLI v0.0.27.
+
+  certification:
+    name: Harbor
+    code: HARBOR
+    provider: Astrona
+    domain: Project Management, RBAC & Multi-Tenancy
+    weight: 20
+
+modules:
+
+  - id: module-intro
+    title: "Introduction"
+    description: >
+      Start here. What this course trains you to do, how it is laid out, how
+      to get your machine ready with the astrona command-line tool, how the
+      content is written and checked, who maintains it, and how to report a
+      mistake.
+
+    content:
+      - type: reading
+        title: Introduction
+        path: sections/intro/README.md
+      - type: reading
+        title: "Welcome To The Course"
+        path: sections/intro/course-01-welcome.md
+      - type: reading
+        title: "Get Your Machine Ready"
+        path: sections/intro/course-02-get-your-machine-ready.md
+      - type: reading
+        title: "How This Course Is Made"
+        path: sections/intro/course-03-how-this-course-is-made.md
+
+  - id: module-010
+    title: "Projects And Membership"
+    description: >
+      Public and private projects, the five member roles and what each one
+      may do, and creating projects and adding members with the harbor CLI
+      and the REST API.
+
+    content:
+      - type: reading
+        title: Section Overview
+        path: sections/section-010/README.md
+
+      - type: reading
+        title: "Isolate Teams With Projects And Roles"
+        path: sections/section-010/module-01/course.md
+      - type: reading
+        title: "Projects, Public And Private"
+        path: sections/section-010/module-01/course-01-projects-public-and-private.md
+      - type: reading
+        title: "Member Roles And What Each One May Do"
+        path: sections/section-010/module-01/course-02-member-roles.md
+      - type: reading
+        title: "Adding Members With The harbor CLI"
+        path: sections/section-010/module-01/course-03-adding-members-with-the-cli.md
+      - type: reading
+        title: Question
+        path: sections/section-010/module-01/labs/lab-01/question.md
+      - type: lab
+        title: "Isolate Two Teams With Projects And Roles Lab"
+        path: sections/section-010/module-01/labs/lab-01
+        difficulty: beginner
+        estimated_duration: 20m
+        topic: projects
+        task_kind: build
+        tags: [project, private-project, project-member, role-developer, role-guest, harbor-cli]
+        learning_goals:
+          - Create private projects for two teams with the harbor CLI
+          - Give each user the smallest role that lets them do their work
+          - Prove the isolation by pushing and pulling as each user
+        resources:
+          - name: "Create projects"
+            url: https://goharbor.io/docs/2.15.0/working-with-projects/create-projects/
+          - name: "Assign users to a project"
+            url: https://goharbor.io/docs/2.15.0/working-with-projects/create-projects/add-users/
+          - name: "User permissions by role"
+            url: https://goharbor.io/docs/2.15.0/administration/managing-users/user-permissions-by-role/
+      - type: reading
+        title: Summary
+        path: sections/section-010/module-01/course-04-summary.md
+
+      - type: reading
+        title: Question
+        path: sections/section-010/capstone/labs/lab-01/question.md
+      - type: lab
+        title: "Repair Project Access For Three Teams Capstone"
+        path: sections/section-010/capstone/labs/lab-01
+        difficulty: intermediate
+        estimated_duration: 30m
+        topic: access-control
+        task_kind: troubleshooting
+        tags: [private-project, project-member, role-project-admin, role-maintainer, role-guest, harbor-api]
+        learning_goals:
+          - Find which project settings and memberships give users more access than they need
+          - Make a public project private and correct three member roles without recreating the projects
+          - Prove each user's access with real pushes, pulls and deletes
+        resources:
+          - name: "User permissions by role"
+            url: https://goharbor.io/docs/2.15.0/administration/managing-users/user-permissions-by-role/
+          - name: "Assign users to a project"
+            url: https://goharbor.io/docs/2.15.0/working-with-projects/create-projects/add-users/
+
+  - id: module-020
+    title: "Quotas, Tag Retention And Immutability"
+    description: >
+      Storage quotas and how Harbor counts storage, tag retention rules that
+      decide which artifacts stay, dry runs, and tag immutability rules that
+      protect releases from being overwritten or deleted.
+
+    content:
+      - type: reading
+        title: Section Overview
+        path: sections/section-020/README.md
+
+      - type: reading
+        title: "Control Storage With Quotas, Retention And Immutability"
+        path: sections/section-020/module-01/course.md
+      - type: reading
+        title: "Storage Quotas"
+        path: sections/section-020/module-01/course-01-storage-quotas.md
+      - type: reading
+        title: "Tag Retention Rules"
+        path: sections/section-020/module-01/course-02-tag-retention.md
+      - type: reading
+        title: "Tag Immutability Rules"
+        path: sections/section-020/module-01/course-03-tag-immutability.md
+      - type: reading
+        title: Question
+        path: sections/section-020/module-01/labs/lab-01/question.md
+      - type: lab
+        title: "Keep A Project Within Its Storage Budget Lab"
+        path: sections/section-020/module-01/labs/lab-01
+        difficulty: intermediate
+        estimated_duration: 25m
+        topic: storage
+        task_kind: build
+        tags: [quota, tag-retention, tag-immutability, dry-run, harbor-api, oras]
+        learning_goals:
+          - Set a storage quota and prove a push over the quota is refused
+          - Make release tags immutable and keep only the three newest builds with a retention rule
+          - Prove the result with a retention run that leaves the expected tags
+        resources:
+          - name: "Configure project quotas"
+            url: https://goharbor.io/docs/2.15.0/administration/configure-project-quotas/
+          - name: "Create tag retention rules"
+            url: https://goharbor.io/docs/2.15.0/working-with-projects/working-with-images/create-tag-retention-rules/
+          - name: "Create tag immutability rules"
+            url: https://goharbor.io/docs/2.15.0/working-with-projects/working-with-images/create-tag-immutability-rules/
+      - type: reading
+        title: Summary
+        path: sections/section-020/module-01/course-04-summary.md
+
+      - type: reading
+        title: Question
+        path: sections/section-020/capstone/labs/lab-01/question.md
+      - type: lab
+        title: "Stop Retention From Deleting Releases Capstone"
+        path: sections/section-020/capstone/labs/lab-01
+        difficulty: intermediate
+        estimated_duration: 30m
+        topic: storage
+        task_kind: troubleshooting
+        tags: [quota, tag-retention, tag-immutability, dry-run, harbor-api]
+        learning_goals:
+          - Find why a scheduled retention policy would delete every release and why pushes fail
+          - Correct the retention rule and its schedule, protect releases and size the quota
+          - Prove the result with a retention run and a push that fits the new quota
+        resources:
+          - name: "Create tag retention rules"
+            url: https://goharbor.io/docs/2.15.0/working-with-projects/working-with-images/create-tag-retention-rules/
+          - name: "Create tag immutability rules"
+            url: https://goharbor.io/docs/2.15.0/working-with-projects/working-with-images/create-tag-immutability-rules/
+          - name: "Configure project quotas"
+            url: https://goharbor.io/docs/2.15.0/administration/configure-project-quotas/
+
+  - id: module-030
+    title: "Identity Integration With OIDC"
+    description: >
+      Harbor's authentication modes and when they can change, signing users in
+      through Keycloak with OpenID Connect, automatic onboarding, OIDC groups
+      as project members, the admin group, and CLI secrets for registry
+      clients.
+
+    content:
+      - type: reading
+        title: Section Overview
+        path: sections/section-030/README.md
+
+      - type: reading
+        title: "Sign In To Harbor With OpenID Connect"
+        path: sections/section-030/module-01/course.md
+      - type: reading
+        title: "Authentication Modes And When You Can Change Them"
+        path: sections/section-030/module-01/course-01-authentication-modes.md
+      - type: reading
+        title: "Configuring Harbor For Keycloak"
+        path: sections/section-030/module-01/course-02-configuring-oidc.md
+      - type: reading
+        title: "OIDC Groups, The Admin Group And CLI Secrets"
+        path: sections/section-030/module-01/course-03-oidc-groups-and-cli-secrets.md
+      - type: reading
+        title: Question
+        path: sections/section-030/module-01/labs/lab-01/question.md
+      - type: lab
+        title: "Connect Harbor To Keycloak And Map A Group Lab"
+        path: sections/section-030/module-01/labs/lab-01
+        difficulty: intermediate
+        estimated_duration: 25m
+        topic: identity
+        task_kind: build
+        tags: [auth-mode, oidc, keycloak, oidc-group, admin-group, cli-secret, onboarding]
+        learning_goals:
+          - Switch Harbor to OIDC authentication with Keycloak, automatic onboarding and an admin group
+          - Make an OIDC group Developer of a project
+          - Prove that a group member can push with a CLI secret and a user outside the group cannot
+        resources:
+          - name: "Configure OIDC provider authentication"
+            url: https://goharbor.io/docs/2.15.0/administration/configure-authentication/oidc-auth/
+          - name: "Assign users to a project"
+            url: https://goharbor.io/docs/2.15.0/working-with-projects/create-projects/add-users/
+      - type: reading
+        title: Summary
+        path: sections/section-030/module-01/course-04-summary.md
+
+      - type: reading
+        title: Question
+        path: sections/section-030/capstone/labs/lab-01/question.md
+      - type: lab
+        title: "Repair A Broken OIDC Sign-In Capstone"
+        path: sections/section-030/capstone/labs/lab-01
+        difficulty: advanced
+        estimated_duration: 35m
+        topic: identity
+        task_kind: troubleshooting
+        tags: [oidc, keycloak, oidc-group, admin-group, cli-secret, auth-mode]
+        learning_goals:
+          - Find why OIDC sign-in fails from the Harbor settings and the Keycloak client
+          - Fix the endpoint, the groups claim, the admin group and the redirect URI
+          - Prove sign-in, group access and administrator rights end to end
+        resources:
+          - name: "Configure OIDC provider authentication"
+            url: https://goharbor.io/docs/2.15.0/administration/configure-authentication/oidc-auth/
+
+  - id: module-040
+    title: "Identity Integration With LDAP"
+    description: >
+      Harbor's LDAP settings and testing the connection, how LDAP users are
+      onboarded, LDAP groups as project members through memberOf, and the LDAP
+      admin group.
+
+    content:
+      - type: reading
+        title: Section Overview
+        path: sections/section-040/README.md
+
+      - type: reading
+        title: "Sign In To Harbor With LDAP And Use LDAP Groups"
+        path: sections/section-040/module-01/course.md
+      - type: reading
+        title: "LDAP Settings And Testing The Connection"
+        path: sections/section-040/module-01/course-01-ldap-settings.md
+      - type: reading
+        title: "LDAP Users, Groups And Project Membership"
+        path: sections/section-040/module-01/course-02-ldap-users-and-groups.md
+      - type: reading
+        title: Question
+        path: sections/section-040/module-01/labs/lab-01/question.md
+      - type: lab
+        title: "Give An LDAP Group Developer Access Lab"
+        path: sections/section-040/module-01/labs/lab-01
+        difficulty: intermediate
+        estimated_duration: 25m
+        topic: identity
+        task_kind: build
+        tags: [auth-mode, ldap, ldap-group, memberof, admin-group, oras]
+        learning_goals:
+          - Switch Harbor to LDAP authentication and test the connection
+          - Make an LDAP group Developer of a project and set the LDAP admin group
+          - Prove that a group member can push and a user outside the group cannot
+        resources:
+          - name: "Configure LDAP/Active Directory authentication"
+            url: https://goharbor.io/docs/2.15.0/administration/configure-authentication/ldap-auth/
+          - name: "Assign users to a project"
+            url: https://goharbor.io/docs/2.15.0/working-with-projects/create-projects/add-users/
+      - type: reading
+        title: Summary
+        path: sections/section-040/module-01/course-03-summary.md
+
+      - type: reading
+        title: Question
+        path: sections/section-040/capstone/labs/lab-01/question.md
+      - type: lab
+        title: "Repair An LDAP Integration Capstone"
+        path: sections/section-040/capstone/labs/lab-01
+        difficulty: advanced
+        estimated_duration: 35m
+        topic: identity
+        task_kind: troubleshooting
+        tags: [ldap, ldap-group, memberof, admin-group, harbor-cli, harbor-api]
+        learning_goals:
+          - Find which LDAP settings stop users and groups from being found
+          - Correct the base DN, the group filter, the membership attribute and a mistyped group DN
+          - Prove the fix with pushes as a group member and a non-member, and an administrator from the admin group
+        resources:
+          - name: "Configure LDAP/Active Directory authentication"
+            url: https://goharbor.io/docs/2.15.0/administration/configure-authentication/ldap-auth/
