@@ -11,11 +11,11 @@ A member must exist before you can add it. In this playground the users live in 
 ```sh
 ws() { kubectl -n workstation exec -i deploy/workstation -- "$@"; }
 ws harbor user create --username dan --password DanPass1 --email dan@example.com --realname "Dan Example"
-ws harbor project create team-x
+ws harbor project create team-x --storage-limit -1
 ws harbor project view team-x -o json
 ```
 
-`harbor project create` makes a private project unless you pass `--public`, and the `metadata` in the output shows `"public": "false"`. Harbor's password rules ask for at least eight characters with an upper-case letter, a lower-case letter and a number, which is why the lab passwords look like `DanPass1`. The command line passes the password in plain text here; in a real script, read it from a secret store.
+`harbor project create` makes a private project unless you pass `--public`, and the `metadata` in the output shows `"public": "false"`. `--storage-limit -1` means no storage quota; without it, the CLI opens an interactive form instead of creating the project. Harbor's password rules ask for at least eight characters with an upper-case letter, a lower-case letter and a number, which is why the lab passwords look like `DanPass1`. The command line passes the password in plain text here; in a real script, read it from a secret store.
 
 ## Adding members
 

@@ -21,8 +21,8 @@ The list shows only `library`. The two team projects do not exist yet.
 `harbor project create` makes a private project unless you pass `--public`, and private is what the task asks for:
 
 ```sh
-ws harbor project create team-a
-ws harbor project create team-b
+ws harbor project create team-a --storage-limit -1
+ws harbor project create team-b --storage-limit -1
 ws harbor project view team-a -o json
 ```
 

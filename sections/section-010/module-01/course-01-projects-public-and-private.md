@@ -34,11 +34,13 @@ A **project** is the unit Harbor uses for access control and storage. Every repo
 The difference is only about reading. Nobody pushes to a project without being a member, public or not. Create a public project next to the private `inventory`:
 
 ```sh
-ws harbor project create demo-public --public
+ws harbor project create demo-public --storage-limit -1 --public
 ws harbor project view demo-public -o json
 ```
 
 With `-o json`, the `view` command prints the project as JSON. Look for `metadata`: it holds `"public": "true"`. In `harbor project view inventory -o json`, the same field says `"false"`. Harbor stores the value as the text `"true"` or `"false"`, not as a JSON boolean, which matters when you read it with `jq`.
+
+`--storage-limit -1` sets the project's storage quota to no limit. The `harbor` CLI (version 0.0.27) needs both a project name and `--storage-limit`; with only the name, it opens an interactive form, which fails when no terminal is attached.
 
 ## Pulling without signing in
 

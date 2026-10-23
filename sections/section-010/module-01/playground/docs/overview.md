@@ -32,7 +32,7 @@ Use them like this: `push_as alice AlicePass1 harbor.localtest.me:8443/inventory
 ## Practice tasks
 
 - Add `alice` to `inventory` as Limited Guest, then as Guest, then as Developer. Run `push_as` and `pull_as` after each change and write down what changed.
-- Create a public project with `ws harbor project create shared --public`. Push to it as `admin` and pull from it as `bob`, who is not a member. Then try to push as `bob`.
+- Create a public project with `ws harbor project create shared --storage-limit -1 --public`. Push to it as `admin` and pull from it as `bob`, who is not a member. Then try to push as `bob`.
 - Make `carol` a Maintainer of `inventory` and delete an artifact as `carol` with `ws curl -s -o /dev/null -w '%{http_code}\n' -u carol:CarolPass1 -X DELETE https://harbor.localtest.me:8443/api/v2.0/projects/inventory/repositories/notes/artifacts/v1`. Try the same as a Developer.
 - List the members of `inventory` with the CLI and with the REST API, and match each role name to its number.
 - Remove `alice` from `inventory` and check that her pull is refused at once.
