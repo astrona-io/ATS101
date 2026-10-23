@@ -97,7 +97,11 @@ spec:
             periodSeconds: 5
           volumeMounts:
             - name: seed
-              mountPath: /container/service/slapd/assets/config/bootstrap/ldif/custom
+              # One file through subPath: a ConfigMap volume also holds ..data
+              # directories, and the image would then load the LDIF twice and stop
+              # with status 68 (already exists).
+              mountPath: /container/service/slapd/assets/config/bootstrap/ldif/custom/50-inventory.ldif
+              subPath: 50-inventory.ldif
       volumes:
         - name: seed
           configMap:
