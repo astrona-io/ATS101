@@ -115,8 +115,9 @@ kcadm_login() {
   return 1
 }
 # --- end of Keycloak helpers ---
-# oidc_login USER PASSWORD: signs USER in to Harbor through Keycloak with curl
-# (the same redirects a browser follows) and prints the user's CLI secret.
+# oidc_login USER PASSWORD [FILTER]: signs USER in to Harbor through Keycloak
+# with curl (the same redirects a browser follows) and prints a field of the
+# signed-in user, by default the CLI secret.
 oidc_login() {
   printf '%s' "$2" | ws sh -c '
     user="$1"; password="$(cat)"; jar="$(mktemp)"; base="'"$HARBOR_URL"'"
@@ -132,13 +133,14 @@ oidc_login() {
     case "$callback" in "$base"/c/oidc/callback*) ;; *) exit 4 ;; esac
     # 3. Harbor exchanges the code with the client secret and starts a session.
     curl -s -L -c "$jar" -b "$jar" -o /dev/null "$callback"
-    curl -s -f -b "$jar" "$base/api/v2.0/users/current" | jq -er ".oidc_user_meta.secret"
-  ' sh "$1"
+    curl -s -f -b "$jar" "$base/api/v2.0/users/current" | jq -er "$2"
+  ' sh "$1" "${3:-.oidc_user_meta.secret}"
 }
 
-oidc_login bob BobPass1 >/dev/null || fail "bob could not sign in to Harbor through Keycloak."
-admin="$(harbor_api GET "/users/search?username=bob" | ws jq -r '.[0].user_id')"
-[ -n "$admin" ] && [ "$admin" != "null" ] || fail "bob was not onboarded."
-flag="$(harbor_api GET "/users/$admin" | ws jq -r '(.sysadmin_flag == true) or (.admin_role_in_auth == true)')"
+# Harbor grants the group's administrator rights per session, from the groups
+# claim, so only bob's own /users/current shows them; an administrator reading
+# /users/<id> sees admin_role_in_auth false.
+flag="$(oidc_login bob BobPass1 '(.sysadmin_flag == true) or (.admin_role_in_auth == true)')"
+[ -n "$flag" ] || fail "bob could not sign in to Harbor through Keycloak."
 [ "$flag" = "true" ] || fail "bob is in platform-admins but is not a Harbor administrator."
 pass "members of platform-admins become Harbor administrators."

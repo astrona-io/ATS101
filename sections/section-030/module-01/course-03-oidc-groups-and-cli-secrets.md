@@ -27,7 +27,7 @@ One group can also make its members Harbor **system administrators**. Harbor cal
 ws curl -s -u admin:Harbor12345 -X PUT -H 'Content-Type: application/json' -d '{"oidc_admin_group":"platform-admins"}' https://harbor.localtest.me:8443/api/v2.0/configurations
 ```
 
-When `bob` signs in through the browser, Harbor sees `platform-admins` in his `groups` claim and gives him administrator rights. His Harbor user record shows them in the field `admin_role_in_auth`, which means the rights come from the identity provider, not from a setting in Harbor's database.
+When `bob` signs in through the browser, Harbor sees `platform-admins` in his `groups` claim and gives him administrator rights. Harbor grants them per session: in his own `/api/v2.0/users/current`, the field `admin_role_in_auth` is `true`, which means the rights come from the identity provider, not from a setting in Harbor's database. An administrator who reads `bob`'s user record sees `admin_role_in_auth` as `false`, because that request is not `bob`'s session.
 
 ## CLI secrets
 
