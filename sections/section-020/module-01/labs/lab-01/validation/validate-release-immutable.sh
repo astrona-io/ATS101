@@ -102,7 +102,8 @@ pass() { echo "PASS: $*"; exit 0; }
 fail() { echo "FAIL: $*"; exit 1; }
 # --- end of shared helpers ---
 
-rules="$(harbor_api GET /projects/inventory/immutabletagrules | ws jq -r '[.[] | select(.disabled == false) | .tag_selectors[].pattern] | join(" ")')"
+# Harbor leaves "disabled" out of an enabled rule, so test != true.
+rules="$(harbor_api GET /projects/inventory/immutabletagrules | ws jq -r '[.[] | select(.disabled != true) | .tag_selectors[].pattern] | join(" ")')"
 case " $rules " in *" release-* "*|*" release-** "*) ;; *) fail "no enabled immutability rule matches release-* tags (found: $rules)." ;; esac
 if push_as "$ADMIN_USER" "$ADMIN_PASSWORD" "$HARBOR_HOST/inventory/app:release-1.0"; then
   fail "release-1.0 was overwritten; it must be immutable."
