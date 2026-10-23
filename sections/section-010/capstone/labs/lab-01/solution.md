@@ -10,7 +10,7 @@ Sign the CLI in, then read both projects and their members through the REST API,
 
 ```sh
 ws() { kubectl -n workstation exec -i deploy/workstation -- "$@"; }
-echo Harbor12345 | ws harbor login https://harbor.localtest.me:8443 --username admin --password-stdin
+ws harbor login https://harbor.localtest.me:8443 --username admin --password Harbor12345
 for project in team-a team-b; do
   ws sh -c "curl -s -u admin:Harbor12345 https://harbor.localtest.me:8443/api/v2.0/projects/$project | jq -r '\"$project public=\" + .metadata.public'"
   ws sh -c "curl -s -u admin:Harbor12345 https://harbor.localtest.me:8443/api/v2.0/projects/$project/members | jq -r '.[] | [.entity_name, .role_id] | @tsv'"

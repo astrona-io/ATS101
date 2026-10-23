@@ -57,8 +57,8 @@ Remove the member with the wrong DN, using its `id` from step 2, and add the rig
 
 ```sh
 ws curl -s -u admin:Harbor12345 -X DELETE https://harbor.localtest.me:8443/api/v2.0/projects/inventory/members/<MEMBER_ID>
-echo Harbor12345 | ws harbor login https://harbor.localtest.me:8443 --username admin --password-stdin
-ws harbor project member create inventory --groupname inventory-devs --grouptype 1 --ldapdn cn=inventory-devs,ou=groups,dc=example,dc=org --role Developer
+ws harbor login https://harbor.localtest.me:8443 --username admin --password Harbor12345
+ws curl -s -u admin:Harbor12345 -X POST -H 'Content-Type: application/json' -d '{"role_id":2,"member_group":{"group_name":"inventory-devs","group_type":1,"ldap_group_dn":"cn=inventory-devs,ou=groups,dc=example,dc=org"}}' https://harbor.localtest.me:8443/api/v2.0/projects/inventory/members
 ```
 
 ## Step 5: Prove it and submit

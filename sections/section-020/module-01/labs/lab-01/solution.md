@@ -10,7 +10,7 @@ Only a system administrator can set a quota. Sign the CLI in as `admin` and set 
 
 ```sh
 ws() { kubectl -n workstation exec -i deploy/workstation -- "$@"; }
-echo Harbor12345 | ws harbor login https://harbor.localtest.me:8443 --username admin --password-stdin
+ws harbor login https://harbor.localtest.me:8443 --username admin --password Harbor12345
 ws harbor quota update --project-name inventory --storage 20MiB
 ws harbor quota list
 ```

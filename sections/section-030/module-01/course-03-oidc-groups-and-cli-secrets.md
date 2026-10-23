@@ -12,8 +12,8 @@ Add the group `inventory-devs` to the project `inventory` as Developer. A group 
 
 ```sh
 ws() { kubectl -n workstation exec -i deploy/workstation -- "$@"; }
-echo Harbor12345 | ws harbor login https://harbor.localtest.me:8443 --username admin --password-stdin
-ws harbor project member create inventory --groupname inventory-devs --grouptype 3 --role Developer
+ws harbor login https://harbor.localtest.me:8443 --username admin --password Harbor12345
+ws curl -s -u admin:Harbor12345 -X POST -H 'Content-Type: application/json' -d '{"role_id":2,"member_group":{"group_name":"inventory-devs","group_type":3}}' https://harbor.localtest.me:8443/api/v2.0/projects/inventory/members
 ws sh -c 'curl -s -u admin:Harbor12345 https://harbor.localtest.me:8443/api/v2.0/projects/inventory/members | jq -r ".[] | [.entity_name, .entity_type, .role_id] | @tsv"'
 ```
 

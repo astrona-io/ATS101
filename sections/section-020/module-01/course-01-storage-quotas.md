@@ -16,7 +16,7 @@ The `harbor` CLI lists every project's quota with its limit and its usage. Defin
 
 ```sh
 ws() { kubectl -n workstation exec -i deploy/workstation -- "$@"; }
-echo Harbor12345 | ws harbor login https://harbor.localtest.me:8443 --username admin --password-stdin
+ws harbor login https://harbor.localtest.me:8443 --username admin --password Harbor12345
 ws harbor quota list
 ```
 

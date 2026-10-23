@@ -53,7 +53,7 @@ ws curl -s -o /dev/null -w '%{http_code}\n' -u admin:Harbor12345 -X POST -H 'Con
 The `ping` returns `200`. Now look a user up through Harbor, which proves the user search works end to end:
 
 ```sh
-echo Harbor12345 | ws harbor login https://harbor.localtest.me:8443 --username admin --password-stdin
+ws harbor login https://harbor.localtest.me:8443 --username admin --password Harbor12345
 ws harbor ldap search dave
 ```
 
@@ -64,7 +64,7 @@ The answer shows `dave` with his DN and email, found in the directory by Harbor.
 Add the group to `inventory`. LDAP groups have the group type `1`, and Harbor identifies them by their DN:
 
 ```sh
-ws harbor project member create inventory --groupname inventory-devs --grouptype 1 --ldapdn cn=inventory-devs,ou=groups,dc=example,dc=org --role Developer
+ws curl -s -u admin:Harbor12345 -X POST -H 'Content-Type: application/json' -d '{"role_id":2,"member_group":{"group_name":"inventory-devs","group_type":1,"ldap_group_dn":"cn=inventory-devs,ou=groups,dc=example,dc=org"}}' https://harbor.localtest.me:8443/api/v2.0/projects/inventory/members
 ws sh -c 'curl -s -u admin:Harbor12345 https://harbor.localtest.me:8443/api/v2.0/projects/inventory/members | jq -r ".[] | [.entity_name, .entity_type, .role_id] | @tsv"'
 ```
 

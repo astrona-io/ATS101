@@ -25,7 +25,7 @@ harbor_api() {
 show_tags() {
   harbor_api GET "/projects/inventory/repositories/app/artifacts?with_tag=true" | jq -r '.[].tags[]?.name' | sort
 }
-echo Harbor12345 | ws harbor login https://harbor.localtest.me:8443 --username admin --password-stdin
+ws harbor login https://harbor.localtest.me:8443 --username admin --password Harbor12345
 ```
 
 Use them like this: `harbor_api GET /projects/inventory | jq .metadata`, `show_tags`.

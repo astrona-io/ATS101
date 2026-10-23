@@ -24,7 +24,7 @@ push_as() {
 pull_as() {
   echo "$2" | ws sh -c 'oras login --registry-config /tmp/$0.json -u $0 --password-stdin harbor.localtest.me:8443 >/dev/null && mkdir -p /tmp/pull && cd /tmp/pull && oras pull --registry-config /tmp/$0.json "$1" >/dev/null 2>&1 && echo "pull allowed" || echo "pull refused"' "$1" "$3"
 }
-echo Harbor12345 | ws harbor login https://harbor.localtest.me:8443 --username admin --password-stdin
+ws harbor login https://harbor.localtest.me:8443 --username admin --password Harbor12345
 ```
 
 Use them like this: `push_as alice AlicePass1 harbor.localtest.me:8443/inventory/notes:alice`, `pull_as carol CarolPass1 harbor.localtest.me:8443/inventory/notes:v1`.

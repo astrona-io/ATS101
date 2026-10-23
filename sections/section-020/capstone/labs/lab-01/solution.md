@@ -10,7 +10,7 @@ Find the policy ID through the project, then read the policy:
 
 ```sh
 ws() { kubectl -n workstation exec -i deploy/workstation -- "$@"; }
-echo Harbor12345 | ws harbor login https://harbor.localtest.me:8443 --username admin --password-stdin
+ws harbor login https://harbor.localtest.me:8443 --username admin --password Harbor12345
 ws sh -c 'curl -s -u admin:Harbor12345 https://harbor.localtest.me:8443/api/v2.0/projects/inventory | jq "{project_id, retention_id: .metadata.retention_id}"'
 ws sh -c 'curl -s -u admin:Harbor12345 https://harbor.localtest.me:8443/api/v2.0/retentions/<RETENTION_ID> | jq "{trigger, rules: [.rules[] | {template, params, tags: .tag_selectors[0].pattern}]}"'
 ws harbor quota list

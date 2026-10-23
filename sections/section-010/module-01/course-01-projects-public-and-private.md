@@ -16,11 +16,11 @@ ws harbor version
 The second command prints the version of the `harbor` command-line tool, `v0.0.27`. The `harbor` CLI is a client for Harbor's REST API: every command it runs is an HTTP request to `https://harbor.localtest.me:8443/api/v2.0/...`. Before it can send one, it needs a saved credential. Sign it in as the system administrator, `admin`, with the lab-only password:
 
 ```sh
-echo Harbor12345 | ws harbor login https://harbor.localtest.me:8443 --username admin --password-stdin
+ws harbor login https://harbor.localtest.me:8443 --username admin --password Harbor12345
 ws harbor project list
 ```
 
-`--password-stdin` reads the password from the standard input, so it never appears in your shell history. The CLI checks the password against Harbor and saves the credential, with the password encrypted, in the configuration file of the workstation. `harbor project list` then shows two projects: `library`, which every new Harbor creates, and `inventory`, which the playground created.
+`--password` puts the lab-only password on the command line, where it ends up in your shell history and the process list. The `harbor` CLI (version 0.0.27) reads `--password-stdin` only from a terminal, as a hidden prompt; a password piped in from `echo` or `printf` fails with `inappropriate ioctl for device`. On a real system, sign in once with `kubectl -n workstation exec -it deploy/workstation -- harbor login ... --password-stdin` and type the password at the prompt. The CLI checks the password against Harbor and saves the credential, with the password encrypted, in the configuration file of the workstation. `harbor project list` then shows two projects: `library`, which every new Harbor creates, and `inventory`, which the playground created.
 
 ## A public and a private project
 

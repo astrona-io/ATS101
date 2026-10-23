@@ -23,7 +23,7 @@ ldap_find() {
 harbor_setting() {
   ws sh -c "curl -s -u admin:Harbor12345 https://harbor.localtest.me:8443/api/v2.0/configurations | jq -r '.$1.value'"
 }
-echo Harbor12345 | ws harbor login https://harbor.localtest.me:8443 --username admin --password-stdin
+ws harbor login https://harbor.localtest.me:8443 --username admin --password Harbor12345
 ```
 
 Use them like this: `ldap_find '(uid=frank)' memberOf`, `harbor_setting ldap_base_dn`.

@@ -19,11 +19,11 @@ ws harbor project view team-x -o json
 
 ## Adding members
 
-`harbor project member create` takes the project name, the user and a role name. The role names on the command line are `Project_Admin`, `Maintainer`, `Developer`, `Guest` and `Limited_Guest`, with an underscore. Give `dan` push rights and `carol` read rights:
+`harbor project member create` takes the project name, the user and the role as a number with `--roleid`: `1` Project Admin, `2` Developer, `3` Guest, `4` Maintainer and `5` Limited Guest. The `harbor` CLI (version 0.0.27) also lists a `--role` flag for a role name, but it ignores that flag and opens an interactive form, which fails without a terminal. Give `dan` push rights and `carol` read rights:
 
 ```sh
-ws harbor project member create team-x --username dan --role Developer
-ws harbor project member create team-x --username carol --role Guest
+ws harbor project member create team-x --username dan --roleid 2
+ws harbor project member create team-x --username carol --roleid 3
 ws harbor project member list team-x
 ```
 

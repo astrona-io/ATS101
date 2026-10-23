@@ -10,7 +10,7 @@ Define the helper and sign the `harbor` CLI in as the system administrator:
 
 ```sh
 ws() { kubectl -n workstation exec -i deploy/workstation -- "$@"; }
-echo Harbor12345 | ws harbor login https://harbor.localtest.me:8443 --username admin --password-stdin
+ws harbor login https://harbor.localtest.me:8443 --username admin --password Harbor12345
 ws harbor project list
 ```
 
@@ -33,10 +33,10 @@ The `metadata` of the project holds `"public": "false"`. Do not pass `--public`:
 The task needs push and pull for the team members, which is Developer, and pull only for the auditor, which is Guest. Maintainer and Project Admin would also work for pushing, but they allow deleting artifacts and managing members, which the task does not need:
 
 ```sh
-ws harbor project member create team-a --username alice --role Developer
-ws harbor project member create team-b --username bob --role Developer
-ws harbor project member create team-a --username carol --role Guest
-ws harbor project member create team-b --username carol --role Guest
+ws harbor project member create team-a --username alice --roleid 2
+ws harbor project member create team-b --username bob --roleid 2
+ws harbor project member create team-a --username carol --roleid 3
+ws harbor project member create team-b --username carol --roleid 3
 ```
 
 Read the result back through the REST API, which shows each role as a number (2 for Developer, 3 for Guest):

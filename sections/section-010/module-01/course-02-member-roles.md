@@ -41,7 +41,7 @@ Now prove the difference between Guest and Developer with `alice`. Define the he
 
 ```sh
 ws() { kubectl -n workstation exec -i deploy/workstation -- "$@"; }
-ws harbor project member create inventory --username alice --role Guest
+ws harbor project member create inventory --username alice --roleid 3
 ws harbor project member list inventory
 ```
 

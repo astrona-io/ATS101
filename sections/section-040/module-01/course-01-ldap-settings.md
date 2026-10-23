@@ -33,7 +33,7 @@ The `harbor` CLI can test LDAP settings without saving them. `harbor ldap ping` 
 
 ```sh
 ws() { kubectl -n workstation exec -i deploy/workstation -- "$@"; }
-echo Harbor12345 | ws harbor login https://harbor.localtest.me:8443 --username admin --password-stdin
+ws harbor login https://harbor.localtest.me:8443 --username admin --password Harbor12345
 ws harbor ldap ping --ldap-url ldap://openldap.ldap.svc.cluster.local:389 --ldap-search-dn cn=admin,dc=example,dc=org --ldap-password admin-password --ldap-base-dn ou=people,dc=example,dc=org --ldap-filter '(objectClass=inetOrgPerson)' --ldap-uid uid --ldap-scope 2
 ```
 
