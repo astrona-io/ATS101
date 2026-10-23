@@ -13,7 +13,7 @@ The company's directory is OpenLDAP, and Harbor must use it. The inventory devel
 | LDAP URL | `ldap://openldap.ldap.svc.cluster.local:389` |
 | Search DN and password | `cn=admin,dc=example,dc=org` / `admin-password` |
 | Users | entries of class `inetOrgPerson` under `ou=people,dc=example,dc=org`, sign-in name in `uid` |
-| Groups | entries of class `groupOfNames` under `ou=groups,dc=example,dc=org`, name in `cn` |
+| Groups | entries of class `groupOfUniqueNames` under `ou=groups,dc=example,dc=org`, name in `cn` |
 | Group membership | the user attribute `memberof` |
 
 Run Harbor commands in the workstation pod. The Harbor administrator is `admin` with the password `Harbor12345`.

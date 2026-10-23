@@ -46,14 +46,14 @@ data:
     userPassword: FrankPass1
 
     dn: cn=inventory-devs,ou=groups,dc=example,dc=org
-    objectClass: groupOfNames
+    objectClass: groupOfUniqueNames
     cn: inventory-devs
-    member: uid=dave,ou=people,dc=example,dc=org
+    uniqueMember: uid=dave,ou=people,dc=example,dc=org
 
     dn: cn=harbor-admins,ou=groups,dc=example,dc=org
-    objectClass: groupOfNames
+    objectClass: groupOfUniqueNames
     cn: harbor-admins
-    member: uid=frank,ou=people,dc=example,dc=org
+    uniqueMember: uid=frank,ou=people,dc=example,dc=org
 ---
 apiVersion: apps/v1
 kind: Deployment

@@ -8,7 +8,7 @@ Solve this question on: `terminal`
 
 Harbor was switched to LDAP last week. Nobody can sign in, and an earlier test showed that even when sign-in works, no user is ever in a group. The developers of `inventory` are supposed to be the LDAP group `cn=inventory-devs,ou=groups,dc=example,dc=org`, and the platform team in `cn=harbor-admins,ou=groups,dc=example,dc=org` is supposed to administer Harbor.
 
-The directory is correct: users are `inetOrgPerson` entries under `ou=people,dc=example,dc=org` with the sign-in name in `uid`; groups are `groupOfNames` entries under `ou=groups,dc=example,dc=org`; the directory fills each user's `memberof` attribute.
+The directory is correct: users are `inetOrgPerson` entries under `ou=people,dc=example,dc=org` with the sign-in name in `uid`; groups are `groupOfUniqueNames` entries under `ou=groups,dc=example,dc=org`; the directory fills each user's `memberof` attribute.
 
 Run Harbor commands in the workstation pod. The Harbor administrator is `admin` (`Harbor12345`); you can search the directory as `cn=admin,dc=example,dc=org` (`admin-password`) from the OpenLDAP pod.
 

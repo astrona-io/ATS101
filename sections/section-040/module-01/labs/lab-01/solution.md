@@ -30,7 +30,7 @@ Save this as `harbor-ldap.json`. Scope `2` is the whole subtree:
   "ldap_scope": 2,
   "ldap_verify_cert": false,
   "ldap_group_base_dn": "ou=groups,dc=example,dc=org",
-  "ldap_group_search_filter": "(objectClass=groupOfNames)",
+  "ldap_group_search_filter": "(objectClass=groupOfUniqueNames)",
   "ldap_group_attribute_name": "cn",
   "ldap_group_search_scope": 2,
   "ldap_group_membership_attribute": "memberof",

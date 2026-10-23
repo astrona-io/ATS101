@@ -9,12 +9,12 @@ Harbor needs four more settings to work with groups:
 | Setting | API key | Value here |
 | --- | --- | --- |
 | Group base DN | `ldap_group_base_dn` | `ou=groups,dc=example,dc=org` |
-| Group filter | `ldap_group_search_filter` | `(objectClass=groupOfNames)` |
+| Group filter | `ldap_group_search_filter` | `(objectClass=groupOfUniqueNames)` |
 | Group name attribute (group GID) | `ldap_group_attribute_name` | `cn` |
 | Group membership attribute | `ldap_group_membership_attribute` | `memberof` |
 | Group admin DN | `ldap_group_admin_dn` | `cn=harbor-admins,ou=groups,dc=example,dc=org` |
 
-The **group base DN** and **group filter** tell Harbor where groups live and which entries are groups; OpenLDAP uses `groupOfNames`, Active Directory uses `group`. The **group membership attribute** is the attribute on the user entry that lists the user's groups, `memberof`, filled in by the directory. Every member of the group in the **group admin DN** becomes a Harbor system administrator.
+The **group base DN** and **group filter** tell Harbor where groups live and which entries are groups; this directory uses `groupOfUniqueNames`, whose members are listed in `uniqueMember`, and Active Directory uses `group`. The **group membership attribute** is the attribute on the user entry that lists the user's groups, `memberof`, filled in by the directory's memberOf overlay. In this OpenLDAP image the overlay fills `memberOf` only for `groupOfUniqueNames` groups; a `groupOfNames` group with `member` values leaves it empty, and Harbor then sees no groups. Every member of the group in the **group admin DN** becomes a Harbor system administrator.
 
 ## Switching Harbor to LDAP
 
@@ -34,7 +34,7 @@ The authentication mode can change only while Harbor holds no users except `admi
   "ldap_scope": 2,
   "ldap_verify_cert": false,
   "ldap_group_base_dn": "ou=groups,dc=example,dc=org",
-  "ldap_group_search_filter": "(objectClass=groupOfNames)",
+  "ldap_group_search_filter": "(objectClass=groupOfUniqueNames)",
   "ldap_group_attribute_name": "cn",
   "ldap_group_search_scope": 2,
   "ldap_group_membership_attribute": "memberof",
@@ -109,7 +109,7 @@ You can now switch Harbor to LDAP, test the settings, map an LDAP group to a pro
 
 > [!WARNING]
 > - **The group membership attribute set to something the directory does not fill.** No user is ever in any group, and every group membership is ignored.
-> - **A group filter for the wrong kind of directory.** `groupOfNames` in OpenLDAP, `group` in Active Directory.
+> - **A group filter for the wrong kind of directory.** `groupOfUniqueNames` in OpenLDAP, `group` in Active Directory.
 > - **A group DN with a typo.** Harbor stores the DN you give it; no user's `memberof` will ever match it.
 > - **Expecting a CLI secret.** LDAP users sign registry clients in with their directory password.
 

@@ -104,7 +104,7 @@ pass() { echo "PASS: $*"; exit 0; }
 fail() { echo "FAIL: $*"; exit 1; }
 # --- end of shared helpers ---
 
-harbor_api PUT /configurations '{"auth_mode":"ldap_auth","ldap_url":"ldap://openldap.ldap.svc.cluster.local:389","ldap_search_dn":"cn=admin,dc=example,dc=org","ldap_search_password":"admin-password","ldap_base_dn":"ou=people,dc=example,dc=org","ldap_filter":"(objectClass=inetOrgPerson)","ldap_uid":"uid","ldap_scope":2,"ldap_verify_cert":false,"ldap_group_base_dn":"ou=groups,dc=example,dc=org","ldap_group_search_filter":"(objectClass=groupOfNames)","ldap_group_attribute_name":"cn","ldap_group_search_scope":2,"ldap_group_membership_attribute":"memberof","ldap_group_admin_dn":"cn=harbor-admins,ou=groups,dc=example,dc=org"}' >/dev/null
+harbor_api PUT /configurations '{"auth_mode":"ldap_auth","ldap_url":"ldap://openldap.ldap.svc.cluster.local:389","ldap_search_dn":"cn=admin,dc=example,dc=org","ldap_search_password":"admin-password","ldap_base_dn":"ou=people,dc=example,dc=org","ldap_filter":"(objectClass=inetOrgPerson)","ldap_uid":"uid","ldap_scope":2,"ldap_verify_cert":false,"ldap_group_base_dn":"ou=groups,dc=example,dc=org","ldap_group_search_filter":"(objectClass=groupOfUniqueNames)","ldap_group_attribute_name":"cn","ldap_group_search_scope":2,"ldap_group_membership_attribute":"memberof","ldap_group_admin_dn":"cn=harbor-admins,ou=groups,dc=example,dc=org"}' >/dev/null
 harbor_api POST /projects/inventory/members '{"role_id":2,"member_group":{"group_name":"inventory-devs","group_type":1,"ldap_group_dn":"cn=inventory-devs,ou=groups,dc=example,dc=org"}}' >/dev/null || true
 
 sleep 5

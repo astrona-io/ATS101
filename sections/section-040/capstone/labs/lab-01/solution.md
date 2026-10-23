@@ -14,7 +14,7 @@ ws sh -c 'curl -s -u admin:Harbor12345 https://harbor.localtest.me:8443/api/v2.0
 Compare each value with the directory:
 
 - `ldap_base_dn` is `ou=users,dc=example,dc=org`. The users are under `ou=people`, so no user is ever found and every sign-in fails.
-- `ldap_group_search_filter` is `(objectClass=posixGroup)`. The groups are `groupOfNames`, so Harbor finds no groups.
+- `ldap_group_search_filter` is `(objectClass=posixGroup)`. The groups are `groupOfUniqueNames`, so Harbor finds no groups.
 - `ldap_group_membership_attribute` is `isMemberOf`. The directory fills `memberof`, so no user has any group.
 
 ## Step 2: Read the project membership
@@ -27,7 +27,7 @@ ws sh -c 'curl -s -u admin:Harbor12345 "https://harbor.localtest.me:8443/api/v2.
 The group member of `inventory` is `inventory-dev`, with the DN `cn=inventory-dev,ou=groups,dc=example,dc=org`. The real group is `inventory-devs`, with an `s`. Check it in the directory:
 
 ```sh
-kubectl -n ldap exec deploy/openldap -- ldapsearch -x -H ldap://localhost -D cn=admin,dc=example,dc=org -w admin-password -b ou=groups,dc=example,dc=org '(objectClass=groupOfNames)' cn
+kubectl -n ldap exec deploy/openldap -- ldapsearch -x -H ldap://localhost -D cn=admin,dc=example,dc=org -w admin-password -b ou=groups,dc=example,dc=org '(objectClass=groupOfUniqueNames)' cn
 ```
 
 The directory has `inventory-devs` and `harbor-admins`, and no `inventory-dev`.
@@ -39,7 +39,7 @@ Save the corrected values as `harbor-ldap-fix.json`. A `PUT` with only these key
 ```json
 {
   "ldap_base_dn": "ou=people,dc=example,dc=org",
-  "ldap_group_search_filter": "(objectClass=groupOfNames)",
+  "ldap_group_search_filter": "(objectClass=groupOfUniqueNames)",
   "ldap_group_membership_attribute": "memberof"
 }
 ```
