@@ -263,10 +263,14 @@ The facts most likely to be wrong, in the order to check them:
 3. **The OpenLDAP image** fills `memberOf` through its bootstrap overlay for
    entries from the custom LDIF loaded with `--copy-service`.
 4. **The `harbor` CLI** is `v0.0.x`. Pages use only commands whose flags are in
-   the v0.0.27 pages (`project create`, `project member create/list/update/delete`,
+   the v0.0.27 pages (`project create`, `project member create/list/delete`,
    `quota list/update`, `user create`, `ldap ping/search/import`). Retention
    rules, immutability rules and system configuration go through the REST API,
    because the CLI either has no flag for them or prompts.
+   Seen on a live run (2026-10-23): `project member create --roleid N` gives
+   role N+1 (pages use `--roleid 1` for Developer and say why), and role
+   changes go through `PUT /api/v2.0/projects/<project>/members/<id>`,
+   because `project member update` sends the user ID as the membership ID.
 
 ### Terms, not metaphors
 

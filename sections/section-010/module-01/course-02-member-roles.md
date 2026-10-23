@@ -41,9 +41,12 @@ Now prove the difference between Guest and Developer with `alice`. Define the he
 
 ```sh
 ws() { kubectl -n workstation exec -i deploy/workstation -- "$@"; }
-ws harbor project member create inventory --username alice --roleid 3
-ws harbor project member list inventory
+wst() { kubectl -n workstation exec -it deploy/workstation -- "$@"; }
+ws harbor project member create inventory --username alice --roleid 2
+wst harbor project member list inventory
 ```
+
+The `harbor` CLI (version 0.0.27) draws lists and views as a table only on a terminal, so these commands run through `wst`, which adds `-t` (a terminal) to `kubectl exec`.
 
 The list shows two members: `admin`, who created the project and is its Project Admin, and `alice` with the role Guest. Now sign `oras` in as `alice` and try to push:
 
@@ -54,10 +57,12 @@ ws sh -c 'cd /tmp && echo from-alice > alice.txt && oras push --registry-config 
 
 The sign-in works, because `alice` is a valid user. The push fails: Harbor's token service gives a Guest a pull permission and no push permission, so the registry refuses the upload. Pulling the existing artifact as `alice` works, which you can check with `oras pull` and the same credential file.
 
-Change the role to Developer. `harbor project member update` takes the project name, the member name and the new role as a number:
+Change the role to Developer. The `harbor` CLI (version 0.0.27) cannot change a role without a terminal: `harbor project member update` sends the user's ID where Harbor expects the ID of the membership. Use the REST API instead, with two helpers. `member_id` reads the membership ID from the member list, and `set_role` sends the real role number (`2` Developer, `3` Guest, `4` Maintainer).
 
 ```sh
-ws harbor project member update inventory alice --roleid 2
+member_id() { ws sh -c "curl -s -u admin:Harbor12345 https://harbor.localtest.me:8443/api/v2.0/projects/$1/members | jq -r '.[] | select(.entity_name == \"$2\") | .id'"; }
+set_role() { ws curl -s -u admin:Harbor12345 -X PUT -H 'Content-Type: application/json' -d "{\"role_id\":$3}" "https://harbor.localtest.me:8443/api/v2.0/projects/$1/members/$(member_id "$1" "$2")"; }
+set_role inventory alice 2
 ws sh -c 'cd /tmp && oras push --registry-config /tmp/alice.json harbor.localtest.me:8443/inventory/notes:alice alice.txt'
 ```
 

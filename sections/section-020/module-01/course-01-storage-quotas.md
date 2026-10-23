@@ -16,9 +16,12 @@ The `harbor` CLI lists every project's quota with its limit and its usage. Defin
 
 ```sh
 ws() { kubectl -n workstation exec -i deploy/workstation -- "$@"; }
+wst() { kubectl -n workstation exec -it deploy/workstation -- "$@"; }
 ws harbor login https://harbor.localtest.me:8443 --username admin --password Harbor12345
-ws harbor quota list
+wst harbor quota list
 ```
+
+The `harbor` CLI (version 0.0.27) draws lists and views as a table only on a terminal, so these commands run through `wst`, which adds `-t` (a terminal) to `kubectl exec`.
 
 Each row is one project. The row for `inventory` shows the limit as unlimited and a small usage, a few kilobytes, because the seven artifacts are tiny text files. The REST API gives the same numbers in bytes, which is what a script compares:
 
@@ -34,7 +37,7 @@ Set a limit of 20 MiB on `inventory`. `harbor quota update` takes the project na
 
 ```sh
 ws harbor quota update --project-name inventory --storage 20MiB
-ws harbor quota list
+wst harbor quota list
 ```
 
 The row for `inventory` now shows a limit of 20 MiB. In the REST API, `hard.storage` is `20971520`, which is 20 × 1024 × 1024 bytes.
@@ -54,7 +57,7 @@ The push fails, and the error from Harbor says the quota is exceeded. The system
 ws sh -c 'cd /tmp && head -c 1048576 /dev/urandom > small.bin && oras push --registry-config /tmp/admin.json harbor.localtest.me:8443/inventory/blob:small small.bin'
 ```
 
-That push succeeds, and `ws harbor quota list` shows the usage about 1 MiB higher.
+That push succeeds, and `wst harbor quota list` shows the usage about 1 MiB higher.
 
 ```mermaid
 flowchart TB

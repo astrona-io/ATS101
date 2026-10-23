@@ -30,11 +30,14 @@ Create it for `inventory` through the REST API, then list the project's rules:
 
 ```sh
 ws() { kubectl -n workstation exec -i deploy/workstation -- "$@"; }
+wst() { kubectl -n workstation exec -it deploy/workstation -- "$@"; }
 ws curl -s -u admin:Harbor12345 -H 'Content-Type: application/json' --data-binary @- https://harbor.localtest.me:8443/api/v2.0/projects/inventory/immutabletagrules < immutable-release.json
 ws sh -c 'curl -s -u admin:Harbor12345 https://harbor.localtest.me:8443/api/v2.0/projects/inventory/immutabletagrules | jq ".[] | {id, disabled, pattern: .tag_selectors[0].pattern}"'
 ```
 
-The list shows one enabled rule with the pattern `release-*`. The `harbor` CLI can list these rules too, with `ws harbor tag immutable list`, but it creates them through questions on the terminal, which is why this page uses the REST API.
+The list shows one enabled rule with the pattern `release-*`. The `harbor` CLI can list these rules too, with `wst harbor tag immutable list`, but it creates them through questions on the terminal, which is why this page uses the REST API.
+
+The `harbor` CLI (version 0.0.27) draws lists and views as a table only on a terminal, so these commands run through `wst`, which adds `-t` (a terminal) to `kubectl exec`.
 
 ## What the rule stops
 

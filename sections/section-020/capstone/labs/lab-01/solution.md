@@ -10,11 +10,14 @@ Find the policy ID through the project, then read the policy:
 
 ```sh
 ws() { kubectl -n workstation exec -i deploy/workstation -- "$@"; }
+wst() { kubectl -n workstation exec -it deploy/workstation -- "$@"; }
 ws harbor login https://harbor.localtest.me:8443 --username admin --password Harbor12345
 ws sh -c 'curl -s -u admin:Harbor12345 https://harbor.localtest.me:8443/api/v2.0/projects/inventory | jq "{project_id, retention_id: .metadata.retention_id}"'
 ws sh -c 'curl -s -u admin:Harbor12345 https://harbor.localtest.me:8443/api/v2.0/retentions/<RETENTION_ID> | jq "{trigger, rules: [.rules[] | {template, params, tags: .tag_selectors[0].pattern}]}"'
-ws harbor quota list
+wst harbor quota list
 ```
+
+The `harbor` CLI (version 0.0.27) draws lists and views as a table only on a terminal, so these commands run through `wst`, which adds `-t` (a terminal) to `kubectl exec`.
 
 The policy has one rule: template `latestPushedK` with `1`, for the tag pattern `**`. It keeps a single artifact, the newest one, and deletes everything else, both releases included. Its trigger has a `cron` schedule, so it would run on its own. The quota of `inventory` is 5 MiB, far too small for a 10 MiB push.
 

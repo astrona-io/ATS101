@@ -10,6 +10,7 @@ A member must exist before you can add it. In this playground the users live in 
 
 ```sh
 ws() { kubectl -n workstation exec -i deploy/workstation -- "$@"; }
+wst() { kubectl -n workstation exec -it deploy/workstation -- "$@"; }
 ws harbor user create --username dan --password DanPass1 --email dan@example.com --realname "Dan Example"
 ws harbor project create team-x --storage-limit -1
 ws harbor project view team-x -o json
@@ -19,13 +20,17 @@ ws harbor project view team-x -o json
 
 ## Adding members
 
-`harbor project member create` takes the project name, the user and the role as a number with `--roleid`: `1` Project Admin, `2` Developer, `3` Guest, `4` Maintainer and `5` Limited Guest. The `harbor` CLI (version 0.0.27) also lists a `--role` flag for a role name, but it ignores that flag and opens an interactive form, which fails without a terminal. Give `dan` push rights and `carol` read rights:
+`harbor project member create` takes the project name, the user and the role as a number with `--roleid`. The `harbor` CLI (version 0.0.27) adds 1 to the `--roleid` number before it sends the request, so `--roleid 1` gives the Developer role, `--roleid 2` Guest, `--roleid 3` Maintainer and `--roleid 4` Limited Guest. The REST API's `role_id` is the real number: `1` Project Admin, `2` Developer, `3` Guest, `4` Maintainer and `5` Limited Guest. Check the role in the member list after you add someone.
+
+The CLI also lists a `--role` flag for a role name, but it ignores that flag and opens an interactive form, which fails without a terminal. Give `dan` push rights and `carol` read rights:
 
 ```sh
-ws harbor project member create team-x --username dan --roleid 2
-ws harbor project member create team-x --username carol --roleid 3
-ws harbor project member list team-x
+ws harbor project member create team-x --username dan --roleid 1
+ws harbor project member create team-x --username carol --roleid 2
+wst harbor project member list team-x
 ```
+
+The `harbor` CLI (version 0.0.27) draws lists and views as a table only on a terminal, so these commands run through `wst`, which adds `-t` (a terminal) to `kubectl exec`.
 
 The list shows three members: `admin` as Project Admin, because the creator of a project becomes its Project Admin, `dan` as Developer and `carol` as Guest. The table is easy to read, but a script needs a stable format. Read the same list through the REST API, where each member is a JSON object with `entity_name`, `entity_type` (`u` for a user, `g` for a group) and `role_id`:
 
@@ -41,7 +46,7 @@ Roles change over time. A member who leaves a team must lose access at once, and
 
 ```sh
 ws harbor project member delete team-x --username carol
-ws harbor project member list team-x
+wst harbor project member list team-x
 ```
 
 `carol` is gone from the list, and a pull from `team-x` as `carol` now fails the same way as an anonymous pull. Her user still exists, with all her other memberships unchanged; only her membership of `team-x` is gone.

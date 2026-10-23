@@ -19,10 +19,13 @@ The mode is a system setting, so it lives in Harbor's configuration, not in a pr
 
 ```sh
 ws() { kubectl -n workstation exec -i deploy/workstation -- "$@"; }
+wst() { kubectl -n workstation exec -it deploy/workstation -- "$@"; }
 ws sh -c 'curl -s -u admin:Harbor12345 https://harbor.localtest.me:8443/api/v2.0/configurations | jq .auth_mode'
 ```
 
-The answer shows `value` `db_auth` and `editable` `true`. `editable` tells you whether the mode can still be changed. The `harbor` CLI reads the same system settings with `ws harbor config view`; the REST API is used here because its JSON is easy to filter.
+The answer shows `value` `db_auth` and `editable` `true`. `editable` tells you whether the mode can still be changed. The `harbor` CLI reads the same system settings with `wst harbor config view`; the REST API is used here because its JSON is easy to filter.
+
+The `harbor` CLI (version 0.0.27) draws lists and views as a table only on a terminal, so these commands run through `wst`, which adds `-t` (a terminal) to `kubectl exec`.
 
 ## The rule for changing the mode
 

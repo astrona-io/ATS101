@@ -44,11 +44,13 @@ His Developer membership of `team-b` is a different membership and stays.
 
 ## Step 4: Correct the two roles
 
-`harbor project member update` takes the project, the member and the new role number. `carol` becomes Guest (3) in `team-b`, and `dan` becomes Maintainer (4) in `team-a`:
+The `harbor` CLI (version 0.0.27) cannot change a role without a terminal: `harbor project member update` sends the user's ID where Harbor expects the ID of the membership. Use the REST API instead, with two helpers. `member_id` reads the membership ID from the member list, and `set_role` sends the real role number (`2` Developer, `3` Guest, `4` Maintainer). `carol` becomes Guest (3) in `team-b`, and `dan` becomes Maintainer (4) in `team-a`:
 
 ```sh
-ws harbor project member update team-b carol --roleid 3
-ws harbor project member update team-a dan --roleid 4
+member_id() { ws sh -c "curl -s -u admin:Harbor12345 https://harbor.localtest.me:8443/api/v2.0/projects/$1/members | jq -r '.[] | select(.entity_name == \"$2\") | .id'"; }
+set_role() { ws curl -s -u admin:Harbor12345 -X PUT -H 'Content-Type: application/json' -d "{\"role_id\":$3}" "https://harbor.localtest.me:8443/api/v2.0/projects/$1/members/$(member_id "$1" "$2")"; }
+set_role team-b carol 3
+set_role team-a dan 4
 ```
 
 Do not raise `alice` to Maintainer. The task says she pushes and pulls, which is Developer, and the grader checks that she still cannot delete.

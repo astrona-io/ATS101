@@ -10,9 +10,12 @@ Define the helper and sign the `harbor` CLI in as the system administrator:
 
 ```sh
 ws() { kubectl -n workstation exec -i deploy/workstation -- "$@"; }
+wst() { kubectl -n workstation exec -it deploy/workstation -- "$@"; }
 ws harbor login https://harbor.localtest.me:8443 --username admin --password Harbor12345
-ws harbor project list
+wst harbor project list
 ```
+
+The `harbor` CLI (version 0.0.27) draws lists and views as a table only on a terminal, so these commands run through `wst`, which adds `-t` (a terminal) to `kubectl exec`.
 
 The list shows only `library`. The two team projects do not exist yet.
 
@@ -33,10 +36,10 @@ The `metadata` of the project holds `"public": "false"`. Do not pass `--public`:
 The task needs push and pull for the team members, which is Developer, and pull only for the auditor, which is Guest. Maintainer and Project Admin would also work for pushing, but they allow deleting artifacts and managing members, which the task does not need:
 
 ```sh
-ws harbor project member create team-a --username alice --roleid 2
-ws harbor project member create team-b --username bob --roleid 2
-ws harbor project member create team-a --username carol --roleid 3
-ws harbor project member create team-b --username carol --roleid 3
+ws harbor project member create team-a --username alice --roleid 1
+ws harbor project member create team-b --username bob --roleid 1
+ws harbor project member create team-a --username carol --roleid 2
+ws harbor project member create team-b --username carol --roleid 2
 ```
 
 Read the result back through the REST API, which shows each role as a number (2 for Developer, 3 for Guest):
@@ -95,4 +98,4 @@ astrona submit -c sections/section-010/module-01/labs/lab-01
 
 - Add `alice` to `team-b` as Limited Guest and compare what she can read with what `carol` can read.
 - Remove `carol` from `team-a` and check that her pull is refused at once.
-- Read the members of `team-a` with `ws harbor project member list team-a` and match each row to the JSON from the REST API.
+- Read the members of `team-a` with `wst harbor project member list team-a` and match each row to the JSON from the REST API.

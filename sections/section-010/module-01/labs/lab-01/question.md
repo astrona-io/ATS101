@@ -8,7 +8,7 @@ Solve this question on: `terminal`
 
 Two teams start using Harbor this week. `alice` builds images for team A, `bob` builds images for team B, and `carol` audits both teams. Each team must keep its images to itself, and the auditor must be able to read everything and change nothing. The three users already exist; nothing else has been set up.
 
-Run every Harbor command in the workstation pod, for example `kubectl -n workstation exec -i deploy/workstation -- harbor project list`. The system administrator is `admin` with the password `Harbor12345`.
+Run every Harbor command in the workstation pod, for example `kubectl -n workstation exec -it deploy/workstation -- harbor project list`. The system administrator is `admin` with the password `Harbor12345`.
 
 ## Your task
 

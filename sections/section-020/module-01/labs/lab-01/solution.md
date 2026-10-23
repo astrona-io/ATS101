@@ -10,10 +10,13 @@ Only a system administrator can set a quota. Sign the CLI in as `admin` and set 
 
 ```sh
 ws() { kubectl -n workstation exec -i deploy/workstation -- "$@"; }
+wst() { kubectl -n workstation exec -it deploy/workstation -- "$@"; }
 ws harbor login https://harbor.localtest.me:8443 --username admin --password Harbor12345
 ws harbor quota update --project-name inventory --storage 20MiB
-ws harbor quota list
+wst harbor quota list
 ```
+
+The `harbor` CLI (version 0.0.27) draws lists and views as a table only on a terminal, so these commands run through `wst`, which adds `-t` (a terminal) to `kubectl exec`.
 
 The row for `inventory` shows a limit of 20 MiB, which is `20971520` bytes in the REST API.
 

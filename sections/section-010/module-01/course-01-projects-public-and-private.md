@@ -10,6 +10,7 @@ All Harbor tools in this course run in the `workstation` pod. A short helper sav
 
 ```sh
 ws() { kubectl -n workstation exec -i deploy/workstation -- "$@"; }
+wst() { kubectl -n workstation exec -it deploy/workstation -- "$@"; }
 ws harbor version
 ```
 
@@ -17,8 +18,10 @@ The second command prints the version of the `harbor` command-line tool, `v0.0.2
 
 ```sh
 ws harbor login https://harbor.localtest.me:8443 --username admin --password Harbor12345
-ws harbor project list
+wst harbor project list
 ```
+
+The `harbor` CLI (version 0.0.27) draws lists and views as a table only on a terminal, so these commands run through `wst`, which adds `-t` (a terminal) to `kubectl exec`.
 
 `--password` puts the lab-only password on the command line, where it ends up in your shell history and the process list. The `harbor` CLI (version 0.0.27) reads `--password-stdin` only from a terminal, as a hidden prompt; a password piped in from `echo` or `printf` fails with `inappropriate ioctl for device`. On a real system, sign in once with `kubectl -n workstation exec -it deploy/workstation -- harbor login ... --password-stdin` and type the password at the prompt. The CLI checks the password against Harbor and saves the credential, with the password encrypted, in the configuration file of the workstation. `harbor project list` then shows two projects: `library`, which every new Harbor creates, and `inventory`, which the playground created.
 
