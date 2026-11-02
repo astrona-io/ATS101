@@ -28,8 +28,6 @@ training:
     name: Harbor
     code: HARBOR
     provider: Astrona
-    domain: Project Management, RBAC & Multi-Tenancy
-    weight: 20
 
 modules:
 
