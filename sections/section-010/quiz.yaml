@@ -1,0 +1,245 @@
+# Knowledge check for section 010. Listed in astrona.yaml as a `type: quiz` entry after the capstone lab.
+schema_version: 1
+kind: question_bank
+id: ats101-010
+course_id: ATS101
+exam_code: HARBOR
+status: draft
+provenance: Original practice material written for this course; not official exam questions.
+scope:
+  type: section
+  id: section-010
+  title: Projects And Membership
+placement:
+  position: after
+  reading: sections/section-010/capstone/labs/lab-01/question.md
+questions:
+- id: ats101-010-q01
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Explain what a public project allows
+  source_readings:
+  - sections/section-010/module-01/course-01-projects-public-and-private.md
+  prompt: Who can pull artifacts from a public Harbor project?
+  options:
+  - id: a
+    text: Only members of the project.
+    explanation: Not correct. That describes a private project.
+  - id: b
+    text: Only users with the Developer role or higher.
+    explanation: Not correct. Pulling in a public project needs no role.
+  - id: c
+    text: Anyone who can reach Harbor, even a client that does not sign in.
+    explanation: Correct. Public only controls reading.
+  - id: d
+    text: Only system administrators.
+    explanation: Not correct. Administrators can pull, but so can everyone else.
+  correct_option: c
+  explanation: Correct. Public only controls reading.
+
+- id: ats101-010-q02
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Explain what a public project does not allow
+  source_readings:
+  - sections/section-010/module-01/course-01-projects-public-and-private.md
+  prompt: A project is public. What is needed to push an artifact to it?
+  options:
+  - id: a
+    text: Nothing. Public projects accept pushes from anyone.
+    explanation: Not correct. Public only allows anonymous pulls.
+  - id: b
+    text: A membership with a role that allows pushing.
+    explanation: Correct. Public never means writable.
+  - id: c
+    text: A signed-in user of any kind.
+    explanation: Not correct. A signed-in user who is not a member cannot push.
+  - id: d
+    text: The Limited Guest role.
+    explanation: Not correct. Limited Guest can pull but not push.
+  correct_option: b
+  explanation: Correct. Public never means writable.
+
+- id: ats101-010-q03
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Describe what an anonymous client gets from a private project
+  source_readings:
+  - sections/section-010/module-01/course-01-projects-public-and-private.md
+  prompt: An anonymous client runs `oras pull` against a private project. What does it get?
+  options:
+  - id: a
+    text: The artifact, because pulls never need a credential.
+    explanation: Not correct. Only public projects allow anonymous pulls.
+  - id: b
+    text: A not found error, which proves the repository does not exist.
+    explanation: Not correct. Harbor gives the same answer whether it exists or not.
+  - id: c
+    text: A list of the repository names without the content.
+    explanation: Not correct. A private project reveals nothing, not even names.
+  - id: d
+    text: An unauthorized error that does not say whether the repository exists.
+    explanation: Correct. A private project does not reveal its content or names.
+  correct_option: d
+  explanation: Correct. A private project does not reveal its content or names.
+
+- id: ats101-010-q04
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Choose the smallest role for a task
+  source_readings:
+  - sections/section-010/module-01/course-02-member-roles.md
+  prompt: A build pipeline only pushes images to a project. Which role should its user have?
+  options:
+  - id: a
+    text: Guest.
+    explanation: Not correct. Guest can pull but cannot push.
+  - id: b
+    text: Maintainer.
+    explanation: Not correct. Maintainer can also delete artifacts, which the pipeline does not need.
+  - id: c
+    text: Developer.
+    explanation: Correct. Developer can pull and push and nothing more.
+  - id: d
+    text: Project Admin.
+    explanation: Not correct. Project Admin also manages members and the project itself.
+  correct_option: c
+  explanation: Correct. Developer can pull and push and nothing more.
+
+- id: ats101-010-q05
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Tell the five roles apart
+  source_readings:
+  - sections/section-010/module-01/course-02-member-roles.md
+  prompt: Which is the lowest role that may delete artifacts and start scans?
+  options:
+  - id: a
+    text: Maintainer.
+    explanation: Correct. Maintainer adds deleting and scanning to Developer.
+  - id: b
+    text: Guest.
+    explanation: Not correct. Guest can only pull.
+  - id: c
+    text: Developer.
+    explanation: Not correct. Developer can push but not delete.
+  - id: d
+    text: Limited Guest.
+    explanation: Not correct. Limited Guest can only pull.
+  correct_option: a
+  explanation: Correct. Maintainer adds deleting and scanning to Developer.
+
+- id: ats101-010-q06
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Read role numbers in the REST API
+  source_readings:
+  - sections/section-010/module-01/course-02-member-roles.md
+  prompt: In the Harbor REST API, which role has the `role_id` 4?
+  options:
+  - id: a
+    text: Developer.
+    explanation: Not correct. Developer is 2.
+  - id: b
+    text: Guest.
+    explanation: Not correct. Guest is 3.
+  - id: c
+    text: Limited Guest.
+    explanation: Not correct. Limited Guest is 5.
+  - id: d
+    text: Maintainer.
+    explanation: 'Correct. The numbers are not in order of trust: Maintainer is 4.'
+  correct_option: d
+  explanation: 'Correct. The numbers are not in order of trust: Maintainer is 4.'
+
+- id: ats101-010-q07
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Explain which settings only a system administrator can change
+  source_readings:
+  - sections/section-010/module-01/course-02-member-roles.md
+  prompt: A Project Admin wants to raise the storage quota of the project. What happens?
+  options:
+  - id: a
+    text: It works, because a Project Admin manages the whole project.
+    explanation: Not correct. The quota is one of the settings a Project Admin cannot change.
+  - id: b
+    text: It is not allowed. Only a system administrator can change a quota.
+    explanation: Correct. This stops a team from raising its own limit.
+  - id: c
+    text: It works only if the project is public.
+    explanation: Not correct. Visibility does not change who may set a quota.
+  - id: d
+    text: It works only for a Maintainer, not a Project Admin.
+    explanation: Not correct. A Maintainer has fewer rights than a Project Admin.
+  correct_option: b
+  explanation: Correct. This stops a team from raising its own limit.
+
+- id: ats101-010-q08
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Remove access when a person leaves
+  source_readings:
+  - sections/section-010/module-01/course-03-adding-members-with-the-cli.md
+  prompt: A member leaves the team and must have no access to the project. What is the cleanest action?
+  options:
+  - id: a
+    text: Delete the membership of the user in the project.
+    explanation: Correct. The user then has no rights in that project.
+  - id: b
+    text: Change the role to Guest.
+    explanation: Not correct. A Guest can still pull.
+  - id: c
+    text: Delete the user from Harbor and keep the project unchanged.
+    explanation: Not correct. This is more than needed and removes the user from other projects too.
+  - id: d
+    text: Make the project public.
+    explanation: Not correct. Public gives read access to everyone.
+  correct_option: a
+  explanation: Correct. The user then has no rights in that project.
+
+- id: ats101-010-q09
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Prove access with a real test
+  source_readings:
+  - sections/section-010/module-01/course-03-adding-members-with-the-cli.md
+  prompt: How do you prove what a user is allowed to do in a project?
+  options:
+  - id: a
+    text: Read the member list of the project.
+    explanation: Not correct. The list shows the configuration only.
+  - id: b
+    text: Check that the user can sign in to Harbor.
+    explanation: Not correct. Sign-in works for any valid user, member or not.
+  - id: c
+    text: Push and pull as that user and check which calls succeed and which are refused.
+    explanation: Correct. The member list shows configuration, not what it allows.
+  - id: d
+    text: Check that the project is private.
+    explanation: Not correct. Visibility says nothing about one user's role.
+  correct_option: c
+  explanation: Correct. The member list shows configuration, not what it allows.
+
+- id: ats101-010-q10
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Describe who becomes a member automatically
+  source_readings:
+  - sections/section-010/module-01/course-03-adding-members-with-the-cli.md
+  prompt: Which role does the user who creates a project get in it?
+  options:
+  - id: a
+    text: Project Admin.
+    explanation: Correct. The creator becomes the Project Admin of the project.
+  - id: b
+    text: Developer.
+    explanation: Not correct. The creator gets a higher role.
+  - id: c
+    text: No role, until someone adds the user.
+    explanation: Not correct. The creator is added as a member at once.
+  - id: d
+    text: Maintainer.
+    explanation: Not correct. The creator gets Project Admin.
+  correct_option: a
+  explanation: Correct. The creator becomes the Project Admin of the project.

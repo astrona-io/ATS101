@@ -123,6 +123,10 @@ modules:
             url: https://goharbor.io/docs/2.15.0/administration/managing-users/user-permissions-by-role/
           - name: "Assign users to a project"
             url: https://goharbor.io/docs/2.15.0/working-with-projects/create-projects/add-users/
+      - type: quiz
+        title: "Knowledge Check: Projects And Membership"
+        path: sections/section-010/quiz.yaml
+        pass_score: 70
 
   - id: module-020
     title: "Quotas, Tag Retention And Immutability"
@@ -196,6 +200,10 @@ modules:
             url: https://goharbor.io/docs/2.15.0/working-with-projects/working-with-images/create-tag-immutability-rules/
           - name: "Configure project quotas"
             url: https://goharbor.io/docs/2.15.0/administration/configure-project-quotas/
+      - type: quiz
+        title: "Knowledge Check: Quotas, Tag Retention And Immutability"
+        path: sections/section-020/quiz.yaml
+        pass_score: 70
 
   - id: module-030
     title: "Identity Integration With OIDC"
@@ -264,6 +272,10 @@ modules:
         resources:
           - name: "Configure OIDC provider authentication"
             url: https://goharbor.io/docs/2.15.0/administration/configure-authentication/oidc-auth/
+      - type: quiz
+        title: "Knowledge Check: Identity Integration With OIDC"
+        path: sections/section-030/quiz.yaml
+        pass_score: 70
 
   - id: module-040
     title: "Identity Integration With LDAP"
@@ -328,3 +340,11 @@ modules:
         resources:
           - name: "Configure LDAP/Active Directory authentication"
             url: https://goharbor.io/docs/2.15.0/administration/configure-authentication/ldap-auth/
+      - type: quiz
+        title: "Knowledge Check: Identity Integration With LDAP"
+        path: sections/section-040/quiz.yaml
+        pass_score: 70
+      - type: quiz
+        title: "Final Domain Quiz"
+        path: sections/final-domain-quiz.yaml
+        pass_score: 70

@@ -1,0 +1,245 @@
+# Knowledge check for section 040. Listed in astrona.yaml as a `type: quiz` entry after the capstone lab.
+schema_version: 1
+kind: question_bank
+id: ats101-040
+course_id: ATS101
+exam_code: HARBOR
+status: draft
+provenance: Original practice material written for this course; not official exam questions.
+scope:
+  type: section
+  id: section-040
+  title: Identity Integration With LDAP
+placement:
+  position: after
+  reading: sections/section-040/capstone/labs/lab-01/question.md
+questions:
+- id: ats101-040-q01
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Explain how Harbor checks an LDAP password
+  source_readings:
+  - sections/section-040/module-01/course-01-ldap-settings.md
+  prompt: How does Harbor check the password of an LDAP user?
+  options:
+  - id: a
+    text: It binds to the directory as the found user with that password.
+    explanation: Correct. Only the directory checks the password.
+  - id: b
+    text: It compares the password with a hash stored in its own database.
+    explanation: Not correct. Harbor never stores an LDAP user's password.
+  - id: c
+    text: It reads the password attribute from the directory.
+    explanation: Not correct. The directory does not hand out passwords.
+  - id: d
+    text: It asks the user to type the password twice.
+    explanation: Not correct. This is not how the check works.
+  correct_option: a
+  explanation: Correct. Only the directory checks the password.
+
+- id: ats101-040-q02
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Choose the UID attribute
+  source_readings:
+  - sections/section-040/module-01/course-01-ldap-settings.md
+  prompt: What is the LDAP UID setting?
+  options:
+  - id: a
+    text: The numeric user ID of the account in the operating system.
+    explanation: Not correct. It is a directory attribute name.
+  - id: b
+    text: The DN of the search account.
+    explanation: Not correct. That is the search DN.
+  - id: c
+    text: The attribute that must equal the name typed at sign-in, such as `uid` or `sAMAccountName`.
+    explanation: Correct. With the wrong one, no user is found.
+  - id: d
+    text: The group a user belongs to.
+    explanation: Not correct. Groups use other settings.
+  correct_option: c
+  explanation: Correct. With the wrong one, no user is found.
+
+- id: ats101-040-q03
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Read the LDAP scope
+  source_readings:
+  - sections/section-040/module-01/course-01-ldap-settings.md
+  prompt: What does `ldap_scope` set to `2` mean?
+  options:
+  - id: a
+    text: Search the base DN only.
+    explanation: Not correct. That is `0`.
+  - id: b
+    text: Search the whole subtree under the base DN.
+    explanation: Correct. `0` is the base only and `1` is one level.
+  - id: c
+    text: Search one level below the base DN.
+    explanation: Not correct. That is `1`.
+  - id: d
+    text: Search two directories at once.
+    explanation: Not correct. The scope sets depth.
+  correct_option: b
+  explanation: Correct. `0` is the base only and `1` is one level.
+
+- id: ats101-040-q04
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Set the base DN
+  source_readings:
+  - sections/section-040/module-01/course-01-ldap-settings.md
+  prompt: What is the base DN?
+  options:
+  - id: a
+    text: The DN of the account that Harbor binds with.
+    explanation: Not correct. That is the search DN.
+  - id: b
+    text: The DN of the Harbor administrators group.
+    explanation: Not correct. That is the group admin DN.
+  - id: c
+    text: The URL of the directory server.
+    explanation: Not correct. That is the LDAP URL.
+  - id: d
+    text: The place in the directory where Harbor starts searching for users.
+    explanation: Correct. Users outside it cannot sign in.
+  correct_option: d
+  explanation: Correct. Users outside it cannot sign in.
+
+- id: ats101-040-q05
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Test LDAP settings safely
+  source_readings:
+  - sections/section-040/module-01/course-01-ldap-settings.md
+  prompt: What does `harbor ldap ping` do with the flags you give it?
+  options:
+  - id: a
+    text: It saves the settings and restarts Harbor.
+    explanation: Not correct. Nothing is saved.
+  - id: b
+    text: It imports all users of the directory.
+    explanation: Not correct. Importing is a separate command.
+  - id: c
+    text: It tests the settings by binding from Harbor's `core` to the directory, without saving them.
+    explanation: Correct. It finds a wrong URL, DN or password before anyone is locked out.
+  - id: d
+    text: It binds from your workstation, not from Harbor.
+    explanation: Not correct. The test runs inside Harbor.
+  correct_option: c
+  explanation: Correct. It finds a wrong URL, DN or password before anyone is locked out.
+
+- id: ats101-040-q06
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Pick the group filter for OpenLDAP
+  source_readings:
+  - sections/section-040/module-01/course-02-ldap-users-and-groups.md
+  prompt: In the OpenLDAP image of this course, which group class makes the directory fill each user's `memberOf`?
+  options:
+  - id: a
+    text: "`groupOfUniqueNames`, with members in `uniqueMember`."
+    explanation: Correct. A `groupOfNames` group leaves `memberOf` empty here.
+  - id: b
+    text: "`groupOfNames`, with members in `member`."
+    explanation: Not correct. In this image it leaves `memberOf` empty, so Harbor sees no groups.
+  - id: c
+    text: "`group`, as in Active Directory."
+    explanation: Not correct. That is the Active Directory class.
+  - id: d
+    text: "`inetOrgPerson`."
+    explanation: Not correct. That is the class of user entries.
+  correct_option: a
+  explanation: Correct. A `groupOfNames` group leaves `memberOf` empty here.
+
+- id: ats101-040-q07
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Set the group membership attribute
+  source_readings:
+  - sections/section-040/module-01/course-02-ldap-users-and-groups.md
+  prompt: Which user attribute does Harbor read to find a user's groups?
+  options:
+  - id: a
+    text: The `uid` attribute.
+    explanation: Not correct. That attribute holds the sign-in name.
+  - id: b
+    text: The `cn` of the user.
+    explanation: Not correct. That attribute holds the full name.
+  - id: c
+    text: The search password.
+    explanation: Not correct. It is not a user attribute.
+  - id: d
+    text: The group membership attribute, `memberof` here.
+    explanation: Correct. If the directory does not fill it, no user is in any group.
+  correct_option: d
+  explanation: Correct. If the directory does not fill it, no user is in any group.
+
+- id: ats101-040-q08
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Add an LDAP group as a project member
+  source_readings:
+  - sections/section-040/module-01/course-02-ldap-users-and-groups.md
+  prompt: How does Harbor identify an LDAP group added as a project member?
+  options:
+  - id: a
+    text: By group type `3` and the group name only.
+    explanation: Not correct. Type `3` is an OIDC group.
+  - id: b
+    text: By group type `1` and the DN of the group.
+    explanation: Correct. A typo in the DN means no user's `memberof` ever matches.
+  - id: c
+    text: By the user names of its members.
+    explanation: Not correct. Harbor matches the group DN.
+  - id: d
+    text: By a CLI secret.
+    explanation: Not correct. A CLI secret belongs to a user.
+  correct_option: b
+  explanation: Correct. A typo in the DN means no user's `memberof` ever matches.
+
+- id: ats101-040-q09
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Explain the group admin DN
+  source_readings:
+  - sections/section-040/module-01/course-02-ldap-users-and-groups.md
+  prompt: What does the group admin DN do?
+  options:
+  - id: a
+    text: Every member of that group becomes a Harbor system administrator.
+    explanation: Correct. Removing a user from the group removes the rights at the next sign-in.
+  - id: b
+    text: It is the DN of the search account.
+    explanation: Not correct. That is the search DN.
+  - id: c
+    text: It lists the users that Harbor must import.
+    explanation: Not correct. It grants rights, it does not import.
+  - id: d
+    text: It makes the group a Developer of every project.
+    explanation: Not correct. It grants system administrator rights.
+  correct_option: a
+  explanation: Correct. Removing a user from the group removes the rights at the next sign-in.
+
+- id: ats101-040-q10
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Sign a registry client in with LDAP
+  source_readings:
+  - sections/section-040/module-01/course-02-ldap-users-and-groups.md
+  prompt: What does an LDAP user send to `oras` as the password?
+  options:
+  - id: a
+    text: A CLI secret from the user profile.
+    explanation: Not correct. That is for OIDC users.
+  - id: b
+    text: The search password of Harbor.
+    explanation: Not correct. That belongs to the search account.
+  - id: c
+    text: The password of the directory.
+    explanation: Correct. LDAP users need no CLI secret.
+  - id: d
+    text: The `admin` password of Harbor.
+    explanation: Not correct. It is a different account.
+  correct_option: c
+  explanation: Correct. LDAP users need no CLI secret.

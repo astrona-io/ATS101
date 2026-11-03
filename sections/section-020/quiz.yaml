@@ -1,0 +1,245 @@
+# Knowledge check for section 020. Listed in astrona.yaml as a `type: quiz` entry after the capstone lab.
+schema_version: 1
+kind: question_bank
+id: ats101-020
+course_id: ATS101
+exam_code: HARBOR
+status: draft
+provenance: Original practice material written for this course; not official exam questions.
+scope:
+  type: section
+  id: section-020
+  title: Quotas, Tag Retention And Immutability
+placement:
+  position: after
+  reading: sections/section-020/capstone/labs/lab-01/question.md
+questions:
+- id: ats101-020-q01
+  type: single_choice
+  difficulty: beginner
+  learning_objective: State the default storage quota
+  source_readings:
+  - sections/section-020/module-01/course-01-storage-quotas.md
+  prompt: What is the default storage quota of a new Harbor project?
+  options:
+  - id: a
+    text: 0 bytes, so nothing can be pushed.
+    explanation: Not correct. A new project accepts pushes.
+  - id: b
+    text: No limit, shown as `-1`.
+    explanation: Correct. A project has no limit until a system administrator sets one.
+  - id: c
+    text: 1 GiB.
+    explanation: Not correct. Harbor sets no size by default.
+  - id: d
+    text: The free space on the disk.
+    explanation: Not correct. Harbor shows `-1`, which means unlimited.
+  correct_option: b
+  explanation: Correct. A project has no limit until a system administrator sets one.
+
+- id: ats101-020-q02
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Explain who sets a quota
+  source_readings:
+  - sections/section-020/module-01/course-01-storage-quotas.md
+  prompt: Who can set or change the storage quota of a project?
+  options:
+  - id: a
+    text: Any Project Admin of that project.
+    explanation: Not correct. This would let a team raise its own limit.
+  - id: b
+    text: Any Maintainer.
+    explanation: Not correct. Maintainers have fewer rights than Project Admins.
+  - id: c
+    text: Any member who pushes into the project.
+    explanation: Not correct. Pushing does not give rights over quotas.
+  - id: d
+    text: A system administrator.
+    explanation: Correct. A Project Admin cannot change it.
+  correct_option: d
+  explanation: Correct. A Project Admin cannot change it.
+
+- id: ats101-020-q03
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Explain how Harbor counts shared blobs
+  source_readings:
+  - sections/section-020/module-01/course-01-storage-quotas.md
+  prompt: The same blob is stored in two artifacts of one project and in one artifact of a second project. How is it counted?
+  options:
+  - id: a
+    text: Three times in total, once per artifact.
+    explanation: Not correct. A shared blob in one project counts once.
+  - id: b
+    text: Once in total, for the whole Harbor.
+    explanation: Not correct. Each project counts it for itself.
+  - id: c
+    text: Once for the first project and once for the second project.
+    explanation: Correct. A blob counts once per project, so the total can exceed the disk use.
+  - id: d
+    text: Not at all, because it is shared.
+    explanation: Not correct. Shared blobs still count toward usage.
+  correct_option: c
+  explanation: Correct. A blob counts once per project, so the total can exceed the disk use.
+
+- id: ats101-020-q04
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Describe a push over the quota
+  source_readings:
+  - sections/section-020/module-01/course-01-storage-quotas.md
+  prompt: The system administrator pushes a 30 MiB file to a project with a 20 MiB quota. What happens?
+  options:
+  - id: a
+    text: The push is refused, because the quota belongs to the project.
+    explanation: Correct. The administrator is no exception.
+  - id: b
+    text: The push succeeds, because administrators ignore quotas.
+    explanation: Not correct. The quota applies to every user.
+  - id: c
+    text: The push succeeds and Harbor deletes the oldest artifact.
+    explanation: Not correct. A quota never deletes anything.
+  - id: d
+    text: The push succeeds and the quota grows to fit.
+    explanation: Not correct. Harbor does not raise a quota on its own.
+  correct_option: a
+  explanation: Correct. The administrator is no exception.
+
+- id: ats101-020-q05
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Explain how storage is freed
+  source_readings:
+  - sections/section-020/module-01/course-01-storage-quotas.md
+  prompt: A full project deletes old artifacts. When does the storage come back?
+  options:
+  - id: a
+    text: At once, when the artifact is deleted.
+    explanation: Not correct. The blobs stay until garbage collection runs.
+  - id: b
+    text: When the quota is raised.
+    explanation: Not correct. A new limit does not free used space.
+  - id: c
+    text: When the next retention run starts.
+    explanation: Not correct. Retention deletes artifacts, not blobs.
+  - id: d
+    text: After garbage collection removes the blobs that no artifact uses.
+    explanation: Correct. Deleting an artifact does not remove its blobs at once.
+  correct_option: d
+  explanation: Correct. Deleting an artifact does not remove its blobs at once.
+
+- id: ats101-020-q06
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Read a retention rule
+  source_readings:
+  - sections/section-020/module-01/course-02-tag-retention.md
+  prompt: What does a tag retention rule describe?
+  options:
+  - id: a
+    text: Which artifacts to delete.
+    explanation: Not correct. Rules never name what to delete.
+  - id: b
+    text: Which artifacts to keep. Artifacts that no rule keeps are deleted.
+    explanation: Correct. Rules are written as what to keep.
+  - id: c
+    text: Which artifacts to scan.
+    explanation: Not correct. Scanning is a separate feature.
+  - id: d
+    text: Which artifacts to copy to another project.
+    explanation: Not correct. Retention does not copy anything.
+  correct_option: b
+  explanation: Correct. Rules are written as what to keep.
+
+- id: ats101-020-q07
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Combine retention rules
+  source_readings:
+  - sections/section-020/module-01/course-02-tag-retention.md
+  prompt: A project has two retention rules. How do they combine?
+  options:
+  - id: a
+    text: With OR. An artifact survives if any rule keeps it.
+    explanation: Correct. Rules combine with OR and share one schedule.
+  - id: b
+    text: With AND. An artifact survives only if every rule keeps it.
+    explanation: Not correct. Rules combine with OR.
+  - id: c
+    text: Only the first rule runs.
+    explanation: Not correct. All enabled rules apply.
+  - id: d
+    text: Each rule runs on its own schedule.
+    explanation: Not correct. All rules of a project share one schedule.
+  correct_option: a
+  explanation: Correct. Rules combine with OR and share one schedule.
+
+- id: ats101-020-q08
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Use a dry run
+  source_readings:
+  - sections/section-020/module-01/course-02-tag-retention.md
+  prompt: What does a dry run of a retention policy do?
+  options:
+  - id: a
+    text: It deletes the artifacts and keeps a copy.
+    explanation: Not correct. A dry run deletes nothing.
+  - id: b
+    text: It deletes only the oldest artifact as a test.
+    explanation: Not correct. Nothing is deleted.
+  - id: c
+    text: It works out what would be deleted and deletes nothing.
+    explanation: Correct. Read its task counts before a real run.
+  - id: d
+    text: It raises the quota for the test.
+    explanation: Not correct. A dry run does not change the quota.
+  correct_option: c
+  explanation: Correct. Read its task counts before a real run.
+
+- id: ats101-020-q09
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Describe what immutability stops
+  source_readings:
+  - sections/section-020/module-01/course-03-tag-immutability.md
+  prompt: A tag matches an immutability rule. Who can overwrite or delete it?
+  options:
+  - id: a
+    text: Nobody, not even the system administrator.
+    explanation: Correct. A matching tag cannot be overwritten, re-tagged or deleted.
+  - id: b
+    text: Only the system administrator.
+    explanation: Not correct. Even the administrator is refused.
+  - id: c
+    text: Any Developer of the project.
+    explanation: Not correct. Developers are refused too.
+  - id: d
+    text: Only a Maintainer.
+    explanation: Not correct. A Maintainer can create the rule but cannot move the tag.
+  correct_option: a
+  explanation: Correct. A matching tag cannot be overwritten, re-tagged or deleted.
+
+- id: ats101-020-q10
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Name the role that creates immutability rules
+  source_readings:
+  - sections/section-020/module-01/course-03-tag-immutability.md
+  prompt: Which roles may create tag immutability rules?
+  options:
+  - id: a
+    text: Developer and above.
+    explanation: Not correct. A Developer cannot create the rule.
+  - id: b
+    text: Guest and above.
+    explanation: Not correct. A Guest can only pull.
+  - id: c
+    text: Maintainer and Project Admin.
+    explanation: Correct. Developers cannot create them.
+  - id: d
+    text: Only the system administrator.
+    explanation: Not correct. Maintainers and Project Admins can create them.
+  correct_option: c
+  explanation: Correct. Developers cannot create them.
