@@ -1,0 +1,36 @@
+# Understand Quota Accounting In Depth (PLAYGROUND) - Playground environment
+# A clean sandbox: it spins up, runs OS prep, then stays running for free
+# exploration. No task, no grading, no `astrona submit`.
+# Schema: internal/config.LabConfig.
+
+metadata:
+  name: "ats-101-playground-020-02"
+  docs:
+    guide: "docs/overview.md"
+bootstrap:
+  init:
+    - name: "prepare"
+      description: "Install Helm and Harbor 2.15.4, start the workstation, and create the starting state: Creates the project inventory with one small artifact and a quota of 100 MiB"
+      type: "file"
+      source: "bootstrap/prepare.sh"
+  manifests:
+    - name: "lab-start"
+      description: "The workstation pod with the Harbor client tools (namespace workstation)."
+      type: "file"
+      source: "manifests/lab-start.yaml"
+teardown:
+  keepCluster: false
+runtime:
+  kind:
+    preloadImages:
+      - alpine:3.22
+      - docker.io/goharbor/harbor-core:v2.15.4
+      - docker.io/goharbor/harbor-db:v2.15.4
+      - docker.io/goharbor/harbor-jobservice:v2.15.4
+      - docker.io/goharbor/harbor-portal:v2.15.4
+      - docker.io/goharbor/harbor-registryctl:v2.15.4
+      - docker.io/goharbor/nginx-photon:v2.15.4
+      - docker.io/goharbor/registry-photon:v2.15.4
+      - docker.io/goharbor/trivy-adapter-photon:v2.15.4
+      - docker.io/valkey/valkey:8.1.10-alpine
+

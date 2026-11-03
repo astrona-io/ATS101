@@ -1,0 +1,246 @@
+# Knowledge check for module 020-03. Listed in astrona.yaml as a `type: quiz` entry after the module summary.
+schema_version: 1
+kind: question_bank
+id: ats101-020-m03
+course_id: ATS101
+exam_code: HARBOR
+status: draft
+provenance: Original practice material written for this course; not official exam questions.
+scope:
+  type: module
+  id: module-020-03
+  title: "Design Retention And Immutability Rules In Depth"
+placement:
+  position: after
+  reading: sections/section-020/module-03/course-05-summary.md
+questions:
+- id: ats101-020-m03-q01
+  type: single_choice
+  difficulty: beginner
+  learning_objective: "Name the templates"
+  source_readings:
+  - sections/section-020/module-03/course-01-retention-templates.md
+  prompt: "Which retention template keeps every artifact the selectors choose?"
+  options:
+  - id: a
+    text: "latestPushedK"
+    explanation: "Not correct. The always template has no parameter and keeps everything selected."
+  - id: b
+    text: "always"
+    explanation: "Correct. The always template has no parameter and keeps everything selected."
+  - id: c
+    text: "nDaysSinceLastPush"
+    explanation: "Not correct. The always template has no parameter and keeps everything selected."
+  - id: d
+    text: "keepAll"
+    explanation: "Not correct. The always template has no parameter and keeps everything selected."
+  correct_option: b
+  explanation: "Correct. The always template has no parameter and keeps everything selected."
+
+- id: ats101-020-m03-q02
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Read the count of a template"
+  source_readings:
+  - sections/section-020/module-03/course-01-retention-templates.md
+  prompt: "A rule uses latestPushedK with 2 in a project with three repositories. How many artifacts does it keep at most?"
+  options:
+  - id: a
+    text: "Six, two per repository."
+    explanation: "Correct. The count applies to each repository."
+  - id: b
+    text: "Two in total."
+    explanation: "Not correct. The count applies to each repository."
+  - id: c
+    text: "Three in total."
+    explanation: "Not correct. The count applies to each repository."
+  - id: d
+    text: "Two in the repository with the most artifacts only."
+    explanation: "Not correct. The count applies to each repository."
+  correct_option: a
+  explanation: "Correct. The count applies to each repository."
+
+- id: ats101-020-m03-q03
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Compare push time and pull time"
+  source_readings:
+  - sections/section-020/module-03/course-01-retention-templates.md
+  prompt: "Why might latestPulledK not keep an artifact that nobody pulled?"
+  options:
+  - id: a
+    text: "Harbor deletes it when it is created."
+    explanation: "Not correct. Pull time exists only when a client pulled through Harbor."
+  - id: b
+    text: "The template only keeps signed artifacts."
+    explanation: "Not correct. Pull time exists only when a client pulled through Harbor."
+  - id: c
+    text: "The template ignores tags."
+    explanation: "Not correct. Pull time exists only when a client pulled through Harbor."
+  - id: d
+    text: "It has no pull time, so it is not among the recently pulled."
+    explanation: "Correct. Pull time exists only when a client pulled through Harbor."
+  correct_option: d
+  explanation: "Correct. Pull time exists only when a client pulled through Harbor."
+
+- id: ats101-020-m03-q04
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Write a repository selector"
+  source_readings:
+  - sections/section-020/module-03/course-02-selectors-and-rules.md
+  prompt: "How do you select the repository catalog/web in a repository selector?"
+  options:
+  - id: a
+    text: "With the pattern catalog/web."
+    explanation: "Not correct. Repository patterns do not include the project name."
+  - id: b
+    text: "With the pattern /web."
+    explanation: "Not correct. Repository patterns do not include the project name."
+  - id: c
+    text: "With the pattern web."
+    explanation: "Correct. Repository patterns do not include the project name."
+  - id: d
+    text: "With the pattern catalog."
+    explanation: "Not correct. Repository patterns do not include the project name."
+  correct_option: c
+  explanation: "Correct. Repository patterns do not include the project name."
+
+- id: ats101-020-m03-q05
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Combine rules"
+  source_readings:
+  - sections/section-020/module-03/course-02-selectors-and-rules.md
+  prompt: "Two rules overlap. One keeps the two newest builds, the other keeps everything in api. What is kept in api?"
+  options:
+  - id: a
+    text: "Only the two newest builds."
+    explanation: "Not correct. An artifact survives if any rule keeps it."
+  - id: b
+    text: "Everything, because rules combine with OR."
+    explanation: "Correct. An artifact survives if any rule keeps it."
+  - id: c
+    text: "Nothing, because the rules conflict."
+    explanation: "Not correct. An artifact survives if any rule keeps it."
+  - id: d
+    text: "Only the artifacts both rules keep."
+    explanation: "Not correct. An artifact survives if any rule keeps it."
+  correct_option: b
+  explanation: "Correct. An artifact survives if any rule keeps it."
+
+- id: ats101-020-m03-q06
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Set a schedule"
+  source_readings:
+  - sections/section-020/module-03/course-03-running-retention.md
+  prompt: "What is the cron format of a Harbor retention schedule?"
+  options:
+  - id: a
+    text: "Six fields, starting with seconds."
+    explanation: "Correct. 0 0 2 * * * runs every day at 02:00."
+  - id: b
+    text: "Five fields, starting with minutes."
+    explanation: "Not correct. 0 0 2 * * * runs every day at 02:00."
+  - id: c
+    text: "Seven fields with a year."
+    explanation: "Not correct. 0 0 2 * * * runs every day at 02:00."
+  - id: d
+    text: "A plain interval such as 24h."
+    explanation: "Not correct. 0 0 2 * * * runs every day at 02:00."
+  correct_option: a
+  explanation: "Correct. 0 0 2 * * * runs every day at 02:00."
+
+- id: ats101-020-m03-q07
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Read a dry run"
+  source_readings:
+  - sections/section-020/module-03/course-03-running-retention.md
+  prompt: "What does the retained value of a dry-run task tell you?"
+  options:
+  - id: a
+    text: "How many artifacts were deleted."
+    explanation: "Not correct. The difference between total and retained is what a real run would delete."
+  - id: b
+    text: "How many were pulled."
+    explanation: "Not correct. The difference between total and retained is what a real run would delete."
+  - id: c
+    text: "How many tags are immutable."
+    explanation: "Not correct. The difference between total and retained is what a real run would delete."
+  - id: d
+    text: "How many artifacts of that repository the policy keeps."
+    explanation: "Correct. The difference between total and retained is what a real run would delete."
+  correct_option: d
+  explanation: "Correct. The difference between total and retained is what a real run would delete."
+
+- id: ats101-020-m03-q08
+  type: single_choice
+  difficulty: beginner
+  learning_objective: "Explain immutability"
+  source_readings:
+  - sections/section-020/module-03/course-04-immutability-in-depth.md
+  prompt: "Who can overwrite a tag that matches an immutability rule?"
+  options:
+  - id: a
+    text: "Only a system administrator."
+    explanation: "Not correct. Immutability applies to every user."
+  - id: b
+    text: "Only a Project Admin."
+    explanation: "Not correct. Immutability applies to every user."
+  - id: c
+    text: "Nobody, not even a system administrator."
+    explanation: "Correct. Immutability applies to every user."
+  - id: d
+    text: "Only a member with the Maintainer role."
+    explanation: "Not correct. Immutability applies to every user."
+  correct_option: c
+  explanation: "Correct. Immutability applies to every user."
+
+- id: ats101-020-m03-q09
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Combine retention and immutability"
+  source_readings:
+  - sections/section-020/module-03/course-04-immutability-in-depth.md
+  prompt: "What does a retention run do to an immutable artifact?"
+  options:
+  - id: a
+    text: "It deletes it if no rule keeps it."
+    explanation: "Not correct. Immutable artifacts survive retention."
+  - id: b
+    text: "It does not delete it."
+    explanation: "Correct. Immutable artifacts survive retention."
+  - id: c
+    text: "It makes it mutable first."
+    explanation: "Not correct. Immutable artifacts survive retention."
+  - id: d
+    text: "It fails the whole execution."
+    explanation: "Not correct. Immutable artifacts survive retention."
+  correct_option: b
+  explanation: "Correct. Immutable artifacts survive retention."
+
+- id: ats101-020-m03-q10
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Design immutability patterns"
+  source_readings:
+  - sections/section-020/module-03/course-04-immutability-in-depth.md
+  prompt: "Why is making the pattern ** immutable a bad idea?"
+  options:
+  - id: a
+    text: "Every tag, including latest, can then never be pushed again."
+    explanation: "Correct. A tag that is immutable cannot be moved or overwritten."
+  - id: b
+    text: "Harbor refuses to save the rule."
+    explanation: "Not correct. A tag that is immutable cannot be moved or overwritten."
+  - id: c
+    text: "It deletes all untagged artifacts."
+    explanation: "Not correct. A tag that is immutable cannot be moved or overwritten."
+  - id: d
+    text: "It makes the project public."
+    explanation: "Not correct. A tag that is immutable cannot be moved or overwritten."
+  correct_option: a
+  explanation: "Correct. A tag that is immutable cannot be moved or overwritten."
+

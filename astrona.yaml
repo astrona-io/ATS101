@@ -104,6 +104,49 @@ modules:
         path: sections/section-010/module-01/course-04-summary.md
 
       - type: reading
+        title: "Manage Local Users And System Administrators"
+        path: sections/section-010/module-02/course.md
+      - type: reading
+        title: "Local Users And Database Authentication"
+        path: sections/section-010/module-02/course-01-local-users.md
+      - type: reading
+        title: "System Administrators And Project Roles"
+        path: sections/section-010/module-02/course-02-system-administrators.md
+      - type: reading
+        title: "System Settings That Control Tenancy"
+        path: sections/section-010/module-02/course-03-system-settings.md
+      - type: reading
+        title: "Offboarding Users"
+        path: sections/section-010/module-02/course-04-offboarding-users.md
+      - type: reading
+        title: Question
+        path: sections/section-010/module-02/labs/lab-01/question.md
+      - type: lab
+        title: "Restrict Project Creation And Delegate Administration Lab"
+        path: sections/section-010/module-02/labs/lab-01
+        difficulty: intermediate
+        estimated_duration: 20m
+        topic: administration
+        task_kind: build
+        tags: [user, sysadmin, project-creation, harbor-api]
+        learning_goals:
+          - Make one user a system administrator and keep another a normal user
+          - Allow only administrators to create projects
+          - Delete an account that is no longer needed
+        resources:
+          - name: "Create user accounts"
+            url: https://goharbor.io/docs/2.15.0/administration/managing-users/
+          - name: "Configure Harbor system settings"
+            url: https://goharbor.io/docs/2.15.0/administration/configure-authentication/db-auth/
+      - type: reading
+        title: Summary
+        path: sections/section-010/module-02/course-05-summary.md
+      - type: quiz
+        title: "Knowledge Check: Manage Local Users And System Administrators"
+        path: sections/section-010/module-02/quiz.yaml
+        pass_score: 70
+
+      - type: reading
         title: Question
         path: sections/section-010/capstone/labs/lab-01/question.md
       - type: lab
@@ -177,6 +220,90 @@ modules:
       - type: reading
         title: Summary
         path: sections/section-020/module-01/course-04-summary.md
+
+      - type: reading
+        title: "Understand Quota Accounting In Depth"
+        path: sections/section-020/module-02/course.md
+      - type: reading
+        title: "Default Quotas And Project Quotas"
+        path: sections/section-020/module-02/course-01-default-quotas.md
+      - type: reading
+        title: "How Harbor Counts Storage"
+        path: sections/section-020/module-02/course-02-how-harbor-counts-storage.md
+      - type: reading
+        title: "Reading Quota Usage"
+        path: sections/section-020/module-02/course-03-reading-quota-usage.md
+      - type: reading
+        title: "Quotas And Deletion"
+        path: sections/section-020/module-02/course-04-quotas-and-deletion.md
+      - type: reading
+        title: Question
+        path: sections/section-020/module-02/labs/lab-01/question.md
+      - type: lab
+        title: "Give New Projects A Default Quota Lab"
+        path: sections/section-020/module-02/labs/lab-01
+        difficulty: intermediate
+        estimated_duration: 20m
+        topic: storage
+        task_kind: build
+        tags: [quota, default-quota, harbor-api]
+        learning_goals:
+          - Set the default storage quota for new projects
+          - Create a project that inherits the default
+          - Correct the quota of an existing project
+        resources:
+          - name: "Configure project quotas"
+            url: https://goharbor.io/docs/2.15.0/administration/configure-project-quotas/
+      - type: reading
+        title: Summary
+        path: sections/section-020/module-02/course-05-summary.md
+      - type: quiz
+        title: "Knowledge Check: Understand Quota Accounting In Depth"
+        path: sections/section-020/module-02/quiz.yaml
+        pass_score: 70
+
+      - type: reading
+        title: "Design Retention And Immutability Rules In Depth"
+        path: sections/section-020/module-03/course.md
+      - type: reading
+        title: "Retention Templates"
+        path: sections/section-020/module-03/course-01-retention-templates.md
+      - type: reading
+        title: "Selectors And Combining Rules"
+        path: sections/section-020/module-03/course-02-selectors-and-rules.md
+      - type: reading
+        title: "Running Retention"
+        path: sections/section-020/module-03/course-03-running-retention.md
+      - type: reading
+        title: "Immutability Rules In Depth"
+        path: sections/section-020/module-03/course-04-immutability-in-depth.md
+      - type: reading
+        title: Question
+        path: sections/section-020/module-03/labs/lab-01/question.md
+      - type: lab
+        title: "Combine Two Retention Rules With Immutability Lab"
+        path: sections/section-020/module-03/labs/lab-01
+        difficulty: intermediate
+        estimated_duration: 25m
+        topic: storage
+        task_kind: build
+        tags: [tag-retention, tag-immutability, selectors, dry-run, harbor-api]
+        learning_goals:
+          - Write two retention rules with different selectors
+          - Protect release tags with an immutability rule
+          - Prove the result with a retention run
+        resources:
+          - name: "Create tag retention rules"
+            url: https://goharbor.io/docs/2.15.0/working-with-projects/working-with-images/create-tag-retention-rules/
+          - name: "Create tag immutability rules"
+            url: https://goharbor.io/docs/2.15.0/working-with-projects/working-with-images/create-tag-immutability-rules/
+      - type: reading
+        title: Summary
+        path: sections/section-020/module-03/course-05-summary.md
+      - type: quiz
+        title: "Knowledge Check: Design Retention And Immutability Rules In Depth"
+        path: sections/section-020/module-03/quiz.yaml
+        pass_score: 70
 
       - type: reading
         title: Question

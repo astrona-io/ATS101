@@ -1,11 +1,12 @@
-# Final domain quiz. Three questions per section. Listed in astrona.yaml as the last `type: quiz` entry.
+---
 schema_version: 1
 kind: question_bank
 id: ats101-final
 course_id: ATS101
 exam_code: HARBOR
 status: draft
-provenance: Original practice material written for this course; not official exam questions.
+provenance: Original practice material written for this course; not official exam
+  questions.
 scope:
   type: domain
   id: ats101
@@ -186,7 +187,8 @@ questions:
     text: It copies the user's password into Harbor.
     explanation: Not correct. Harbor never gets the password.
   - id: d
-    text: It creates the Harbor user at the first sign-in, with the name from the username claim.
+    text: It creates the Harbor user at the first sign-in, with the name from the
+      username claim.
     explanation: Correct. The claim must be in the ID token.
   correct_option: d
   explanation: Correct. The claim must be in the ID token.
@@ -209,7 +211,8 @@ questions:
     explanation: Not correct. Group type `2` is not the OIDC type.
   - id: d
     text: "`5`"
-    explanation: Not correct. `5` is the role number of Limited Guest, not a group type.
+    explanation: Not correct. `5` is the role number of Limited Guest, not a group
+      type.
   correct_option: a
   explanation: Correct. Type `1` is an LDAP group and `3` is an OIDC group.
 - id: ats101-final-q10
@@ -240,11 +243,13 @@ questions:
   learning_objective: Pick the group filter for OpenLDAP
   source_readings:
   - sections/section-040/module-01/course-02-ldap-users-and-groups.md
-  prompt: In the OpenLDAP image of this course, which group class makes the directory fill each user's `memberOf`?
+  prompt: In the OpenLDAP image of this course, which group class makes the directory
+    fill each user's `memberOf`?
   options:
   - id: a
     text: "`groupOfNames`, with members in `member`."
-    explanation: Not correct. In this image it leaves `memberOf` empty, so Harbor sees no groups.
+    explanation: Not correct. In this image it leaves `memberOf` empty, so Harbor
+      sees no groups.
   - id: b
     text: "`group`, as in Active Directory."
     explanation: Not correct. That is the Active Directory class.
@@ -278,3 +283,219 @@ questions:
     explanation: Correct. LDAP users need no CLI secret.
   correct_option: d
   explanation: Correct. LDAP users need no CLI secret.
+- id: ats101-final-q13
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Use user endpoints
+  source_readings:
+  - sections/section-010/module-02/course-01-local-users.md
+  prompt: Which value do most Harbor user endpoints take to identify a user?
+  options:
+  - id: a
+    text: The numeric user_id.
+    explanation: Correct. Search by name first and use the user_id in the path.
+  - id: b
+    text: The username.
+    explanation: Not correct. Search by name first and use the user_id in the path.
+  - id: c
+    text: The email address.
+    explanation: Not correct. Search by name first and use the user_id in the path.
+  - id: d
+    text: The realname.
+    explanation: Not correct. Search by name first and use the user_id in the path.
+  correct_option: a
+  explanation: Correct. Search by name first and use the user_id in the path.
+- id: ats101-final-q14
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Grant the flag
+  source_readings:
+  - sections/section-010/module-02/course-02-system-administrators.md
+  prompt: Which request grants the administrator flag to a user?
+  options:
+  - id: a
+    text: POST /projects/{name}/members with role 1.
+    explanation: Not correct. The flag has its own endpoint.
+  - id: b
+    text: PUT /users/{user_id}/sysadmin with sysadmin_flag set to true.
+    explanation: Correct. The flag has its own endpoint.
+  - id: c
+    text: PUT /configurations with admin set to the username.
+    explanation: Not correct. The flag has its own endpoint.
+  - id: d
+    text: PATCH /users/{user_id} with role=admin.
+    explanation: Not correct. The flag has its own endpoint.
+  correct_option: b
+  explanation: Correct. The flag has its own endpoint.
+- id: ats101-final-q15
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Know what offboarding keeps
+  source_readings:
+  - sections/section-010/module-02/course-04-offboarding-users.md
+  prompt: What happens to the artifacts a user pushed when the user is deleted?
+  options:
+  - id: a
+    text: They are deleted with the user.
+    explanation: Not correct. Artifacts belong to projects.
+  - id: b
+    text: They stay in their projects.
+    explanation: Correct. Artifacts belong to projects.
+  - id: c
+    text: They move to the library project.
+    explanation: Not correct. Artifacts belong to projects.
+  - id: d
+    text: They become private to admin.
+    explanation: Not correct. Artifacts belong to projects.
+  correct_option: b
+  explanation: Correct. Artifacts belong to projects.
+- id: ats101-final-q16
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Explain which projects the default affects
+  source_readings:
+  - sections/section-020/module-02/course-01-default-quotas.md
+  prompt: An administrator changes the default quota from unlimited to 10 MiB. What
+    happens to the projects that already exist?
+  options:
+  - id: a
+    text: They keep their own quota.
+    explanation: Correct. The default is copied into a project only when Harbor creates
+      it.
+  - id: b
+    text: They all get 10 MiB.
+    explanation: Not correct. The default is copied into a project only when Harbor
+      creates it.
+  - id: c
+    text: They get 10 MiB only if they are empty.
+    explanation: Not correct. The default is copied into a project only when Harbor
+      creates it.
+  - id: d
+    text: They get the smaller of their quota and 10 MiB.
+    explanation: Not correct. The default is copied into a project only when Harbor
+      creates it.
+  correct_option: a
+  explanation: Correct. The default is copied into a project only when Harbor creates
+    it.
+- id: ats101-final-q17
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Describe cross-project accounting
+  source_readings:
+  - sections/section-020/module-02/course-02-how-harbor-counts-storage.md
+  prompt: The same 3 MiB blob is pushed to two different projects. What is counted?
+  options:
+  - id: a
+    text: 3 MiB in the first project only.
+    explanation: Not correct. Blob sharing is scoped to one project, so each project
+      is charged.
+  - id: b
+    text: 3 MiB in each project.
+    explanation: Correct. Blob sharing is scoped to one project, so each project is
+      charged.
+  - id: c
+    text: 3 MiB split between the two projects.
+    explanation: Not correct. Blob sharing is scoped to one project, so each project
+      is charged.
+  - id: d
+    text: Nothing, because the registry stores it once.
+    explanation: Not correct. Blob sharing is scoped to one project, so each project
+      is charged.
+  correct_option: b
+  explanation: Correct. Blob sharing is scoped to one project, so each project is
+    charged.
+- id: ats101-final-q18
+  type: single_choice
+  difficulty: beginner
+  learning_objective: Know who sets a quota
+  source_readings:
+  - sections/section-020/module-02/course-03-reading-quota-usage.md
+  prompt: Who can change the storage quota of a project?
+  options:
+  - id: a
+    text: Any Project Admin of the project.
+    explanation: Not correct. A Project Admin can see the quota but only a system
+      administrator can set it.
+  - id: b
+    text: Only a system administrator.
+    explanation: Correct. A Project Admin can see the quota but only a system administrator
+      can set it.
+  - id: c
+    text: Any Maintainer of the project.
+    explanation: Not correct. A Project Admin can see the quota but only a system
+      administrator can set it.
+  - id: d
+    text: Any member who pushes to the project.
+    explanation: Not correct. A Project Admin can see the quota but only a system
+      administrator can set it.
+  correct_option: b
+  explanation: Correct. A Project Admin can see the quota but only a system administrator
+    can set it.
+- id: ats101-final-q19
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Read the count of a template
+  source_readings:
+  - sections/section-020/module-03/course-01-retention-templates.md
+  prompt: A rule uses latestPushedK with 2 in a project with three repositories. How
+    many artifacts does it keep at most?
+  options:
+  - id: a
+    text: Six, two per repository.
+    explanation: Correct. The count applies to each repository.
+  - id: b
+    text: Two in total.
+    explanation: Not correct. The count applies to each repository.
+  - id: c
+    text: Three in total.
+    explanation: Not correct. The count applies to each repository.
+  - id: d
+    text: Two in the repository with the most artifacts only.
+    explanation: Not correct. The count applies to each repository.
+  correct_option: a
+  explanation: Correct. The count applies to each repository.
+- id: ats101-final-q20
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Combine rules
+  source_readings:
+  - sections/section-020/module-03/course-02-selectors-and-rules.md
+  prompt: Two rules overlap. One keeps the two newest builds, the other keeps everything
+    in api. What is kept in api?
+  options:
+  - id: a
+    text: Only the two newest builds.
+    explanation: Not correct. An artifact survives if any rule keeps it.
+  - id: b
+    text: Everything, because rules combine with OR.
+    explanation: Correct. An artifact survives if any rule keeps it.
+  - id: c
+    text: Nothing, because the rules conflict.
+    explanation: Not correct. An artifact survives if any rule keeps it.
+  - id: d
+    text: Only the artifacts both rules keep.
+    explanation: Not correct. An artifact survives if any rule keeps it.
+  correct_option: b
+  explanation: Correct. An artifact survives if any rule keeps it.
+- id: ats101-final-q21
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Combine retention and immutability
+  source_readings:
+  - sections/section-020/module-03/course-04-immutability-in-depth.md
+  prompt: What does a retention run do to an immutable artifact?
+  options:
+  - id: a
+    text: It deletes it if no rule keeps it.
+    explanation: Not correct. Immutable artifacts survive retention.
+  - id: b
+    text: It does not delete it.
+    explanation: Correct. Immutable artifacts survive retention.
+  - id: c
+    text: It makes it mutable first.
+    explanation: Not correct. Immutable artifacts survive retention.
+  - id: d
+    text: It fails the whole execution.
+    explanation: Not correct. Immutable artifacts survive retention.
+  correct_option: b
+  explanation: Correct. Immutable artifacts survive retention.

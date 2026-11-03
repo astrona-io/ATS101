@@ -1,0 +1,61 @@
+# Give New Projects A Default Quota Lab
+# Astrona graded lab. Schema: internal/config.LabConfig.
+
+metadata:
+  name: "ats-101-lab-020-02"
+  docs:
+    guide: "solution.md"
+    solution: "solution.md"
+    question: "question.md"
+    examQuestion: "question.md"
+    prerequisites: "prerequisites.md"
+bootstrap:
+  init:
+    - name: "install-harbor"
+      description: "Installs Helm 3.22.1, Harbor 2.15.4 (chart 1.19.4), the CoreDNS rewrites and the workstation pod"
+      type: "file"
+      source: "bootstrap/01-install-harbor.sh"
+    - name: "ats-101-lab-020-02-setup"
+      description: "Creates the project inventory with one small artifact and a quota of 100 MiB"
+      type: "file"
+      source: "bootstrap/02-seed-state.sh"
+testing:
+  init:
+    - name: "wait-for-harbor"
+      description: "Waits until the workstation trusts Harbor and Harbor reports every component healthy"
+      type: "file"
+      source: "testing/wait-for-harbor.sh"
+    - name: "reference-solution"
+      description: "The remediation a correct learner performs; used by `astrona test`"
+      type: "file"
+      source: "solution/apply.sh"
+validation:
+  scripts:
+    - name: "validate-default-quota"
+      description: "Confirms the default project storage quota is 15 MiB"
+      type: "file"
+      source: "validation/validate-default-quota.sh"
+    - name: "validate-reports-project"
+      description: "Confirms the project reports exists with a 15 MiB quota and refuses a 20 MiB push"
+      type: "file"
+      source: "validation/validate-reports-project.sh"
+    - name: "validate-inventory-quota"
+      description: "Confirms the existing project inventory has a 40 MiB quota"
+      type: "file"
+      source: "validation/validate-inventory-quota.sh"
+teardown:
+  keepCluster: false
+runtime:
+  kind:
+    preloadImages:
+      - alpine:3.22
+      - docker.io/goharbor/harbor-core:v2.15.4
+      - docker.io/goharbor/harbor-db:v2.15.4
+      - docker.io/goharbor/harbor-jobservice:v2.15.4
+      - docker.io/goharbor/harbor-portal:v2.15.4
+      - docker.io/goharbor/harbor-registryctl:v2.15.4
+      - docker.io/goharbor/nginx-photon:v2.15.4
+      - docker.io/goharbor/registry-photon:v2.15.4
+      - docker.io/goharbor/trivy-adapter-photon:v2.15.4
+      - docker.io/valkey/valkey:8.1.10-alpine
+

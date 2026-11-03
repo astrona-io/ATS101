@@ -11,8 +11,8 @@ CLI v0.0.27**.
 > `astrona test` yet. See `CLAUDE.md` for the facts most likely to be wrong.
 
 The course opens with an Introduction in `sections/intro/`. Everything else
-lives under `sections/`. Each section has one module (landing page, parts,
-summary, playground, graded lab) and a capstone.
+lives under `sections/`. Each section has one or more modules (landing page, parts,
+summary, playground, graded lab, knowledge check) and a capstone.
 
 ---
 
@@ -30,7 +30,10 @@ summary, playground, graded lab) and a capstone.
 | Module | Reader | Parts | Lab |
 | --- | --- | --- | --- |
 | 010-01 | [Isolate Teams With Projects And Roles](sections/section-010/module-01/course.md) | 3 | [lab-01](sections/section-010/module-01/labs/lab-01) |
+| 010-02 | [Manage Local Users And System Administrators](sections/section-010/module-02/course.md) | 4 | [lab-01](sections/section-010/module-02/labs/lab-01) |
 | 020-01 | [Control Storage With Quotas, Retention And Immutability](sections/section-020/module-01/course.md) | 3 | [lab-01](sections/section-020/module-01/labs/lab-01) |
+| 020-02 | [Understand Quota Accounting In Depth](sections/section-020/module-02/course.md) | 4 | [lab-01](sections/section-020/module-02/labs/lab-01) |
+| 020-03 | [Design Retention And Immutability Rules In Depth](sections/section-020/module-03/course.md) | 4 | [lab-01](sections/section-020/module-03/labs/lab-01) |
 | 030-01 | [Sign In To Harbor With OpenID Connect](sections/section-030/module-01/course.md) | 3 | [lab-01](sections/section-030/module-01/labs/lab-01) |
 | 040-01 | [Sign In To Harbor With LDAP And Use LDAP Groups](sections/section-040/module-01/course.md) | 2 | [lab-01](sections/section-040/module-01/labs/lab-01) |
 
