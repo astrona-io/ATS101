@@ -1,0 +1,245 @@
+# Knowledge check for module 040-02. Listed in astrona.yaml as a `type: quiz` entry after the module summary.
+schema_version: 1
+kind: question_bank
+id: ats101-040-m02
+course_id: ATS101
+exam_code: HARBOR
+status: draft
+provenance: Original practice material written for this course; not official exam questions.
+scope:
+  type: module
+  id: module-040-02
+  title: "Tune LDAP Search, Groups And User Lifecycle"
+placement:
+  position: after
+  reading: sections/section-040/module-02/course-05-summary.md
+questions:
+- id: ats101-040-m02-q01
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Explain how Harbor builds the LDAP search"
+  source_readings:
+  - sections/section-040/module-02/course-01-user-search-and-filters.md
+  prompt: "How does Harbor build the search for a user who types the name dave?"
+  options:
+  - id: a
+    text: "It joins the configured filter and the UID test with & and searches below the base DN; exactly one entry must be found."
+    explanation: "Correct. The search is the configured filter and the UID test joined with &. A user who is not found never reaches the password check."
+  - id: b
+    text: "It searches the whole directory for the name in any attribute."
+    explanation: "Not correct. The search is the configured filter and the UID test joined with &. A user who is not found never reaches the password check."
+  - id: c
+    text: "It binds as the user first and searches afterwards."
+    explanation: "Not correct. The search is the configured filter and the UID test joined with &. A user who is not found never reaches the password check."
+  - id: d
+    text: "It reads the user from its own database only."
+    explanation: "Not correct. The search is the configured filter and the UID test joined with &. A user who is not found never reaches the password check."
+  correct_option: a
+  explanation: "Correct. The search is the configured filter and the UID test joined with &. A user who is not found never reaches the password check."
+
+- id: ats101-040-m02-q02
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Write a filter"
+  source_readings:
+  - sections/section-040/module-02/course-01-user-search-and-filters.md
+  prompt: "Which user can not sign in when the filter is (&(objectClass=inetOrgPerson)(!(employeeType=contractor)))?"
+  options:
+  - id: a
+    text: "A user who has no employeeType."
+    explanation: "Not correct. The ! test excludes entries with employeeType equal to contractor. An entry without the attribute passes."
+  - id: b
+    text: "A user whose class is not person."
+    explanation: "Not correct. The ! test excludes entries with employeeType equal to contractor. An entry without the attribute passes."
+  - id: c
+    text: "Every user, because the filter has no uid."
+    explanation: "Not correct. The ! test excludes entries with employeeType equal to contractor. An entry without the attribute passes."
+  - id: d
+    text: "A user whose employeeType is contractor."
+    explanation: "Correct. The ! test excludes entries with employeeType equal to contractor. An entry without the attribute passes."
+  correct_option: d
+  explanation: "Correct. The ! test excludes entries with employeeType equal to contractor. An entry without the attribute passes."
+
+- id: ats101-040-m02-q03
+  type: single_choice
+  difficulty: beginner
+  learning_objective: "Choose a scope"
+  source_readings:
+  - sections/section-040/module-02/course-01-user-search-and-filters.md
+  prompt: "Which ldap_scope value searches the base entry and everything below it?"
+  options:
+  - id: a
+    text: "0"
+    explanation: "Not correct. 0 is the base entry only, 1 is one level and 2 is the whole subtree."
+  - id: b
+    text: "1"
+    explanation: "Not correct. 0 is the base entry only, 1 is one level and 2 is the whole subtree."
+  - id: c
+    text: "2"
+    explanation: "Correct. 0 is the base entry only, 1 is one level and 2 is the whole subtree."
+  - id: d
+    text: "3"
+    explanation: "Not correct. 0 is the base entry only, 1 is one level and 2 is the whole subtree."
+  correct_option: c
+  explanation: "Correct. 0 is the base entry only, 1 is one level and 2 is the whole subtree."
+
+- id: ats101-040-m02-q04
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Know what ping tests"
+  source_readings:
+  - sections/section-040/module-02/course-01-user-search-and-filters.md
+  prompt: "What does the Harbor call POST /ldap/ping test?"
+  options:
+  - id: a
+    text: "That every user in the directory can sign in."
+    explanation: "Not correct. To test a filter, sign in as a user. Ping checks the connection and the bind."
+  - id: b
+    text: "The connection and the bind with the search DN, not the effect of the user filter."
+    explanation: "Correct. To test a filter, sign in as a user. Ping checks the connection and the bind."
+  - id: c
+    text: "That the group settings find the right groups."
+    explanation: "Not correct. To test a filter, sign in as a user. Ping checks the connection and the bind."
+  - id: d
+    text: "That the filter excludes the right users."
+    explanation: "Not correct. To test a filter, sign in as a user. Ping checks the connection and the bind."
+  correct_option: b
+  explanation: "Correct. To test a filter, sign in as a user. Ping checks the connection and the bind."
+
+- id: ats101-040-m02-q05
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Add an LDAP group as a member"
+  source_readings:
+  - sections/section-040/module-02/course-02-group-roles.md
+  prompt: "Which fields identify an LDAP group in the project members call?"
+  options:
+  - id: a
+    text: "group_type 1 and ldap_group_dn."
+    explanation: "Correct. An LDAP group needs the type 1 and the DN. The name alone is not unique in a directory."
+  - id: b
+    text: "group_type 3 and the group name only."
+    explanation: "Not correct. An LDAP group needs the type 1 and the DN. The name alone is not unique in a directory."
+  - id: c
+    text: "group_type 2 and the user DN."
+    explanation: "Not correct. An LDAP group needs the type 1 and the DN. The name alone is not unique in a directory."
+  - id: d
+    text: "role_id only."
+    explanation: "Not correct. An LDAP group needs the type 1 and the DN. The name alone is not unique in a directory."
+  correct_option: a
+  explanation: "Correct. An LDAP group needs the type 1 and the DN. The name alone is not unique in a directory."
+
+- id: ats101-040-m02-q06
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Explain the group match at sign-in"
+  source_readings:
+  - sections/section-040/module-02/course-02-group-roles.md
+  prompt: "How does Harbor decide which project roles a user gets from groups at sign-in?"
+  options:
+  - id: a
+    text: "It searches the group names for the user name."
+    explanation: "Not correct. A typing error in a stored DN means no user ever matches."
+  - id: b
+    text: "It asks the directory for the users of each project."
+    explanation: "Not correct. A typing error in a stored DN means no user ever matches."
+  - id: c
+    text: "It copies the roles from the previous sign-in."
+    explanation: "Not correct. A typing error in a stored DN means no user ever matches."
+  - id: d
+    text: "It compares the DNs in the user's memberOf attribute with the DNs of the LDAP groups that are project members."
+    explanation: "Correct. A typing error in a stored DN means no user ever matches."
+  correct_option: d
+  explanation: "Correct. A typing error in a stored DN means no user ever matches."
+
+- id: ats101-040-m02-q07
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Import a user"
+  source_readings:
+  - sections/section-040/module-02/course-03-importing-and-offboarding.md
+  prompt: "Why would an administrator import an LDAP user before the first sign-in?"
+  options:
+  - id: a
+    text: "To copy the password into Harbor."
+    explanation: "Not correct. Import creates the record without a sign-in. The password is never stored."
+  - id: b
+    text: "To make the user a system administrator."
+    explanation: "Not correct. Import creates the record without a sign-in. The password is never stored."
+  - id: c
+    text: "Harbor has no record of the user until then, so the user can not be added to projects by name."
+    explanation: "Correct. Import creates the record without a sign-in. The password is never stored."
+  - id: d
+    text: "To avoid a certificate check."
+    explanation: "Not correct. Import creates the record without a sign-in. The password is never stored."
+  correct_option: c
+  explanation: "Correct. Import creates the record without a sign-in. The password is never stored."
+
+- id: ats101-040-m02-q08
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Plan offboarding"
+  source_readings:
+  - sections/section-040/module-02/course-03-importing-and-offboarding.md
+  prompt: "A person is deleted from the directory. What happens in Harbor?"
+  options:
+  - id: a
+    text: "Harbor deletes the user at the next sync."
+    explanation: "Not correct. The directory ends the ability to authenticate. Harbor does not clean up on its own, and artifacts belong to the project."
+  - id: b
+    text: "Sign-in is refused, but the Harbor record, the memberships and the robot accounts stay until an administrator removes them."
+    explanation: "Correct. The directory ends the ability to authenticate. Harbor does not clean up on its own, and artifacts belong to the project."
+  - id: c
+    text: "Harbor keeps the sign-in working until the password changes."
+    explanation: "Not correct. The directory ends the ability to authenticate. Harbor does not clean up on its own, and artifacts belong to the project."
+  - id: d
+    text: "Harbor deletes the artifacts that the person pushed."
+    explanation: "Not correct. The directory ends the ability to authenticate. Harbor does not clean up on its own, and artifacts belong to the project."
+  correct_option: b
+  explanation: "Correct. The directory ends the ability to authenticate. Harbor does not clean up on its own, and artifacts belong to the project."
+
+- id: ats101-040-m02-q09
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Troubleshoot in order"
+  source_readings:
+  - sections/section-040/module-02/course-04-troubleshooting-ldap.md
+  prompt: "In which order do you test a failing LDAP sign-in?"
+  options:
+  - id: a
+    text: "Connect and bind as the search DN, search for the user, bind as the user, and then read the groups."
+    explanation: "Correct. Each step depends on the one before. Run it with ldapsearch first to see whether the directory or Harbor is at fault."
+  - id: b
+    text: "Read the groups, bind as the user, search, and connect."
+    explanation: "Not correct. Each step depends on the one before. Run it with ldapsearch first to see whether the directory or Harbor is at fault."
+  - id: c
+    text: "Restart Harbor, then change the filter."
+    explanation: "Not correct. Each step depends on the one before. Run it with ldapsearch first to see whether the directory or Harbor is at fault."
+  - id: d
+    text: "Change the password, then test the connection."
+    explanation: "Not correct. Each step depends on the one before. Run it with ldapsearch first to see whether the directory or Harbor is at fault."
+  correct_option: a
+  explanation: "Correct. Each step depends on the one before. Run it with ldapsearch first to see whether the directory or Harbor is at fault."
+
+- id: ats101-040-m02-q10
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Adapt settings to Active Directory"
+  source_readings:
+  - sections/section-040/module-02/course-04-troubleshooting-ldap.md
+  prompt: "Which change is often needed when OpenLDAP settings are copied to Active Directory?"
+  options:
+  - id: a
+    text: "Use a base DN of ou=people."
+    explanation: "Not correct. Copying uid and the OpenLDAP classes to Active Directory is the most common cause of no user found there."
+  - id: b
+    text: "Turn off the search DN."
+    explanation: "Not correct. Copying uid and the OpenLDAP classes to Active Directory is the most common cause of no user found there."
+  - id: c
+    text: "Use scope 0."
+    explanation: "Not correct. Copying uid and the OpenLDAP classes to Active Directory is the most common cause of no user found there."
+  - id: d
+    text: "Use sAMAccountName as the UID attribute and the class person or user for users."
+    explanation: "Correct. Copying uid and the OpenLDAP classes to Active Directory is the most common cause of no user found there."
+  correct_option: d
+  explanation: "Correct. Copying uid and the OpenLDAP classes to Active Directory is the most common cause of no user found there."

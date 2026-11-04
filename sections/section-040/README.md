@@ -24,6 +24,16 @@ The module starts at its landing page, which also launches the playground. The p
 2. LDAP Users, Groups And Project Membership, followed by the lab **Give An LDAP Group Developer Access**
 3. Summary
 
+### 2. Tune LDAP Search, Groups And User Lifecycle
+
+The playground holds Harbor, an OpenLDAP directory with developers, readers and a contractor, and the project `inventory`.
+
+1. Choosing The User Search And Filter
+2. Group Roles In Projects
+3. Importing Users And Offboarding
+4. Troubleshooting LDAP Sign-In, followed by the lab **Exclude Contractors And Map LDAP Group Roles**
+5. Summary
+
 ## Section capstone: Repair An LDAP Integration
 
 The capstone is one graded scenario that combines the whole module. Harbor is already in LDAP mode, but nobody can sign in, groups are never found, and the developers' group membership points at a group that does not exist. Work it after the module lab.

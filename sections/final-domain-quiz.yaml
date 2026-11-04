@@ -499,3 +499,179 @@ questions:
     explanation: Not correct. Immutable artifacts survive retention.
   correct_option: b
   explanation: Correct. Immutable artifacts survive retention.
+- id: ats101-final-q22
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Know who may change the metadata"
+  source_readings:
+  - sections/section-010/module-03/course-01-project-metadata.md
+  prompt: "Which caller receives 403 when changing the security metadata of a project?"
+  options:
+  - id: a
+    text: "A Project Admin of the project."
+    explanation: "Not correct. Only Project Admins and system administrators may change these settings. Every other role receives 403."
+  - id: b
+    text: "A system administrator."
+    explanation: "Not correct. Only Project Admins and system administrators may change these settings. Every other role receives 403."
+  - id: c
+    text: "No caller; every member may change the metadata."
+    explanation: "Not correct. Only Project Admins and system administrators may change these settings. Every other role receives 403."
+  - id: d
+    text: "A Guest of the project."
+    explanation: "Correct. Only Project Admins and system administrators may change these settings. Every other role receives 403."
+  correct_option: d
+  explanation: "Correct. Only Project Admins and system administrators may change these settings. Every other role receives 403."
+- id: ats101-final-q23
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Explain the CVE allowlist"
+  source_readings:
+  - sections/section-010/module-03/course-03-cve-allowlist.md
+  prompt: "What does a CVE allowlist change?"
+  options:
+  - id: a
+    text: "Harbor removes the CVEs from the scan report."
+    explanation: "Not correct. The allowlist affects only the blocking decision. The report keeps listing the vulnerability."
+  - id: b
+    text: "Harbor stops scanning the artifacts that have the CVE."
+    explanation: "Not correct. The allowlist affects only the blocking decision. The report keeps listing the vulnerability."
+  - id: c
+    text: "The pull-blocking decision ignores the listed CVEs, while the scan report still lists them."
+    explanation: "Correct. The allowlist affects only the blocking decision. The report keeps listing the vulnerability."
+  - id: d
+    text: "Harbor deletes the images that have the CVE."
+    explanation: "Not correct. The allowlist affects only the blocking decision. The report keeps listing the vulnerability."
+  correct_option: c
+  explanation: "Correct. The allowlist affects only the blocking decision. The report keeps listing the vulnerability."
+- id: ats101-final-q24
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Prove the limits of a robot"
+  source_readings:
+  - sections/section-010/module-04/course-03-using-robots.md
+  prompt: "A robot has push and pull on repository in web only. What happens when it pushes to the project api?"
+  options:
+  - id: a
+    text: "The push works, because pull and push apply to the registry."
+    explanation: "Not correct. The permission list is bound to the namespace. A push to another project is refused."
+  - id: b
+    text: "Harbor refuses the push, because the robot has no permission in api."
+    explanation: "Correct. The permission list is bound to the namespace. A push to another project is refused."
+  - id: c
+    text: "The push works, but the artifact is hidden."
+    explanation: "Not correct. The permission list is bound to the namespace. A push to another project is refused."
+  - id: d
+    text: "Harbor creates the project api for the robot."
+    explanation: "Not correct. The permission list is bound to the namespace. A push to another project is refused."
+  correct_option: b
+  explanation: "Correct. The permission list is bound to the namespace. A push to another project is refused."
+- id: ats101-final-q25
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Refresh a secret"
+  source_readings:
+  - sections/section-010/module-04/course-04-operating-robots.md
+  prompt: "How do you replace the secret of an existing robot without losing its permissions?"
+  options:
+  - id: a
+    text: "Send a PATCH to the robot with the new secret in the body."
+    explanation: "Correct. A PATCH to the robot with a new secret keeps the permissions and the history. The old secret stops working at once."
+  - id: b
+    text: "Delete the robot and create it again with the same name."
+    explanation: "Not correct. A PATCH to the robot with a new secret keeps the permissions and the history. The old secret stops working at once."
+  - id: c
+    text: "Send a PUT to the project."
+    explanation: "Not correct. A PATCH to the robot with a new secret keeps the permissions and the history. The old secret stops working at once."
+  - id: d
+    text: "Change robot_name_prefix."
+    explanation: "Not correct. A PATCH to the robot with a new secret keeps the permissions and the history. The old secret stops working at once."
+  correct_option: a
+  explanation: "Correct. A PATCH to the robot with a new secret keeps the permissions and the history. The old secret stops working at once."
+- id: ats101-final-q26
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Explain how Harbor identifies a user"
+  source_readings:
+  - sections/section-030/module-02/course-01-id-token-claims.md
+  prompt: "How does Harbor find a returning OIDC user?"
+  options:
+  - id: a
+    text: "By the email address."
+    explanation: "Not correct. Because the pair identifies the user, a user name that changes in the provider does not create a second Harbor user."
+  - id: b
+    text: "By the user name from the preferred_username claim."
+    explanation: "Not correct. Because the pair identifies the user, a user name that changes in the provider does not create a second Harbor user."
+  - id: c
+    text: "By the CLI secret."
+    explanation: "Not correct. Because the pair identifies the user, a user name that changes in the provider does not create a second Harbor user."
+  - id: d
+    text: "By the pair of sub and iss, stored as subiss, and not by the user name."
+    explanation: "Correct. Because the pair identifies the user, a user name that changes in the provider does not create a second Harbor user."
+  correct_option: d
+  explanation: "Correct. Because the pair identifies the user, a user name that changes in the provider does not create a second Harbor user."
+- id: ats101-final-q27
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Know when group changes arrive"
+  source_readings:
+  - sections/section-030/module-02/course-02-group-role-design.md
+  prompt: "carol is moved to another group in Keycloak while she is signed in to Harbor. When does Harbor notice?"
+  options:
+  - id: a
+    text: "At once, because Harbor asks the provider on every request."
+    explanation: "Not correct. Harbor reads the groups from the token at each sign-in and does not ask again during the session."
+  - id: b
+    text: "After one hour, when Harbor polls the provider."
+    explanation: "Not correct. Harbor reads the groups from the token at each sign-in and does not ask again during the session."
+  - id: c
+    text: "At her next sign-in through the browser."
+    explanation: "Correct. Harbor reads the groups from the token at each sign-in and does not ask again during the session."
+  - id: d
+    text: "Never, until the group is edited in Harbor."
+    explanation: "Not correct. Harbor reads the groups from the token at each sign-in and does not ask again during the session."
+  correct_option: c
+  explanation: "Correct. Harbor reads the groups from the token at each sign-in and does not ask again during the session."
+- id: ats101-final-q28
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Write a filter"
+  source_readings:
+  - sections/section-040/module-02/course-01-user-search-and-filters.md
+  prompt: "Which user can not sign in when the filter is (&(objectClass=inetOrgPerson)(!(employeeType=contractor)))?"
+  options:
+  - id: a
+    text: "A user who has no employeeType."
+    explanation: "Not correct. The ! test excludes entries with employeeType equal to contractor. An entry without the attribute passes."
+  - id: b
+    text: "A user whose employeeType is contractor."
+    explanation: "Correct. The ! test excludes entries with employeeType equal to contractor. An entry without the attribute passes."
+  - id: c
+    text: "A user whose class is not person."
+    explanation: "Not correct. The ! test excludes entries with employeeType equal to contractor. An entry without the attribute passes."
+  - id: d
+    text: "Every user, because the filter has no uid."
+    explanation: "Not correct. The ! test excludes entries with employeeType equal to contractor. An entry without the attribute passes."
+  correct_option: b
+  explanation: "Correct. The ! test excludes entries with employeeType equal to contractor. An entry without the attribute passes."
+- id: ats101-final-q29
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Explain the group match at sign-in"
+  source_readings:
+  - sections/section-040/module-02/course-02-group-roles.md
+  prompt: "How does Harbor decide which project roles a user gets from groups at sign-in?"
+  options:
+  - id: a
+    text: "It compares the DNs in the user's memberOf attribute with the DNs of the LDAP groups that are project members."
+    explanation: "Correct. A typing error in a stored DN means no user ever matches."
+  - id: b
+    text: "It searches the group names for the user name."
+    explanation: "Not correct. A typing error in a stored DN means no user ever matches."
+  - id: c
+    text: "It asks the directory for the users of each project."
+    explanation: "Not correct. A typing error in a stored DN means no user ever matches."
+  - id: d
+    text: "It copies the roles from the previous sign-in."
+    explanation: "Not correct. A typing error in a stored DN means no user ever matches."
+  correct_option: a
+  explanation: "Correct. A typing error in a stored DN means no user ever matches."

@@ -20,10 +20,10 @@ summary, playground, graded lab, knowledge check) and a capstone.
 
 | Section | Title | Labs | Topic |
 | --- | --- | --- | --- |
-| [010](sections/section-010) | Projects And Membership | 1 + capstone | Projects and roles |
-| [020](sections/section-020) | Quotas, Tag Retention And Immutability | 1 + capstone | Storage control |
-| [030](sections/section-030) | Identity Integration With OIDC | 1 + capstone | OIDC with Keycloak |
-| [040](sections/section-040) | Identity Integration With LDAP | 1 + capstone | LDAP and groups |
+| [010](sections/section-010) | Projects And Membership | 4 + capstone | Projects and roles |
+| [020](sections/section-020) | Quotas, Tag Retention And Immutability | 3 + capstone | Storage control |
+| [030](sections/section-030) | Identity Integration With OIDC | 2 + capstone | OIDC with Keycloak |
+| [040](sections/section-040) | Identity Integration With LDAP | 2 + capstone | LDAP and groups |
 
 ## Modules
 
@@ -31,11 +31,15 @@ summary, playground, graded lab, knowledge check) and a capstone.
 | --- | --- | --- | --- |
 | 010-01 | [Isolate Teams With Projects And Roles](sections/section-010/module-01/course.md) | 3 | [lab-01](sections/section-010/module-01/labs/lab-01) |
 | 010-02 | [Manage Local Users And System Administrators](sections/section-010/module-02/course.md) | 4 | [lab-01](sections/section-010/module-02/labs/lab-01) |
+| 010-03 | [Set Project Security Policies](sections/section-010/module-03/course.md) | 4 | [lab-01](sections/section-010/module-03/labs/lab-01) |
+| 010-04 | [Automate Access With Robot Accounts](sections/section-010/module-04/course.md) | 4 | [lab-01](sections/section-010/module-04/labs/lab-01) |
 | 020-01 | [Control Storage With Quotas, Retention And Immutability](sections/section-020/module-01/course.md) | 3 | [lab-01](sections/section-020/module-01/labs/lab-01) |
 | 020-02 | [Understand Quota Accounting In Depth](sections/section-020/module-02/course.md) | 4 | [lab-01](sections/section-020/module-02/labs/lab-01) |
 | 020-03 | [Design Retention And Immutability Rules In Depth](sections/section-020/module-03/course.md) | 4 | [lab-01](sections/section-020/module-03/labs/lab-01) |
 | 030-01 | [Sign In To Harbor With OpenID Connect](sections/section-030/module-01/course.md) | 3 | [lab-01](sections/section-030/module-01/labs/lab-01) |
+| 030-02 | [Operate And Troubleshoot OIDC Sign-In](sections/section-030/module-02/course.md) | 4 | [lab-01](sections/section-030/module-02/labs/lab-01) |
 | 040-01 | [Sign In To Harbor With LDAP And Use LDAP Groups](sections/section-040/module-01/course.md) | 2 | [lab-01](sections/section-040/module-01/labs/lab-01) |
+| 040-02 | [Tune LDAP Search, Groups And User Lifecycle](sections/section-040/module-02/course.md) | 4 | [lab-01](sections/section-040/module-02/labs/lab-01) |
 
 ## Capstones
 

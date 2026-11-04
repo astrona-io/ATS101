@@ -147,6 +147,96 @@ modules:
         pass_score: 70
 
       - type: reading
+        title: "Set Project Security Policies"
+        path: sections/section-010/module-03/course.md
+      - type: reading
+        title: "Project Metadata And The Project API"
+        path: sections/section-010/module-03/course-01-project-metadata.md
+      - type: reading
+        title: "Vulnerability Scanning And Pull Blocking"
+        path: sections/section-010/module-03/course-02-vulnerability-policy.md
+      - type: reading
+        title: "The CVE Allowlist"
+        path: sections/section-010/module-03/course-03-cve-allowlist.md
+      - type: reading
+        title: "Content Trust With Cosign"
+        path: sections/section-010/module-03/course-04-content-trust.md
+      - type: reading
+        title: Question
+        path: sections/section-010/module-03/labs/lab-01/question.md
+      - type: lab
+        title: "Scan, Block And Sign Images In A Project Lab"
+        path: sections/section-010/module-03/labs/lab-01
+        difficulty: intermediate
+        estimated_duration: 20m
+        topic: security
+        task_kind: build
+        tags: [project-metadata, auto-scan, prevent-vul, cve-allowlist, cosign, harbor-api]
+        learning_goals:
+          - Turn on scan on push and pull blocking at a chosen severity through the project metadata
+          - Add a project CVE allowlist entry and require cosign signatures
+          - Make the project private and prove the policy with pulls
+        resources:
+          - name: "Create projects"
+            url: https://goharbor.io/docs/2.15.0/working-with-projects/create-projects/
+          - name: "Vulnerability scanning"
+            url: https://goharbor.io/docs/2.15.0/administration/vulnerability-scanning/
+          - name: "Configure a per-project CVE allowlist"
+            url: https://goharbor.io/docs/2.15.0/working-with-projects/project-configuration/configure-project-cve-allowlists/
+          - name: "Implementing content trust"
+            url: https://goharbor.io/docs/2.15.0/working-with-projects/project-configuration/implementing-content-trust/
+      - type: reading
+        title: Summary
+        path: sections/section-010/module-03/course-05-summary.md
+      - type: quiz
+        title: "Knowledge Check: Set Project Security Policies"
+        path: sections/section-010/module-03/quiz.yaml
+        pass_score: 70
+
+      - type: reading
+        title: "Automate Access With Robot Accounts"
+        path: sections/section-010/module-04/course.md
+      - type: reading
+        title: "Robot Accounts And Their Names"
+        path: sections/section-010/module-04/course-01-robot-accounts.md
+      - type: reading
+        title: "Permissions: Resources, Actions And Scope"
+        path: sections/section-010/module-04/course-02-robot-permissions.md
+      - type: reading
+        title: "Using A Robot Account In A Pipeline"
+        path: sections/section-010/module-04/course-03-using-robots.md
+      - type: reading
+        title: "Operating Robot Accounts"
+        path: sections/section-010/module-04/course-04-operating-robots.md
+      - type: reading
+        title: Question
+        path: sections/section-010/module-04/labs/lab-01/question.md
+      - type: lab
+        title: "Replace A Legacy Robot With A Limited One Lab"
+        path: sections/section-010/module-04/labs/lab-01
+        difficulty: intermediate
+        estimated_duration: 20m
+        topic: robot-accounts
+        task_kind: build
+        tags: [robot-account, robot-permissions, expiry, least-privilege, harbor-api]
+        learning_goals:
+          - Create a project robot account with push and pull on one project and an expiry
+          - Remove a legacy robot that can delete and never expires
+          - Prove the limits of the new robot with a push to another project
+        resources:
+          - name: "Robot accounts"
+            url: https://goharbor.io/docs/2.15.0/working-with-projects/project-configuration/create-robot-accounts/
+          - name: "Configure Harbor system settings"
+            url: https://goharbor.io/docs/2.15.0/administration/configure-authentication/db-auth/
+      - type: reading
+        title: Summary
+        path: sections/section-010/module-04/course-05-summary.md
+      - type: quiz
+        title: "Knowledge Check: Automate Access With Robot Accounts"
+        path: sections/section-010/module-04/quiz.yaml
+        pass_score: 70
+
+      - type: reading
         title: Question
         path: sections/section-010/capstone/labs/lab-01/question.md
       - type: lab
@@ -382,6 +472,49 @@ modules:
         path: sections/section-030/module-01/course-04-summary.md
 
       - type: reading
+        title: "Operate And Troubleshoot OIDC Sign-In"
+        path: sections/section-030/module-02/course.md
+      - type: reading
+        title: "What Harbor Reads From The ID Token"
+        path: sections/section-030/module-02/course-01-id-token-claims.md
+      - type: reading
+        title: "Designing Group To Role Mappings"
+        path: sections/section-030/module-02/course-02-group-role-design.md
+      - type: reading
+        title: "Tokens, Sessions And CLI Secrets"
+        path: sections/section-030/module-02/course-03-tokens-sessions-cli-secrets.md
+      - type: reading
+        title: "Troubleshooting OIDC Sign-In"
+        path: sections/section-030/module-02/course-04-troubleshooting-oidc.md
+      - type: reading
+        title: Question
+        path: sections/section-030/module-02/labs/lab-01/question.md
+      - type: lab
+        title: "Map OIDC Groups To Project Roles Lab"
+        path: sections/section-030/module-02/labs/lab-01
+        difficulty: intermediate
+        estimated_duration: 20m
+        topic: identity
+        task_kind: build
+        tags: [oidc, keycloak, oidc-group, group-role, admin-group]
+        learning_goals:
+          - Add OIDC groups to a project with a writer and a reader role
+          - Make a Keycloak group the Harbor administrator group
+          - Prove each role with real pushes and pulls after sign-in
+        resources:
+          - name: "Configure OIDC provider authentication"
+            url: https://goharbor.io/docs/2.15.0/administration/configure-authentication/oidc-auth/
+          - name: "User permissions by role"
+            url: https://goharbor.io/docs/2.15.0/administration/managing-users/user-permissions-by-role/
+      - type: reading
+        title: Summary
+        path: sections/section-030/module-02/course-05-summary.md
+      - type: quiz
+        title: "Knowledge Check: Operate And Troubleshoot OIDC Sign-In"
+        path: sections/section-030/module-02/quiz.yaml
+        pass_score: 70
+
+      - type: reading
         title: Question
         path: sections/section-030/capstone/labs/lab-01/question.md
       - type: lab
@@ -448,6 +581,49 @@ modules:
       - type: reading
         title: Summary
         path: sections/section-040/module-01/course-03-summary.md
+
+      - type: reading
+        title: "Tune LDAP Search, Groups And User Lifecycle"
+        path: sections/section-040/module-02/course.md
+      - type: reading
+        title: "Choosing The User Search And Filter"
+        path: sections/section-040/module-02/course-01-user-search-and-filters.md
+      - type: reading
+        title: "Group Roles In Projects"
+        path: sections/section-040/module-02/course-02-group-roles.md
+      - type: reading
+        title: "Importing Users And Offboarding"
+        path: sections/section-040/module-02/course-03-importing-and-offboarding.md
+      - type: reading
+        title: "Troubleshooting LDAP Sign-In"
+        path: sections/section-040/module-02/course-04-troubleshooting-ldap.md
+      - type: reading
+        title: Question
+        path: sections/section-040/module-02/labs/lab-01/question.md
+      - type: lab
+        title: "Exclude Contractors And Map LDAP Group Roles Lab"
+        path: sections/section-040/module-02/labs/lab-01
+        difficulty: intermediate
+        estimated_duration: 20m
+        topic: identity
+        task_kind: build
+        tags: [ldap, ldap-filter, ldap-group, memberof, group-role]
+        learning_goals:
+          - Change the LDAP user filter so contractors can not sign in
+          - Add two LDAP groups to a project with push and pull-only roles
+          - Prove the filter and the roles with real sign-ins
+        resources:
+          - name: "Configure LDAP/Active Directory authentication"
+            url: https://goharbor.io/docs/2.15.0/administration/configure-authentication/ldap-auth/
+          - name: "User permissions by role"
+            url: https://goharbor.io/docs/2.15.0/administration/managing-users/user-permissions-by-role/
+      - type: reading
+        title: Summary
+        path: sections/section-040/module-02/course-05-summary.md
+      - type: quiz
+        title: "Knowledge Check: Tune LDAP Search, Groups And User Lifecycle"
+        path: sections/section-040/module-02/quiz.yaml
+        pass_score: 70
 
       - type: reading
         title: Question

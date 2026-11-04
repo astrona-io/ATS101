@@ -1,0 +1,245 @@
+# Knowledge check for module 030-02. Listed in astrona.yaml as a `type: quiz` entry after the module summary.
+schema_version: 1
+kind: question_bank
+id: ats101-030-m02
+course_id: ATS101
+exam_code: HARBOR
+status: draft
+provenance: Original practice material written for this course; not official exam questions.
+scope:
+  type: module
+  id: module-030-02
+  title: "Operate And Troubleshoot OIDC Sign-In"
+placement:
+  position: after
+  reading: sections/section-030/module-02/course-05-summary.md
+questions:
+- id: ats101-030-m02-q01
+  type: single_choice
+  difficulty: beginner
+  learning_objective: "Explain the ID token"
+  source_readings:
+  - sections/section-030/module-02/course-01-id-token-claims.md
+  prompt: "What is an ID token in an OIDC sign-in?"
+  options:
+  - id: a
+    text: "A signed JSON Web Token from the provider that holds claims about the user."
+    explanation: "Correct. The ID token holds claims, which are named facts about the user such as the name, the email address and the groups."
+  - id: b
+    text: "A password that Harbor stores for each user."
+    explanation: "Not correct. The ID token holds claims, which are named facts about the user such as the name, the email address and the groups."
+  - id: c
+    text: "A cookie that the browser keeps after sign-in."
+    explanation: "Not correct. The ID token holds claims, which are named facts about the user such as the name, the email address and the groups."
+  - id: d
+    text: "A key that Harbor uses to sign registry tokens."
+    explanation: "Not correct. The ID token holds claims, which are named facts about the user such as the name, the email address and the groups."
+  correct_option: a
+  explanation: "Correct. The ID token holds claims, which are named facts about the user such as the name, the email address and the groups."
+
+- id: ats101-030-m02-q02
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Explain how Harbor identifies a user"
+  source_readings:
+  - sections/section-030/module-02/course-01-id-token-claims.md
+  prompt: "How does Harbor find a returning OIDC user?"
+  options:
+  - id: a
+    text: "By the email address."
+    explanation: "Not correct. Because the pair identifies the user, a user name that changes in the provider does not create a second Harbor user."
+  - id: b
+    text: "By the user name from the preferred_username claim."
+    explanation: "Not correct. Because the pair identifies the user, a user name that changes in the provider does not create a second Harbor user."
+  - id: c
+    text: "By the CLI secret."
+    explanation: "Not correct. Because the pair identifies the user, a user name that changes in the provider does not create a second Harbor user."
+  - id: d
+    text: "By the pair of sub and iss, stored as subiss, and not by the user name."
+    explanation: "Correct. Because the pair identifies the user, a user name that changes in the provider does not create a second Harbor user."
+  correct_option: d
+  explanation: "Correct. Because the pair identifies the user, a user name that changes in the provider does not create a second Harbor user."
+
+- id: ats101-030-m02-q03
+  type: single_choice
+  difficulty: beginner
+  learning_objective: "Name the group setting"
+  source_readings:
+  - sections/section-030/module-02/course-01-id-token-claims.md
+  prompt: "Which Harbor setting names the claim that holds the groups of the user?"
+  options:
+  - id: a
+    text: "oidc_user_claim"
+    explanation: "Not correct. oidc_groups_claim selects the claim. oidc_user_claim selects the claim used as the Harbor user name."
+  - id: b
+    text: "oidc_scope"
+    explanation: "Not correct. oidc_groups_claim selects the claim. oidc_user_claim selects the claim used as the Harbor user name."
+  - id: c
+    text: "oidc_groups_claim"
+    explanation: "Correct. oidc_groups_claim selects the claim. oidc_user_claim selects the claim used as the Harbor user name."
+  - id: d
+    text: "oidc_admin_group"
+    explanation: "Not correct. oidc_groups_claim selects the claim. oidc_user_claim selects the claim used as the Harbor user name."
+  correct_option: c
+  explanation: "Correct. oidc_groups_claim selects the claim. oidc_user_claim selects the claim used as the Harbor user name."
+
+- id: ats101-030-m02-q04
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Add an OIDC group as a member"
+  source_readings:
+  - sections/section-030/module-02/course-02-group-role-design.md
+  prompt: "Which group_type does a member_group of an OIDC group have in the project members call?"
+  options:
+  - id: a
+    text: "1"
+    explanation: "Not correct. Type 3 is for OIDC groups. Type 1 is for LDAP groups."
+  - id: b
+    text: "3"
+    explanation: "Correct. Type 3 is for OIDC groups. Type 1 is for LDAP groups."
+  - id: c
+    text: "2"
+    explanation: "Not correct. Type 3 is for OIDC groups. Type 1 is for LDAP groups."
+  - id: d
+    text: "0"
+    explanation: "Not correct. Type 3 is for OIDC groups. Type 1 is for LDAP groups."
+  correct_option: b
+  explanation: "Correct. Type 3 is for OIDC groups. Type 1 is for LDAP groups."
+
+- id: ats101-030-m02-q05
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Choose roles"
+  source_readings:
+  - sections/section-030/module-02/course-02-group-role-design.md
+  prompt: "Writers must push and pull, and readers must only pull. Which role ids do the two groups get?"
+  options:
+  - id: a
+    text: "2 (Developer) for the writers and 3 (Guest) for the readers."
+    explanation: "Correct. Harbor identifies roles by number: 2 is Developer and 3 is Guest."
+  - id: b
+    text: "1 for the writers and 2 for the readers."
+    explanation: "Not correct. Harbor identifies roles by number: 2 is Developer and 3 is Guest."
+  - id: c
+    text: "4 for the writers and 5 for the readers."
+    explanation: "Not correct. Harbor identifies roles by number: 2 is Developer and 3 is Guest."
+  - id: d
+    text: "3 for the writers and 2 for the readers."
+    explanation: "Not correct. Harbor identifies roles by number: 2 is Developer and 3 is Guest."
+  correct_option: a
+  explanation: "Correct. Harbor identifies roles by number: 2 is Developer and 3 is Guest."
+
+- id: ats101-030-m02-q06
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Know when group changes arrive"
+  source_readings:
+  - sections/section-030/module-02/course-02-group-role-design.md
+  prompt: "carol is moved to another group in Keycloak while she is signed in to Harbor. When does Harbor notice?"
+  options:
+  - id: a
+    text: "At once, because Harbor asks the provider on every request."
+    explanation: "Not correct. Harbor reads the groups from the token at each sign-in and does not ask again during the session."
+  - id: b
+    text: "After one hour, when Harbor polls the provider."
+    explanation: "Not correct. Harbor reads the groups from the token at each sign-in and does not ask again during the session."
+  - id: c
+    text: "Never, until the group is edited in Harbor."
+    explanation: "Not correct. Harbor reads the groups from the token at each sign-in and does not ask again during the session."
+  - id: d
+    text: "At her next sign-in through the browser."
+    explanation: "Correct. Harbor reads the groups from the token at each sign-in and does not ask again during the session."
+  correct_option: d
+  explanation: "Correct. Harbor reads the groups from the token at each sign-in and does not ask again during the session."
+
+- id: ats101-030-m02-q07
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Remove a group mapping"
+  source_readings:
+  - sections/section-030/module-02/course-02-group-role-design.md
+  prompt: "What happens when a group is removed as a member of a project?"
+  options:
+  - id: a
+    text: "Only new sign-ins are affected."
+    explanation: "Not correct. Removing the member removes the project access that came through the group. The list of groups does not shrink."
+  - id: b
+    text: "The users of the group are deleted."
+    explanation: "Not correct. Removing the member removes the project access that came through the group. The list of groups does not shrink."
+  - id: c
+    text: "Everyone who had access through that group loses it at once, and the group record stays in Harbor."
+    explanation: "Correct. Removing the member removes the project access that came through the group. The list of groups does not shrink."
+  - id: d
+    text: "The group is removed from the provider."
+    explanation: "Not correct. Removing the member removes the project access that came through the group. The list of groups does not shrink."
+  correct_option: c
+  explanation: "Correct. Removing the member removes the project access that came through the group. The list of groups does not shrink."
+
+- id: ats101-030-m02-q08
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Choose a credential for automation"
+  source_readings:
+  - sections/section-030/module-02/course-03-tokens-sessions-cli-secrets.md
+  prompt: "Why should a pipeline use a robot account instead of a person's CLI secret?"
+  options:
+  - id: a
+    text: "A robot account signs in through the browser."
+    explanation: "Not correct. If the person leaves, the pipeline stops. A leaked CLI secret gives all the rights of that person."
+  - id: b
+    text: "The CLI secret belongs to a person, depends on the provider and carries all that person's rights, while a robot has an explicit list of actions and an expiry."
+    explanation: "Correct. If the person leaves, the pipeline stops. A leaked CLI secret gives all the rights of that person."
+  - id: c
+    text: "A CLI secret cannot push images."
+    explanation: "Not correct. If the person leaves, the pipeline stops. A leaked CLI secret gives all the rights of that person."
+  - id: d
+    text: "A CLI secret expires every five minutes."
+    explanation: "Not correct. If the person leaves, the pipeline stops. A leaked CLI secret gives all the rights of that person."
+  correct_option: b
+  explanation: "Correct. If the person leaves, the pipeline stops. A leaked CLI secret gives all the rights of that person."
+
+- id: ats101-030-m02-q09
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Know the registry token lifetime"
+  source_readings:
+  - sections/section-030/module-02/course-03-tokens-sessions-cli-secrets.md
+  prompt: "Which system setting is the lifetime of the registry token in minutes?"
+  options:
+  - id: a
+    text: "token_expiration"
+    explanation: "Correct. token_expiration is the registry token lifetime in minutes, 30 by default."
+  - id: b
+    text: "oidc_auto_onboard"
+    explanation: "Not correct. token_expiration is the registry token lifetime in minutes, 30 by default."
+  - id: c
+    text: "robot_token_duration"
+    explanation: "Not correct. token_expiration is the registry token lifetime in minutes, 30 by default."
+  - id: d
+    text: "oidc_admin_group"
+    explanation: "Not correct. token_expiration is the registry token lifetime in minutes, 30 by default."
+  correct_option: a
+  explanation: "Correct. token_expiration is the registry token lifetime in minutes, 30 by default."
+
+- id: ats101-030-m02-q10
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Start troubleshooting at the right step"
+  source_readings:
+  - sections/section-030/module-02/course-04-troubleshooting-oidc.md
+  prompt: "Sign-in fails and you suspect the endpoint. Which call tests whether Harbor can reach the OIDC provider?"
+  options:
+  - id: a
+    text: "GET /users/current without credentials."
+    explanation: "Not correct. The ping call tests the endpoint from Harbor's own core component. It is the first check in the method."
+  - id: b
+    text: "PUT /configurations with an empty body."
+    explanation: "Not correct. The ping call tests the endpoint from Harbor's own core component. It is the first check in the method."
+  - id: c
+    text: "GET /usergroups."
+    explanation: "Not correct. The ping call tests the endpoint from Harbor's own core component. It is the first check in the method."
+  - id: d
+    text: "POST /system/oidc/ping with the URL of the issuer."
+    explanation: "Correct. The ping call tests the endpoint from Harbor's own core component. It is the first check in the method."
+  correct_option: d
+  explanation: "Correct. The ping call tests the endpoint from Harbor's own core component. It is the first check in the method."

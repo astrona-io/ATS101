@@ -1,0 +1,61 @@
+# Set A Complete Security Policy On A Project Lab
+# Astrona graded lab. Schema: internal/config.LabConfig.
+
+metadata:
+  name: "ats-101-lab-010-03"
+  docs:
+    guide: "solution.md"
+    solution: "solution.md"
+    question: "question.md"
+    examQuestion: "question.md"
+    prerequisites: "prerequisites.md"
+bootstrap:
+  init:
+    - name: "install-harbor"
+      description: "Installs Helm 3.22.1, Harbor 2.15.4 (chart 1.19.4), the CoreDNS rewrites and the workstation pod"
+      type: "file"
+      source: "bootstrap/01-install-harbor.sh"
+    - name: "ats-101-lab-010-03-setup"
+      description: "Creates the users alice and bob and the public project payments with default metadata, where alice is Project Admin and bob is Guest"
+      type: "file"
+      source: "bootstrap/02-seed-state.sh"
+testing:
+  init:
+    - name: "wait-for-harbor"
+      description: "Waits until the workstation trusts Harbor and Harbor reports every component healthy"
+      type: "file"
+      source: "testing/wait-for-harbor.sh"
+    - name: "reference-solution"
+      description: "The remediation a correct learner performs; used by `astrona test`"
+      type: "file"
+      source: "solution/apply.sh"
+validation:
+  scripts:
+    - name: "validate-scan-policy"
+      description: "Confirms payments scans every push automatically and blocks pulls at severity high"
+      type: "file"
+      source: "validation/validate-scan-policy.sh"
+    - name: "validate-signature-and-allowlist"
+      description: "Confirms payments requires cosign signatures and keeps its own allowlist with CVE-2024-3094"
+      type: "file"
+      source: "validation/validate-signature-and-allowlist.sh"
+    - name: "validate-project-private"
+      description: "Confirms payments is private and alice and bob are still members"
+      type: "file"
+      source: "validation/validate-project-private.sh"
+teardown:
+  keepCluster: false
+runtime:
+  kind:
+    preloadImages:
+      - alpine:3.22
+      - docker.io/goharbor/harbor-core:v2.15.4
+      - docker.io/goharbor/harbor-db:v2.15.4
+      - docker.io/goharbor/harbor-jobservice:v2.15.4
+      - docker.io/goharbor/harbor-portal:v2.15.4
+      - docker.io/goharbor/harbor-registryctl:v2.15.4
+      - docker.io/goharbor/nginx-photon:v2.15.4
+      - docker.io/goharbor/registry-photon:v2.15.4
+      - docker.io/goharbor/trivy-adapter-photon:v2.15.4
+      - docker.io/valkey/valkey:8.1.10-alpine
+

@@ -1,0 +1,61 @@
+# Create And Clean Up Robot Accounts Lab
+# Astrona graded lab. Schema: internal/config.LabConfig.
+
+metadata:
+  name: "ats-101-lab-010-04"
+  docs:
+    guide: "solution.md"
+    solution: "solution.md"
+    question: "question.md"
+    examQuestion: "question.md"
+    prerequisites: "prerequisites.md"
+bootstrap:
+  init:
+    - name: "install-harbor"
+      description: "Installs Helm 3.22.1, Harbor 2.15.4 (chart 1.19.4), the CoreDNS rewrites and the workstation pod"
+      type: "file"
+      source: "bootstrap/01-install-harbor.sh"
+    - name: "ats-101-lab-010-04-setup"
+      description: "Creates the user alice, the private projects web and api, and the legacy robot account robot$web+legacy with push, pull and delete rights and no expiry"
+      type: "file"
+      source: "bootstrap/02-seed-state.sh"
+testing:
+  init:
+    - name: "wait-for-harbor"
+      description: "Waits until the workstation trusts Harbor and Harbor reports every component healthy"
+      type: "file"
+      source: "testing/wait-for-harbor.sh"
+    - name: "reference-solution"
+      description: "The remediation a correct learner performs; used by `astrona test`"
+      type: "file"
+      source: "solution/apply.sh"
+validation:
+  scripts:
+    - name: "validate-ci-robot"
+      description: "Confirms the project robot robot$web+ci exists, is enabled, has only push and pull on repository in web, and expires within 90 days"
+      type: "file"
+      source: "validation/validate-ci-robot.sh"
+    - name: "validate-legacy-removed"
+      description: "Confirms the robot account robot$web+legacy no longer exists"
+      type: "file"
+      source: "validation/validate-legacy-removed.sh"
+    - name: "validate-ci-limits"
+      description: "Signs in as robot$web+ci with a test secret, pushes to web and confirms a push to api is refused"
+      type: "file"
+      source: "validation/validate-ci-limits.sh"
+teardown:
+  keepCluster: false
+runtime:
+  kind:
+    preloadImages:
+      - alpine:3.22
+      - docker.io/goharbor/harbor-core:v2.15.4
+      - docker.io/goharbor/harbor-db:v2.15.4
+      - docker.io/goharbor/harbor-jobservice:v2.15.4
+      - docker.io/goharbor/harbor-portal:v2.15.4
+      - docker.io/goharbor/harbor-registryctl:v2.15.4
+      - docker.io/goharbor/nginx-photon:v2.15.4
+      - docker.io/goharbor/registry-photon:v2.15.4
+      - docker.io/goharbor/trivy-adapter-photon:v2.15.4
+      - docker.io/valkey/valkey:8.1.10-alpine
+

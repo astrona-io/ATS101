@@ -26,6 +26,16 @@ The module starts at its landing page, which also launches the playground. The p
 3. OIDC Groups, The Admin Group And CLI Secrets, followed by the lab **Connect Harbor To Keycloak And Map A Group**
 4. Summary
 
+### 2. Operate And Troubleshoot OIDC Sign-In
+
+The playground holds Harbor, Keycloak and the project `reports`. You map Keycloak groups to project roles and to the Harbor administrator group.
+
+1. What Harbor Reads From The ID Token
+2. Designing Group To Role Mappings
+3. Tokens, Sessions And CLI Secrets
+4. Troubleshooting OIDC Sign-In, followed by the lab **Map OIDC Groups To Project Roles**
+5. Summary
+
 ## Section capstone: Repair A Broken OIDC Sign-In
 
 The capstone is one graded scenario that combines the whole module. Harbor is already in OIDC mode, but nobody can sign in, groups never arrive, and the platform team is not administrator. The faults are split between Harbor's settings and the Keycloak client. Work it after the module lab.

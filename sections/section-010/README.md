@@ -27,6 +27,34 @@ The module starts at its landing page, which also launches the playground. The p
 3. Adding Members With The harbor CLI, followed by the lab **Isolate Two Teams With Projects And Roles**
 4. Summary
 
+### 2. Manage Local Users And System Administrators
+
+1. Local Users And Database Authentication
+2. System Administrators And Project Roles
+3. System Settings That Control Tenancy
+4. Offboarding Users, followed by the lab **Restrict Project Creation And Delegate Administration**
+5. Summary
+
+### 3. Set Project Security Policies
+
+The playground holds the project `payments` and the users `alice` and `bob`. You change the project metadata with the REST API.
+
+1. Project Metadata And The Project API
+2. Vulnerability Scanning And Pull Blocking
+3. The CVE Allowlist
+4. Content Trust With Cosign, followed by the lab **Scan, Block And Sign Images In A Project**
+5. Summary
+
+### 4. Automate Access With Robot Accounts
+
+The playground holds the project `web`, the user `alice` and an old robot account named `legacy`.
+
+1. Robot Accounts And Their Names
+2. Permissions: Resources, Actions And Scope
+3. Using A Robot Account In A Pipeline
+4. Operating Robot Accounts, followed by the lab **Replace A Legacy Robot With A Limited One**
+5. Summary
+
 ## Section capstone: Repair Project Access For Three Teams
 
 The capstone is one graded scenario that combines the whole module. A colleague set up two team projects in a hurry. One project is public, one user is Project Admin of a project he should not see at all, an auditor can push, and the person who cleans up old artifacts cannot delete anything. Work it after the module lab.

@@ -1,0 +1,245 @@
+# Knowledge check for module 010-04. Listed in astrona.yaml as a `type: quiz` entry after the module summary.
+schema_version: 1
+kind: question_bank
+id: ats101-010-m04
+course_id: ATS101
+exam_code: HARBOR
+status: draft
+provenance: Original practice material written for this course; not official exam questions.
+scope:
+  type: module
+  id: module-010-04
+  title: "Automate Access With Robot Accounts"
+placement:
+  position: after
+  reading: sections/section-010/module-04/course-05-summary.md
+questions:
+- id: ats101-010-m04-q01
+  type: single_choice
+  difficulty: beginner
+  learning_objective: "Explain what a robot account is"
+  source_readings:
+  - sections/section-010/module-04/course-01-robot-accounts.md
+  prompt: "Which statement describes a Harbor robot account?"
+  options:
+  - id: a
+    text: "An account for a program, with its own name, secret, permission list and optional expiry, that cannot sign in to the portal."
+    explanation: "Correct. A robot account is a secret plus an explicit list of actions on a project, with an optional expiry."
+  - id: b
+    text: "A user account that has the role Maintainer in every project."
+    explanation: "Not correct. A robot account is a secret plus an explicit list of actions on a project, with an optional expiry."
+  - id: c
+    text: "A temporary session of a system administrator."
+    explanation: "Not correct. A robot account is a secret plus an explicit list of actions on a project, with an optional expiry."
+  - id: d
+    text: "A group of users managed by the identity provider."
+    explanation: "Not correct. A robot account is a secret plus an explicit list of actions on a project, with an optional expiry."
+  correct_option: a
+  explanation: "Correct. A robot account is a secret plus an explicit list of actions on a project, with an optional expiry."
+
+- id: ats101-010-m04-q02
+  type: single_choice
+  difficulty: beginner
+  learning_objective: "Read a robot name"
+  source_readings:
+  - sections/section-010/module-04/course-01-robot-accounts.md
+  prompt: "A project robot account named ci is created in the project web with the default prefix. What is the name used to sign in?"
+  options:
+  - id: a
+    text: "ci"
+    explanation: "Not correct. Harbor joins the prefix, the project name and your name with a plus sign. The user name is the full name."
+  - id: b
+    text: "robot+web$ci"
+    explanation: "Not correct. Harbor joins the prefix, the project name and your name with a plus sign. The user name is the full name."
+  - id: c
+    text: "web+ci"
+    explanation: "Not correct. Harbor joins the prefix, the project name and your name with a plus sign. The user name is the full name."
+  - id: d
+    text: "robot$web+ci"
+    explanation: "Correct. Harbor joins the prefix, the project name and your name with a plus sign. The user name is the full name."
+  correct_option: d
+  explanation: "Correct. Harbor joins the prefix, the project name and your name with a plus sign. The user name is the full name."
+
+- id: ats101-010-m04-q03
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Handle the secret at creation"
+  source_readings:
+  - sections/section-010/module-04/course-01-robot-accounts.md
+  prompt: "Where does a client get the secret of a new robot account?"
+  options:
+  - id: a
+    text: "From the project member list at any time."
+    explanation: "Not correct. Harbor returns the secret in the answer to the create call, so copy it then."
+  - id: b
+    text: "From the user profile of the creator."
+    explanation: "Not correct. Harbor returns the secret in the answer to the create call, so copy it then."
+  - id: c
+    text: "From the answer to the create call."
+    explanation: "Correct. Harbor returns the secret in the answer to the create call, so copy it then."
+  - id: d
+    text: "It equals the robot name."
+    explanation: "Not correct. Harbor returns the secret in the answer to the create call, so copy it then."
+  correct_option: c
+  explanation: "Correct. Harbor returns the secret in the answer to the create call, so copy it then."
+
+- id: ats101-010-m04-q04
+  type: single_choice
+  difficulty: beginner
+  learning_objective: "Name the parts of a permission"
+  source_readings:
+  - sections/section-010/module-04/course-02-robot-permissions.md
+  prompt: "What is one permission of a robot account made of?"
+  options:
+  - id: a
+    text: "A role number and a project name."
+    explanation: "Not correct. A robot has no roles. Each permission is a pair of a resource and an action, such as repository and push."
+  - id: b
+    text: "A resource and an action, inside a scope."
+    explanation: "Correct. A robot has no roles. Each permission is a pair of a resource and an action, such as repository and push."
+  - id: c
+    text: "A user name and a password."
+    explanation: "Not correct. A robot has no roles. Each permission is a pair of a resource and an action, such as repository and push."
+  - id: d
+    text: "A group and a role."
+    explanation: "Not correct. A robot has no roles. Each permission is a pair of a resource and an action, such as repository and push."
+  correct_option: b
+  explanation: "Correct. A robot has no roles. Each permission is a pair of a resource and an action, such as repository and push."
+
+- id: ats101-010-m04-q05
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Tell project and system robots apart"
+  source_readings:
+  - sections/section-010/module-04/course-02-robot-permissions.md
+  prompt: "What is the difference between a project robot and a system robot?"
+  options:
+  - id: a
+    text: "A system robot can have permissions in several projects and only a system administrator can create it; a project robot belongs to one project."
+    explanation: "Correct. A system robot reaches across projects, so only a system administrator creates it."
+  - id: b
+    text: "A project robot can reach every project; a system robot only one."
+    explanation: "Not correct. A system robot reaches across projects, so only a system administrator creates it."
+  - id: c
+    text: "A system robot cannot push; a project robot can."
+    explanation: "Not correct. A system robot reaches across projects, so only a system administrator creates it."
+  - id: d
+    text: "There is no difference except the name prefix."
+    explanation: "Not correct. A system robot reaches across projects, so only a system administrator creates it."
+  correct_option: a
+  explanation: "Correct. A system robot reaches across projects, so only a system administrator creates it."
+
+- id: ats101-010-m04-q06
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Prove the limits of a robot"
+  source_readings:
+  - sections/section-010/module-04/course-03-using-robots.md
+  prompt: "A robot has push and pull on repository in web only. What happens when it pushes to the project api?"
+  options:
+  - id: a
+    text: "The push works, because pull and push apply to the registry."
+    explanation: "Not correct. The permission list is bound to the namespace. A push to another project is refused."
+  - id: b
+    text: "The push works, but the artifact is hidden."
+    explanation: "Not correct. The permission list is bound to the namespace. A push to another project is refused."
+  - id: c
+    text: "Harbor creates the project api for the robot."
+    explanation: "Not correct. The permission list is bound to the namespace. A push to another project is refused."
+  - id: d
+    text: "Harbor refuses the push, because the robot has no permission in api."
+    explanation: "Correct. The permission list is bound to the namespace. A push to another project is refused."
+  correct_option: d
+  explanation: "Correct. The permission list is bound to the namespace. A push to another project is refused."
+
+- id: ats101-010-m04-q07
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Set an expiry"
+  source_readings:
+  - sections/section-010/module-04/course-04-operating-robots.md
+  prompt: "What does a duration of -1 mean when a robot is created?"
+  options:
+  - id: a
+    text: "The robot expires at once."
+    explanation: "Not correct. The duration is in days, and -1 means no expiry. Avoid it and set a duration such as 30 or 90."
+  - id: b
+    text: "The robot uses the system default lifetime."
+    explanation: "Not correct. The duration is in days, and -1 means no expiry. Avoid it and set a duration such as 30 or 90."
+  - id: c
+    text: "The robot never expires."
+    explanation: "Correct. The duration is in days, and -1 means no expiry. Avoid it and set a duration such as 30 or 90."
+  - id: d
+    text: "The robot can be used one time."
+    explanation: "Not correct. The duration is in days, and -1 means no expiry. Avoid it and set a duration such as 30 or 90."
+  correct_option: c
+  explanation: "Correct. The duration is in days, and -1 means no expiry. Avoid it and set a duration such as 30 or 90."
+
+- id: ats101-010-m04-q08
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Refresh a secret"
+  source_readings:
+  - sections/section-010/module-04/course-04-operating-robots.md
+  prompt: "How do you replace the secret of an existing robot without losing its permissions?"
+  options:
+  - id: a
+    text: "Delete the robot and create it again with the same name."
+    explanation: "Not correct. A PATCH to the robot with a new secret keeps the permissions and the history. The old secret stops working at once."
+  - id: b
+    text: "Send a PATCH to the robot with the new secret in the body."
+    explanation: "Correct. A PATCH to the robot with a new secret keeps the permissions and the history. The old secret stops working at once."
+  - id: c
+    text: "Send a PUT to the project."
+    explanation: "Not correct. A PATCH to the robot with a new secret keeps the permissions and the history. The old secret stops working at once."
+  - id: d
+    text: "Change robot_name_prefix."
+    explanation: "Not correct. A PATCH to the robot with a new secret keeps the permissions and the history. The old secret stops working at once."
+  correct_option: b
+  explanation: "Correct. A PATCH to the robot with a new secret keeps the permissions and the history. The old secret stops working at once."
+
+- id: ats101-010-m04-q09
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Disable before deleting"
+  source_readings:
+  - sections/section-010/module-04/course-04-operating-robots.md
+  prompt: "You find a robot that you cannot explain. What is the safest first step?"
+  options:
+  - id: a
+    text: "Disable it, wait for complaints, and delete it later."
+    explanation: "Correct. A disabled robot keeps its name and permissions and can be enabled again. Deleting is final."
+  - id: b
+    text: "Delete it at once."
+    explanation: "Not correct. A disabled robot keeps its name and permissions and can be enabled again. Deleting is final."
+  - id: c
+    text: "Change its permissions to pull only and keep it."
+    explanation: "Not correct. A disabled robot keeps its name and permissions and can be enabled again. Deleting is final."
+  - id: d
+    text: "Extend its duration."
+    explanation: "Not correct. A disabled robot keeps its name and permissions and can be enabled again. Deleting is final."
+  correct_option: a
+  explanation: "Correct. A disabled robot keeps its name and permissions and can be enabled again. Deleting is final."
+
+- id: ats101-010-m04-q10
+  type: single_choice
+  difficulty: beginner
+  learning_objective: "Find the robot prefix setting"
+  source_readings:
+  - sections/section-010/module-04/course-04-operating-robots.md
+  prompt: "Which system setting holds the default prefix of robot names?"
+  options:
+  - id: a
+    text: "robot_token_duration"
+    explanation: "Not correct. robot_name_prefix is the prefix robot$ by default. robot_token_duration is the default lifetime in days."
+  - id: b
+    text: "token_expiration"
+    explanation: "Not correct. robot_name_prefix is the prefix robot$ by default. robot_token_duration is the default lifetime in days."
+  - id: c
+    text: "project_creation_restriction"
+    explanation: "Not correct. robot_name_prefix is the prefix robot$ by default. robot_token_duration is the default lifetime in days."
+  - id: d
+    text: "robot_name_prefix"
+    explanation: "Correct. robot_name_prefix is the prefix robot$ by default. robot_token_duration is the default lifetime in days."
+  correct_option: d
+  explanation: "Correct. robot_name_prefix is the prefix robot$ by default. robot_token_duration is the default lifetime in days."

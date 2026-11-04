@@ -1,0 +1,245 @@
+# Knowledge check for module 010-03. Listed in astrona.yaml as a `type: quiz` entry after the module summary.
+schema_version: 1
+kind: question_bank
+id: ats101-010-m03
+course_id: ATS101
+exam_code: HARBOR
+status: draft
+provenance: Original practice material written for this course; not official exam questions.
+scope:
+  type: module
+  id: module-010-03
+  title: "Set Project Security Policies"
+placement:
+  position: after
+  reading: sections/section-010/module-03/course-05-summary.md
+questions:
+- id: ats101-010-m03-q01
+  type: single_choice
+  difficulty: beginner
+  learning_objective: "Write metadata values correctly"
+  source_readings:
+  - sections/section-010/module-03/course-01-project-metadata.md
+  prompt: "In the project metadata map, how is the value for turning automatic scanning on written?"
+  options:
+  - id: a
+    text: "As the string \"true\", because every value in the map is a string."
+    explanation: "Correct. Every metadata value is a string, and Harbor rejects a JSON boolean in this map."
+  - id: b
+    text: "As the JSON boolean true."
+    explanation: "Not correct. Every metadata value is a string, and Harbor rejects a JSON boolean in this map."
+  - id: c
+    text: "As the number 1."
+    explanation: "Not correct. Every metadata value is a string, and Harbor rejects a JSON boolean in this map."
+  - id: d
+    text: "As the word enabled, without quotes."
+    explanation: "Not correct. Every metadata value is a string, and Harbor rejects a JSON boolean in this map."
+  correct_option: a
+  explanation: "Correct. Every metadata value is a string, and Harbor rejects a JSON boolean in this map."
+
+- id: ats101-010-m03-q02
+  type: single_choice
+  difficulty: beginner
+  learning_objective: "Name the metadata keys"
+  source_readings:
+  - sections/section-010/module-03/course-01-project-metadata.md
+  prompt: "Which metadata key makes Harbor scan every artifact when it is pushed?"
+  options:
+  - id: a
+    text: "prevent_vul"
+    explanation: "Not correct. auto_scan switches on the scan at push. prevent_vul and severity control the blocking decision."
+  - id: b
+    text: "severity"
+    explanation: "Not correct. auto_scan switches on the scan at push. prevent_vul and severity control the blocking decision."
+  - id: c
+    text: "scan_on_push"
+    explanation: "Not correct. auto_scan switches on the scan at push. prevent_vul and severity control the blocking decision."
+  - id: d
+    text: "auto_scan"
+    explanation: "Correct. auto_scan switches on the scan at push. prevent_vul and severity control the blocking decision."
+  correct_option: d
+  explanation: "Correct. auto_scan switches on the scan at push. prevent_vul and severity control the blocking decision."
+
+- id: ats101-010-m03-q03
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Change one key without changing the others"
+  source_readings:
+  - sections/section-010/module-03/course-01-project-metadata.md
+  prompt: "You send PUT /projects/payments with only {\"metadata\": {\"auto_scan\": \"true\"}}. What happens to the other metadata keys?"
+  options:
+  - id: a
+    text: "Harbor deletes every key that you did not send."
+    explanation: "Not correct. A PUT merges the keys you send into the stored map, so you change one rule without touching the others."
+  - id: b
+    text: "Harbor resets the other keys to their defaults."
+    explanation: "Not correct. A PUT merges the keys you send into the stored map, so you change one rule without touching the others."
+  - id: c
+    text: "Harbor merges the key into the stored metadata, so the other keys keep their values."
+    explanation: "Correct. A PUT merges the keys you send into the stored map, so you change one rule without touching the others."
+  - id: d
+    text: "Harbor rejects the request because the map is incomplete."
+    explanation: "Not correct. A PUT merges the keys you send into the stored map, so you change one rule without touching the others."
+  correct_option: c
+  explanation: "Correct. A PUT merges the keys you send into the stored map, so you change one rule without touching the others."
+
+- id: ats101-010-m03-q04
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Know who may change the metadata"
+  source_readings:
+  - sections/section-010/module-03/course-01-project-metadata.md
+  prompt: "Which caller receives 403 when changing the security metadata of a project?"
+  options:
+  - id: a
+    text: "A Project Admin of the project."
+    explanation: "Not correct. Only Project Admins and system administrators may change these settings. Every other role receives 403."
+  - id: b
+    text: "A Guest of the project."
+    explanation: "Correct. Only Project Admins and system administrators may change these settings. Every other role receives 403."
+  - id: c
+    text: "A system administrator."
+    explanation: "Not correct. Only Project Admins and system administrators may change these settings. Every other role receives 403."
+  - id: d
+    text: "No caller; every member may change the metadata."
+    explanation: "Not correct. Only Project Admins and system administrators may change these settings. Every other role receives 403."
+  correct_option: b
+  explanation: "Correct. Only Project Admins and system administrators may change these settings. Every other role receives 403."
+
+- id: ats101-010-m03-q05
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Explain what pull blocking does"
+  source_readings:
+  - sections/section-010/module-03/course-02-vulnerability-policy.md
+  prompt: "With prevent_vul set to \"true\" and severity set to \"high\", what happens to an image whose scan report holds a critical finding?"
+  options:
+  - id: a
+    text: "The push works, and Harbor refuses to serve the image when a client pulls it."
+    explanation: "Correct. The check happens when a client pulls. The push still works and the image stays in the project."
+  - id: b
+    text: "Harbor refuses the push and the image never enters the project."
+    explanation: "Not correct. The check happens when a client pulls. The push still works and the image stays in the project."
+  - id: c
+    text: "Harbor deletes the image after the scan."
+    explanation: "Not correct. The check happens when a client pulls. The push still works and the image stays in the project."
+  - id: d
+    text: "Harbor serves the image and only marks it in the portal."
+    explanation: "Not correct. The check happens when a client pulls. The push still works and the image stays in the project."
+  correct_option: a
+  explanation: "Correct. The check happens when a client pulls. The push still works and the image stays in the project."
+
+- id: ats101-010-m03-q06
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Choose a severity"
+  source_readings:
+  - sections/section-010/module-03/course-02-vulnerability-policy.md
+  prompt: "Why is the severity low a poor choice for pull blocking in most projects?"
+  options:
+  - id: a
+    text: "Harbor ignores the value low."
+    explanation: "Not correct. At low, almost every image is blocked. Many teams start with high."
+  - id: b
+    text: "It blocks only the worst findings, so nothing is protected."
+    explanation: "Not correct. At low, almost every image is blocked. Many teams start with high."
+  - id: c
+    text: "It disables the scan."
+    explanation: "Not correct. At low, almost every image is blocked. Many teams start with high."
+  - id: d
+    text: "Almost every image has a low finding, so almost every pull would be blocked."
+    explanation: "Correct. At low, almost every image is blocked. Many teams start with high."
+  correct_option: d
+  explanation: "Correct. At low, almost every image is blocked. Many teams start with high."
+
+- id: ats101-010-m03-q07
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Explain the CVE allowlist"
+  source_readings:
+  - sections/section-010/module-03/course-03-cve-allowlist.md
+  prompt: "What does a CVE allowlist change?"
+  options:
+  - id: a
+    text: "Harbor removes the CVEs from the scan report."
+    explanation: "Not correct. The allowlist affects only the blocking decision. The report keeps listing the vulnerability."
+  - id: b
+    text: "Harbor stops scanning the artifacts that have the CVE."
+    explanation: "Not correct. The allowlist affects only the blocking decision. The report keeps listing the vulnerability."
+  - id: c
+    text: "The pull-blocking decision ignores the listed CVEs, while the scan report still lists them."
+    explanation: "Correct. The allowlist affects only the blocking decision. The report keeps listing the vulnerability."
+  - id: d
+    text: "Harbor deletes the images that have the CVE."
+    explanation: "Not correct. The allowlist affects only the blocking decision. The report keeps listing the vulnerability."
+  correct_option: c
+  explanation: "Correct. The allowlist affects only the blocking decision. The report keeps listing the vulnerability."
+
+- id: ats101-010-m03-q08
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Choose between the project list and the system list"
+  source_readings:
+  - sections/section-010/module-03/course-03-cve-allowlist.md
+  prompt: "A project has its own allowlist with CVE-2024-3094. Which value of reuse_sys_cve_allowlist makes Harbor use that list?"
+  options:
+  - id: a
+    text: "\"true\""
+    explanation: "Not correct. With \"true\" the system list applies. With \"false\" the project list applies."
+  - id: b
+    text: "\"false\""
+    explanation: "Correct. With \"true\" the system list applies. With \"false\" the project list applies."
+  - id: c
+    text: "\"project\""
+    explanation: "Not correct. With \"true\" the system list applies. With \"false\" the project list applies."
+  - id: d
+    text: "The key has no effect on the list that applies."
+    explanation: "Not correct. With \"true\" the system list applies. With \"false\" the project list applies."
+  correct_option: b
+  explanation: "Correct. With \"true\" the system list applies. With \"false\" the project list applies."
+
+- id: ats101-010-m03-q09
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Replace an allowlist"
+  source_readings:
+  - sections/section-010/module-03/course-03-cve-allowlist.md
+  prompt: "You send a cve_allowlist with one item to a project that already has three entries. What is stored afterwards?"
+  options:
+  - id: a
+    text: "Only the one entry that you sent."
+    explanation: "Correct. The list you send replaces the stored list, so send every entry you want to keep."
+  - id: b
+    text: "All four entries."
+    explanation: "Not correct. The list you send replaces the stored list, so send every entry you want to keep."
+  - id: c
+    text: "The three old entries."
+    explanation: "Not correct. The list you send replaces the stored list, so send every entry you want to keep."
+  - id: d
+    text: "The entry is rejected as a duplicate."
+    explanation: "Not correct. The list you send replaces the stored list, so send every entry you want to keep."
+  correct_option: a
+  explanation: "Correct. The list you send replaces the stored list, so send every entry you want to keep."
+
+- id: ats101-010-m03-q10
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: "Explain what the signature check proves"
+  source_readings:
+  - sections/section-010/module-03/course-04-content-trust.md
+  prompt: "With enable_content_trust_cosign set to \"true\", what does Harbor check before it serves a digest?"
+  options:
+  - id: a
+    text: "That the signature was made with the project owner's key."
+    explanation: "Not correct. Harbor checks only that a signature exists. Verify the key at deploy time with cosign verify."
+  - id: b
+    text: "That the tag points to the newest image."
+    explanation: "Not correct. Harbor checks only that a signature exists. Verify the key at deploy time with cosign verify."
+  - id: c
+    text: "That the image has no vulnerabilities."
+    explanation: "Not correct. Harbor checks only that a signature exists. Verify the key at deploy time with cosign verify."
+  - id: d
+    text: "That a cosign signature exists for the digest; it does not check which key made it."
+    explanation: "Correct. Harbor checks only that a signature exists. Verify the key at deploy time with cosign verify."
+  correct_option: d
+  explanation: "Correct. Harbor checks only that a signature exists. Verify the key at deploy time with cosign verify."
