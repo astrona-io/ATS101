@@ -13,7 +13,7 @@
 training:
   id: ATS101
   title: "Harbor: Project Management, RBAC & Multi-Tenancy"
-  maturity: draft
+  maturity: alpha
   description: >
     Training material covering the Project Management, RBAC & Multi-Tenancy
     domain of the Harbor training path: public and private projects, member
